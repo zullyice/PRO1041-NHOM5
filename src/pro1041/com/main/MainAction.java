@@ -32,7 +32,6 @@ public class MainAction extends javax.swing.JFrame {
     }
     
     public void setColorPanel(JPanel jp) {
-//    jp.setBackground(new java.awt.Color(0,204,51));
         jp.setBackground(new Color(200, 200, 100));
     }
     
@@ -155,7 +154,6 @@ public class MainAction extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/information_12608297.png"))); // NOI18N
-        jLabel6.setText("Thống Kê");
 
         javax.swing.GroupLayout JPthonokeLayout = new javax.swing.GroupLayout(JPthonoke);
         JPthonoke.setLayout(JPthonokeLayout);
@@ -341,9 +339,9 @@ public class MainAction extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addComponent(JPfull, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpn, javax.swing.GroupLayout.DEFAULT_SIZE, 864, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -412,19 +410,6 @@ public class MainAction extends javax.swing.JFrame {
         //showPanel(new formnhanvien());
     }//GEN-LAST:event_JPnhanvienMouseClicked
 
-    private void JPthonokeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JPthonokeMouseClicked
-        // TODO add your handling code here:
-        setColorPanel(JPthonoke);
-        resetColorPanel(JPkhachhang);
-        resetColorPanel(JPbanhang);
-        resetColorPanel(JPnhanvien);
-        resetColorPanel(JPsanpham);
-        resetColorPanel(JPkhuyenmai);
-        resetColorPanel(JPhoadon);
-
-        //showPanel(new formthongke());
-    }//GEN-LAST:event_JPthonokeMouseClicked
-
     private void JPsanphamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JPsanphamMouseClicked
         // TODO add your handling code here:
         setColorPanel(JPsanpham);
@@ -466,7 +451,7 @@ public class MainAction extends javax.swing.JFrame {
         resetColorPanel(JPkhuyenmai);
         resetColorPanel(JPhoadon);
 
-        //showPanel(new formbanhang());
+        //showPanel(new formBanHangChinh());
     }//GEN-LAST:event_JPbanhangMouseClicked
 
     private void jBanHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBanHangMouseClicked
@@ -477,6 +462,8 @@ public class MainAction extends javax.swing.JFrame {
         resetColorPanel(JPsanpham);
         resetColorPanel(JPkhuyenmai);
         resetColorPanel(JPhoadon);
+        
+        showPanel(new formBanHangChinh());
     }//GEN-LAST:event_jBanHangMouseClicked
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
@@ -490,6 +477,19 @@ public class MainAction extends javax.swing.JFrame {
         resetColorPanel(JPhoadon);
         showPanel(new formSanPham());
     }//GEN-LAST:event_jLabel7MouseClicked
+
+    private void JPthonokeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JPthonokeMouseClicked
+        // TODO add your handling code here:
+        setColorPanel(JPthonoke);
+        resetColorPanel(JPkhachhang);
+        resetColorPanel(JPbanhang);
+        resetColorPanel(JPnhanvien);
+        resetColorPanel(JPsanpham);
+        resetColorPanel(JPkhuyenmai);
+        resetColorPanel(JPhoadon);
+
+        //showPanel(new formthongke());
+    }//GEN-LAST:event_JPthonokeMouseClicked
 
     /**
      * @param args the command line arguments
