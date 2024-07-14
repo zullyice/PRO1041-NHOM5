@@ -27,21 +27,18 @@ public class DangNhap extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
-    boolean checkvalue() {
-        return !txtUser.getText().isEmpty() && !txtPass.getPassword().equals("");
-    }
     private boolean authenticate(String taiKhoan, String matKhau) {
-        Connection connection = DBConnect.getConnection();
-        if (connection != null) {
+        Connection con = DBConnect.getConnection();
+        if (con != null) {
             String sql = """
                            SELECT * FROM [dbo].[NhanVien] WHERE taiKhoan LIKE ? AND  matKhau LIKE ?
                          """;
             try {
-                PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.setString(1, taiKhoan);
-                preparedStatement.setString(2, matKhau);
-                ResultSet resultSet = preparedStatement.executeQuery();
-                return resultSet.next();
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setString(1, taiKhoan);
+                ps.setString(2, matKhau);
+                ResultSet rs = ps.executeQuery();
+                return rs.next();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -135,7 +132,7 @@ public class DangNhap extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDangNhap)
                     .addComponent(btnThoat))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -145,29 +142,28 @@ public class DangNhap extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(34, 34, 34)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(jLabel1)))
                 .addContainerGap(10, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(39, 39, 39)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
-        // TODO add your handling code here:
-        if (this.checkvalue()) {
+        
             String username = txtUser.getText();
             String password = new String(txtPass.getPassword());
 
@@ -178,7 +174,7 @@ public class DangNhap extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "Sai tài khoản hoặc mật khẩu ");
             }
-        }
+        
 
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
