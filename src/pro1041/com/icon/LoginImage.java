@@ -4,11 +4,10 @@
  */
 package pro1041.com.icon;
 
-import Icon.XImage;
 import java.awt.Image;
 import java.net.URL;
 import javax.swing.ImageIcon;
-
+import pro1041.com.icon.XImage;
 /**
  *
  * @author Tom

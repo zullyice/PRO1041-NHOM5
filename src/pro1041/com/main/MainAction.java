@@ -4,8 +4,9 @@
  */
 package pro1041.com.main;
 
-import Icon.XImage;
+import pro1041.com.icon.XImage;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -137,9 +138,7 @@ public class MainAction extends javax.swing.JFrame {
         JPkhachhang.setLayout(JPkhachhangLayout);
         JPkhachhangLayout.setHorizontalGroup(
             JPkhachhangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPkhachhangLayout.createSequentialGroup()
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
         );
         JPkhachhangLayout.setVerticalGroup(
             JPkhachhangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,8 +354,17 @@ public class MainAction extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jDangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDangXuatMouseClicked
-        // TODO add your handling code here:
-        System.exit(0);
+        int click = JOptionPane.showConfirmDialog(null, "Bạn có muốn đăng xuất không !");
+        if (click == JOptionPane.YES_OPTION) {
+            this.dispose();
+            new DangNhap().setVisible(true);
+        }
+        if (click == JOptionPane.NO_OPTION) {
+        }
+        if (click == JOptionPane.CANCEL_OPTION) {
+        }
+        if (click == JOptionPane.CLOSED_OPTION) {
+        }
     }//GEN-LAST:event_jDangXuatMouseClicked
 
     private void JPkhachhangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JPkhachhangMouseClicked

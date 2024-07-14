@@ -124,7 +124,7 @@ public class formKhuyenMai extends javax.swing.JPanel {
             }
         });
 
-        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/icons8-delete-17.png"))); // NOI18N
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/remove_7695824 (1).png"))); // NOI18N
         btnXoa.setText("XÓA");
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,7 +132,7 @@ public class formKhuyenMai extends javax.swing.JPanel {
             }
         });
 
-        btnLamMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/icons8-captcha-16.png"))); // NOI18N
+        btnLamMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/synchronize_2749336.png"))); // NOI18N
         btnLamMoi.setText("LÀM MỚI");
         btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

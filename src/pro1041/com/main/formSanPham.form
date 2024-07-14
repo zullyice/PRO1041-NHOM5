@@ -319,7 +319,7 @@
                 <Component class="javax.swing.JButton" name="btnXoaSP">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/pro1041/com/icon/icons8-delete-17.png"/>
+                      <Image iconType="3" name="/pro1041/com/icon/remove_7695824 (1).png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="X&#xd3;A"/>
                   </Properties>
@@ -330,7 +330,7 @@
                 <Component class="javax.swing.JButton" name="btnLamMoiSP">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/pro1041/com/icon/icons8-captcha-16.png"/>
+                      <Image iconType="3" name="/pro1041/com/icon/synchronize_2749336.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="L&#xc0;M M&#x1eda;I"/>
                   </Properties>
@@ -813,7 +813,7 @@
                     <Component class="javax.swing.JButton" name="btnXoa">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/pro1041/com/icon/icons8-delete-17.png"/>
+                          <Image iconType="3" name="/pro1041/com/icon/remove_7695824 (1).png"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="X&#xd3;A"/>
                       </Properties>
