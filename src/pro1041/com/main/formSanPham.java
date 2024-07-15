@@ -750,7 +750,7 @@ public class formSanPham extends javax.swing.JPanel {
         int confirm = JOptionPane.showConfirmDialog(this, "Bạn có muốn cập nhật dữ liệu không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
-            if (sanPhamService.update(getForm()) != 0) {
+            if (sanPhamService.update(id,getForm()) != 0) {
                 JOptionPane.showMessageDialog(this, "Cập nhật thành công");
                 clearForm();
                 dssp = sanPhamService.getAll();
@@ -876,7 +876,7 @@ public class formSanPham extends javax.swing.JPanel {
         int confirm = JOptionPane.showConfirmDialog(this, "Bạn có muốn cập nhật dữ liệu không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
-            if (sanPhamService.updateSP(getFormSP()) != 0) {
+            if (sanPhamService.updateSP(id,getFormSP()) != 0) {
                 JOptionPane.showMessageDialog(this, "Cập nhật thành công");
                 clearFormSP();
                 dsspFull = sanPhamService.getAllSP();

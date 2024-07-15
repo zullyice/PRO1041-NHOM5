@@ -316,7 +316,7 @@ public class SanPhamService {
         return 0;
     }
 
-    public int updateSP(SanPham sanPham) {
+    public int updateSP(int id,SanPham sanPham) {
         String sql = """
                 UPDATE [dbo].[SanPham]
                     SET [maSanPham] = ?
@@ -325,17 +325,9 @@ public class SanPhamService {
                        ,[ngaySua] = ?
                        ,[id_thuongHieu] = ?
                        ,[id_NSX] = ?
-                  WHERE maSanPham = ?
+                  WHERE id_sanPham = ?
                  """;
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-            String getIDSP = "SELECT maSanPham FROM [SanPham] WHERE maSanPham LIKE ?";
-            PreparedStatement getMaSanPham = con.prepareStatement(getIDSP);
-            getMaSanPham.setString(1, "%" + sanPham.getMaSanPham() + "%");
-            ResultSet maspResult = getMaSanPham.executeQuery();
-            if (!maspResult.next()) {
-                throw new SQLException("Cannot find MASP for TENSP: " + sanPham.getTenSanPham());
-            }
-            String maSP = maspResult.getString("maSanPham");
 
             String getIDNSXuat = "SELECT id_NSX FROM [NhaSanXuat] WHERE tenNSX LIKE ?";
             PreparedStatement getIDNSX = con.prepareStatement(getIDNSXuat);
@@ -362,7 +354,7 @@ public class SanPhamService {
             ps.setObject(4, sanPham.getNgaySua());
             ps.setObject(5, idth);
             ps.setObject(6, idNSX);
-            ps.setObject(7, maSP);
+            ps.setObject(7, id);
 
             return ps.executeUpdate();
         } catch (Exception e) {
@@ -458,7 +450,7 @@ public class SanPhamService {
                 throw new SQLException("Cannot find KhoaAo for: " + sanPham.getLoaiKhoa());
             }
             int idka = kaResult.getInt("id_khoaAo");
-            // Thiết lập các tham số cho PreparedStatement
+
             ps.setObject(1, idcl);
             ps.setObject(2, idkt);
             ps.setObject(3, idsp);
@@ -475,7 +467,7 @@ public class SanPhamService {
         return 0;
     }
 
-    public int update(SanPham sanPham) {
+    public int update(int id,SanPham sanPham) {
         String sql = """
                  UPDATE [dbo].[SanPhamChiTiet]
                     SET [id_chatLieu] = ?
@@ -486,7 +478,7 @@ public class SanPhamService {
                         [id_khoaAo]=?
                        ,[gia] = ?
                        ,[soluongtonkho] = ?
-                  WHERE id_sanPham = ?
+                  WHERE id_SPCT = ?
                  """;
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 
@@ -548,7 +540,7 @@ public class SanPhamService {
                 throw new SQLException("Cannot find KhoaAo for: " + sanPham.getLoaiKhoa());
             }
             int idka = kaResult.getInt("id_khoaAo");
-            // Thiết lập các tham số cho PreparedStatement
+
             ps.setObject(1, idcl);
             ps.setObject(2, idkt);
             ps.setObject(3, idsp);
@@ -557,7 +549,7 @@ public class SanPhamService {
             ps.setObject(6, idka);
             ps.setObject(7, sanPham.getGia());
             ps.setObject(8, sanPham.getSoluongtonkho());
-            ps.setObject(9, idsp);
+            ps.setObject(9, id);
 
             return ps.executeUpdate();
         } catch (Exception e) {
