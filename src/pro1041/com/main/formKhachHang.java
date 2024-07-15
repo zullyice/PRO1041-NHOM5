@@ -53,7 +53,7 @@ public class formKhachHang extends javax.swing.JPanel {
 
         jNgayTao.setDate(kh.getNgayTao());
         jNgaySua.setDate(kh.getNgaySua());
-        if (kh.getNgaySua() == null && kh.getNgaySua().toString().isEmpty()) {
+        if (kh.getNgaySua().toString().isEmpty()) {
             Date now = new Date();
             jNgaySua.setDate(now);
         } else {

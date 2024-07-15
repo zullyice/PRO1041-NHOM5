@@ -512,7 +512,7 @@ public class formKhuyenMai extends javax.swing.JPanel {
         jNgayBatDau.setDate(km.getNgayBatDau());
         jNgayKetThuc.setDate(km.getNgayKetThuc());
         jNgayTao.setDate(km.getNgayTao());
-        if (km.getNgaySua() == null && km.getNgaySua().toString().isEmpty()) {
+        if (km.getNgaySua().toString().isEmpty() || km.getNgaySua() == null) {
             Date now = new Date();
             jNgaySua.setDate(now);
         } else {

@@ -31,7 +31,7 @@ public class DangNhap extends javax.swing.JFrame {
         Connection con = DBConnect.getConnection();
         if (con != null) {
             String sql = """
-                           SELECT taiKhoan,matKhau FROM [dbo].[NhanVien] WHERE taiKhoan LIKE ? AND  matKhau LIKE ?
+                           SELECT taiKhoan,matKhau FROM [dbo].[NhanVien] WHERE taiKhoan LIKE ? AND  matKhau LIKE ? AND trangThai = 1
                          """;
             try {
                 PreparedStatement ps = con.prepareStatement(sql);

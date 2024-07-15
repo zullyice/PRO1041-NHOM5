@@ -120,6 +120,16 @@ public class formSanPham extends javax.swing.JPanel {
         jNgayTao.setDate(now);
         jNgaySua.setDate(now);
     }
+    void clearFormSP(){
+        txtMaSP.setText("");
+        txtTenSP.setText("");
+        Date now = new Date();
+        jNgayTaoSP.setDate(now);
+        jNgaySuaSP.setDate(now);
+        cboNSX.setSelectedIndex(0);
+        cboThuongHieu.setSelectedIndex(0);
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -814,7 +824,7 @@ public class formSanPham extends javax.swing.JPanel {
         if (confirm == JOptionPane.YES_OPTION) {
             if (sanPhamService.addSP(getFormSP()) != 0) {
                 JOptionPane.showMessageDialog(this, "Thêm thành công");
-                clearForm();
+                clearFormSP();
                 dsspFull = sanPhamService.getAllSP();
                 showData();
             } else {
@@ -839,7 +849,7 @@ public class formSanPham extends javax.swing.JPanel {
         if (dialogResult == JOptionPane.YES_OPTION) {
             if (sanPhamService.xoaSP(id)) {
                 JOptionPane.showMessageDialog(this, "Xóa thành công");
-                clearForm();
+                clearFormSP();
                 dsspFull = sanPhamService.getAllSP();
                 showData();
             } else {
@@ -851,7 +861,7 @@ public class formSanPham extends javax.swing.JPanel {
     }//GEN-LAST:event_btnXoaSPActionPerformed
 
     private void btnLamMoiSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiSPActionPerformed
-        // TODO add your handling code here:
+        clearFormSP();
     }//GEN-LAST:event_btnLamMoiSPActionPerformed
 
     private void btnSuaSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaSPActionPerformed
@@ -868,7 +878,7 @@ public class formSanPham extends javax.swing.JPanel {
         if (confirm == JOptionPane.YES_OPTION) {
             if (sanPhamService.updateSP(getFormSP()) != 0) {
                 JOptionPane.showMessageDialog(this, "Cập nhật thành công");
-                clearForm();
+                clearFormSP();
                 dsspFull = sanPhamService.getAllSP();
                 showData();
             } else {
