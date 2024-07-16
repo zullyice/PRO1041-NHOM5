@@ -400,7 +400,8 @@ public class SanPhamService {
                             ,[id_kichThuoc]
                             ,[id_sanPham]
                             ,[id_mauSac]
-                            ,[id_hinhAnh],[id_khoaAo]
+                            ,[id_kieuDang],
+                             [id_khoaAo]
                             ,[gia]
                             ,[soluongtonkho])
                       VALUES
@@ -490,7 +491,7 @@ public class SanPhamService {
                        ,[id_kichThuoc] = ?
                        ,[id_sanPham] = ?
                        ,[id_mauSac] = ?
-                       ,[id_hinhAnh] = ?,
+                       ,[id_kieuDang] = ?,
                         [id_khoaAo]=?
                        ,[gia] = ?
                        ,[soluongtonkho] = ?
@@ -577,7 +578,7 @@ public class SanPhamService {
     public boolean xoa(int id) {
         String sql = """
                      DELETE FROM [dbo].[SanPhamChiTiet]
-                                            WHERE id_sanPham = ?
+                                            WHERE id_SPCT = ?
                      """;
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setObject(1, id);
