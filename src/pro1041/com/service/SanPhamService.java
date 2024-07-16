@@ -25,6 +25,7 @@ public class SanPhamService {
     public List<SanPham> getAll() {
         String sql = """
                      SELECT 
+                     spc.id_SPCT,
                          sp.id_sanPham,
                          sp.maSanPham,
                          sp.tenSanPham,
@@ -35,11 +36,11 @@ public class SanPhamService {
                          nsx.tenNSX,
                          th.tenThuongHieu,
                      	cl.tenChatLieu,
-                     	ha.IMG,
+                     	kd.tenKieuDang,
                      	kt.tenKichThuoc,
                      	ms.tenMauSac,
-                     ka.loaiKhoa,
-                     	    spc.id_SPCT
+                        ka.tenKhoa
+                     	    
                      FROM 
                          SanPham sp
                      JOIN 
@@ -51,7 +52,7 @@ public class SanPhamService {
                      	JOIN 
                      	ChatLieu cl ON spc.id_chatLieu = cl.id_chatLieu
                      	JOIN 
-                     	HinhAnh  ha ON spc.id_hinhAnh = ha.id_hinhAnh
+                     	KieuDang kd ON spc.id_kieuDang = kd.id_kieuDang
                      	JOIN 
                      	KichThuoc kt ON spc.id_kichThuoc = kt.id_kichThuoc
                      	JOIN 
@@ -63,7 +64,22 @@ public class SanPhamService {
             ResultSet rs = ps.executeQuery();
             List<SanPham> dssp = new ArrayList<>();
             while (rs.next()) {
-                SanPham sp = new SanPham(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getDate(6), rs.getDate(7), rs.getString(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13), rs.getString(14), rs.getInt(15));
+                SanPham sp = new SanPham(
+                        rs.getInt(1), 
+                        rs.getInt(2), 
+                        rs.getString(3),
+                        rs.getString(4), 
+                        rs.getInt(5), 
+                        rs.getInt(6), 
+                        rs.getDate(7), 
+                        rs.getDate(8), 
+                        rs.getString(9), 
+                        rs.getString(10),
+                        rs.getString(11), 
+                        rs.getString(12), 
+                        rs.getString(13), 
+                        rs.getString(14), 
+                        rs.getString(15));
                 dssp.add(sp);
             }
             return dssp;
@@ -123,19 +139,19 @@ public class SanPhamService {
         return model;
     }
 
-    public DefaultComboBoxModel<String> getAllHinhAnh() {
+    public DefaultComboBoxModel<String> getAllKieuDang() {
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
         try {
             String query = """
-                           SELECT [IMG]
-                             FROM [dbo].[HinhAnh]
+                           SELECT [tenKieuDang]
+                             FROM [dbo].[KieuDang]
                            """;
             Connection cn = DBConnect.getConnection();
             PreparedStatement pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-                String hinhAnh = rs.getString("IMG");
-                model.addElement(hinhAnh);
+                String kieuDang = rs.getString("tenKieuDang");
+                model.addElement(kieuDang);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -169,14 +185,14 @@ public class SanPhamService {
         DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
         try {
             String query = """
-                           SELECT [loaiKhoa]
+                           SELECT [tenKhoa]
                              FROM [dbo].[KhoaAo]
                            """;
             Connection cn = DBConnect.getConnection();
             PreparedStatement pst = cn.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-                String khoaAo = rs.getString("loaiKhoa");
+                String khoaAo = rs.getString("tenKhoa");
                 model.addElement(khoaAo);
             }
         } catch (SQLException ex) {
@@ -422,15 +438,15 @@ public class SanPhamService {
             }
             int idkt = ktResult.getInt("id_kichThuoc");
 
-            // Lấy id hình ảnh 
-            String getIDHAQuery = "SELECT id_hinhAnh FROM [HinhAnh] WHERE IMG LIKE ?";
+            // Lấy id kieuDang
+            String getIDHAQuery = "SELECT id_kieuDang FROM [KieuDang] WHERE tenKieuDang LIKE ?";
             PreparedStatement getIDHinhAnh = con.prepareStatement(getIDHAQuery);
-            getIDHinhAnh.setString(1, "%" + sanPham.getIMG() + "%");
-            ResultSet haResult = getIDHinhAnh.executeQuery();
-            if (!haResult.next()) {
-                throw new SQLException("Cannot find HinhAnh for: " + sanPham.getIMG());
+            getIDHinhAnh.setString(1, "%" + sanPham.getKieuDang()+ "%");
+            ResultSet kdResult = getIDHinhAnh.executeQuery();
+            if (!kdResult.next()) {
+                throw new SQLException("Cannot find KieuDang for: " + sanPham.getKieuDang());
             }
-            int idha = haResult.getInt("id_hinhAnh");
+            int idkd = kdResult.getInt("id_kieuDang");
 
             // Lấy id màu sắc
             String getIDMSQuery = "SELECT id_mauSac FROM [MauSac] WHERE tenMauSac LIKE ?";
@@ -442,12 +458,12 @@ public class SanPhamService {
             }
             int idms = msResult.getInt("id_mauSac");
             // Lấy id khóa áo
-            String getIDKAQuery = "SELECT id_khoaAo FROM [KhoaAo] WHERE loaiKhoa LIKE ?";
+            String getIDKAQuery = "SELECT id_khoaAo FROM [KhoaAo] WHERE tenKhoa LIKE ?";
             PreparedStatement getIDKhoaAo = con.prepareStatement(getIDKAQuery);
-            getIDKhoaAo.setString(1, "%" + sanPham.getLoaiKhoa()+ "%");
+            getIDKhoaAo.setString(1, "%" + sanPham.getTenKhoa()+ "%");
             ResultSet kaResult = getIDKhoaAo.executeQuery();
             if (!kaResult.next()) {
-                throw new SQLException("Cannot find KhoaAo for: " + sanPham.getLoaiKhoa());
+                throw new SQLException("Cannot find KhoaAo for: " + sanPham.getTenKhoa());
             }
             int idka = kaResult.getInt("id_khoaAo");
 
@@ -455,7 +471,7 @@ public class SanPhamService {
             ps.setObject(2, idkt);
             ps.setObject(3, idsp);
             ps.setObject(4, idms);
-            ps.setObject(5, idha);
+            ps.setObject(5, idkd);
             ps.setObject(6, idka);
             ps.setObject(7, sanPham.getGia());
             ps.setObject(8, sanPham.getSoluongtonkho());
@@ -512,15 +528,15 @@ public class SanPhamService {
             }
             int idkt = ktResult.getInt("id_kichThuoc");
 
-            // Lấy id hình ảnh 
-            String getIDHAQuery = "SELECT id_hinhAnh FROM [HinhAnh] WHERE IMG LIKE ?";
+            // Lấy id kieuDang
+            String getIDHAQuery = "SELECT id_kieuDang FROM [KieuDang] WHERE tenKieuDang LIKE ?";
             PreparedStatement getIDHinhAnh = con.prepareStatement(getIDHAQuery);
-            getIDHinhAnh.setString(1, "%" + sanPham.getIMG() + "%");
-            ResultSet haResult = getIDHinhAnh.executeQuery();
-            if (!haResult.next()) {
-                throw new SQLException("Cannot find HinhAnh for: " + sanPham.getIMG());
+            getIDHinhAnh.setString(1, "%" + sanPham.getKieuDang()+ "%");
+            ResultSet kdResult = getIDHinhAnh.executeQuery();
+            if (!kdResult.next()) {
+                throw new SQLException("Cannot find KieuDang for: " + sanPham.getKieuDang());
             }
-            int idha = haResult.getInt("id_hinhAnh");
+            int idkd = kdResult.getInt("id_kieuDang");
 
             // Lấy id màu sắc
             String getIDMSQuery = "SELECT id_mauSac FROM [MauSac] WHERE tenMauSac LIKE ?";
@@ -532,12 +548,12 @@ public class SanPhamService {
             }
             int idms = msResult.getInt("id_mauSac");
             // Lấy id khóa áo
-            String getIDKAQuery = "SELECT id_khoaAo FROM [KhoaAo] WHERE loaiKhoa LIKE ?";
+            String getIDKAQuery = "SELECT id_khoaAo FROM [KhoaAo] WHERE tenKhoa LIKE ?";
             PreparedStatement getIDKhoaAo = con.prepareStatement(getIDKAQuery);
-            getIDKhoaAo.setString(1, "%" + sanPham.getLoaiKhoa()+ "%");
+            getIDKhoaAo.setString(1, "%" + sanPham.getTenKhoa()+ "%");
             ResultSet kaResult = getIDKhoaAo.executeQuery();
             if (!kaResult.next()) {
-                throw new SQLException("Cannot find KhoaAo for: " + sanPham.getLoaiKhoa());
+                throw new SQLException("Cannot find KhoaAo for: " + sanPham.getTenKhoa());
             }
             int idka = kaResult.getInt("id_khoaAo");
 
@@ -545,7 +561,7 @@ public class SanPhamService {
             ps.setObject(2, idkt);
             ps.setObject(3, idsp);
             ps.setObject(4, idms);
-            ps.setObject(5, idha);
+            ps.setObject(5, idkd);
             ps.setObject(6, idka);
             ps.setObject(7, sanPham.getGia());
             ps.setObject(8, sanPham.getSoluongtonkho());

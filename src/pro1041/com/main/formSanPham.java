@@ -39,7 +39,7 @@ public class formSanPham extends javax.swing.JPanel {
         showDuLieu();
         showData();
         fillChatLieuComboBox();
-        fillHinhAnhComboBox();
+        fillKieuDangComboBox();
         fillSanPhamComboBox();
         fillKichThuocComboBox();
         fillMauSacComboBox();
@@ -54,7 +54,7 @@ public class formSanPham extends javax.swing.JPanel {
         tableModel.setRowCount(0);
         for (SanPham sp : dssp) {
             tableModel.addRow(new Object[]{
-                sp.getId_SPCT(), sp.getMaSanPham(), sp.getTenSanPham(), sp.getGia(), sp.getSoluongtonkho(), sp.getNgayTao(), sp.getNgaySua(), sp.getTenNSX(), sp.getTenThuongHieu(), sp.getTenChatLieu(), sp.getIMG(), sp.getTenKichThuoc(), sp.getTenMauSac(),sp.getLoaiKhoa(), sp.getId_sanPham()
+                sp.getId_SPCT(),sp.getId_sanPham(), sp.getMaSanPham(), sp.getTenSanPham(), sp.getGia(), sp.getSoluongtonkho(), sp.getNgayTao(), sp.getNgaySua(), sp.getTenNSX(), sp.getTenThuongHieu(), sp.getTenChatLieu(), sp.getKieuDang(), sp.getTenKichThuoc(), sp.getTenMauSac(), sp.getTenKhoa()
             });
 
         }
@@ -105,13 +105,13 @@ public class formSanPham extends javax.swing.JPanel {
         cboMauSac.setModel(thModel);
     }
 
-    private void fillHinhAnhComboBox() {
-        DefaultComboBoxModel<String> thModel = sanPhamService.getAllHinhAnh();
-        cboHinhAnh.setModel(thModel);
+    private void fillKieuDangComboBox() {
+        DefaultComboBoxModel<String> thModel = sanPhamService.getAllKieuDang();
+        cboKieuDang.setModel(thModel);
     }
 
     void clearForm() {
-        cboHinhAnh.setSelectedIndex(0);
+        cboKieuDang.setSelectedIndex(0);
         cboChatLieu.setSelectedIndex(0);
         cboKichThuoc.setSelectedIndex(0);
         cboTenSanPham.setSelectedIndex(0);
@@ -122,7 +122,8 @@ public class formSanPham extends javax.swing.JPanel {
         jNgayTao.setDate(now);
         jNgaySua.setDate(now);
     }
-    void clearFormSP(){
+
+    void clearFormSP() {
         txtMaSP.setText("");
         txtTenSP.setText("");
         Date now = new Date();
@@ -130,7 +131,7 @@ public class formSanPham extends javax.swing.JPanel {
         jNgaySuaSP.setDate(now);
         cboNSX.setSelectedIndex(0);
         cboThuongHieu.setSelectedIndex(0);
-        
+
     }
 
     /**
@@ -181,7 +182,7 @@ public class formSanPham extends javax.swing.JPanel {
         jLabel14 = new javax.swing.JLabel();
         txtSoLuong = new javax.swing.JTextField();
         txtGia = new javax.swing.JTextField();
-        cboHinhAnh = new javax.swing.JComboBox<>();
+        cboKieuDang = new javax.swing.JComboBox<>();
         cboChatLieu = new javax.swing.JComboBox<>();
         cboKichThuoc = new javax.swing.JComboBox<>();
         cboMauSac = new javax.swing.JComboBox<>();
@@ -216,7 +217,7 @@ public class formSanPham extends javax.swing.JPanel {
         jLabel3.setPreferredSize(new java.awt.Dimension(263, 28));
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel7.setText("TÊN SẢN PHẨM");
+        jLabel7.setText("MÃ SẢN PHẨM");
 
         jLabel15.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel15.setText("TÊN SẢN PHẨM");
@@ -424,7 +425,7 @@ public class formSanPham extends javax.swing.JPanel {
         jLabel11.setText("MÀU SẮC");
 
         jLabel12.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jLabel12.setText("HÌNH ẢNH");
+        jLabel12.setText("KIỂU DÁNG");
 
         jLabel13.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel13.setText("SỐ LƯỢNG");
@@ -444,7 +445,7 @@ public class formSanPham extends javax.swing.JPanel {
             }
         });
 
-        cboHinhAnh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboKieuDang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         cboChatLieu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -516,7 +517,7 @@ public class formSanPham extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID SPCT", "MÃ SP", "TÊN SP", "GIÁ", "SỐ LƯỢNG TỒN KHO", "NGÀY TẠO", "NGÀY SỬA", "NSX", "THƯƠNG HIỆU", "CHẤT LIỆU", "HÌNH ẢNH", "KÍCH THƯỚC", "MÀU SẮC", "LOẠI KHÓA ÁO", "ID SẢN PHẨM"
+                "ID SPCT", "ID SẢN PHẨM", "MÃ SP", "TÊN SP", "GIÁ", "SỐ LƯỢNG TỒN KHO", "NGÀY TẠO", "NGÀY SỬA", "NSX", "THƯƠNG HIỆU", "CHẤT LIỆU", "KIỂU DÁNG", "KÍCH THƯỚC", "MÀU SẮC", "LOẠI KHÓA ÁO"
             }
         ));
         tblSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -557,7 +558,7 @@ public class formSanPham extends javax.swing.JPanel {
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addComponent(jLabel12)
                                         .addGap(48, 48, 48)
-                                        .addComponent(cboHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(cboKieuDang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(jPanel3Layout.createSequentialGroup()
                                             .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -626,7 +627,7 @@ public class formSanPham extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
-                            .addComponent(cboHinhAnh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cboKieuDang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel13)
@@ -758,7 +759,7 @@ public class formSanPham extends javax.swing.JPanel {
         int confirm = JOptionPane.showConfirmDialog(this, "Bạn có muốn cập nhật dữ liệu không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
-            if (sanPhamService.update(id,getForm()) != 0) {
+            if (sanPhamService.update(id, getForm()) != 0) {
                 JOptionPane.showMessageDialog(this, "Cập nhật thành công");
                 clearForm();
                 dssp = sanPhamService.getAll();
@@ -884,7 +885,7 @@ public class formSanPham extends javax.swing.JPanel {
         int confirm = JOptionPane.showConfirmDialog(this, "Bạn có muốn cập nhật dữ liệu không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
-            if (sanPhamService.updateSP(id,getFormSP()) != 0) {
+            if (sanPhamService.updateSP(id, getFormSP()) != 0) {
                 JOptionPane.showMessageDialog(this, "Cập nhật thành công");
                 clearFormSP();
                 dsspFull = sanPhamService.getAllSP();
@@ -915,10 +916,10 @@ public class formSanPham extends javax.swing.JPanel {
 
         cboChatLieu.setSelectedItem(sp.getTenChatLieu());
         cboTenSanPham.setSelectedItem(sp.getTenSanPham());
-        cboHinhAnh.setSelectedItem(sp.getIMG());
+        cboKieuDang.setSelectedItem(sp.getKieuDang());
         cboKichThuoc.setSelectedItem(sp.getTenKichThuoc());
         cboMauSac.setSelectedItem(sp.getTenMauSac());
-        cboKhoaAo.setSelectedItem(sp.getLoaiKhoa());
+        cboKhoaAo.setSelectedItem(sp.getTenKhoa());
     }
 
     public void showDetailSP(int index) {
@@ -958,19 +959,19 @@ public class formSanPham extends javax.swing.JPanel {
         Date ngayTao = jNgayTao.getDate();
         Date ngaySua = jNgaySua.getDate();
         String chatLieu = cboChatLieu.getSelectedItem().toString();
-        String hinhAnh = cboHinhAnh.getSelectedItem().toString();
+        String kieuDang = cboKieuDang.getSelectedItem().toString();
         String kichThuoc = cboKichThuoc.getSelectedItem().toString();
         String mauSac = cboMauSac.getSelectedItem().toString();
         String tenSp = cboTenSanPham.getSelectedItem().toString();
         String khoaAo = cboKhoaAo.getSelectedItem().toString();
 
         sp.setGia(Integer.valueOf(gia));
-        sp.setIMG(hinhAnh);
         sp.setTenMauSac(mauSac);
         sp.setTenChatLieu(chatLieu);
         sp.setTenSanPham(tenSp);
         sp.setTenKichThuoc(kichThuoc);
-        sp.setLoaiKhoa(khoaAo);
+        sp.setTenKhoa(khoaAo);
+        sp.setKieuDang(kieuDang);
         sp.setNgayTao(ngayTao);
         sp.setNgaySua(ngaySua);
         sp.setSoluongtonkho(Integer.valueOf(soLuong));
@@ -987,9 +988,9 @@ public class formSanPham extends javax.swing.JPanel {
     private javax.swing.JButton btnXoa;
     private javax.swing.JButton btnXoaSP;
     private javax.swing.JComboBox<String> cboChatLieu;
-    private javax.swing.JComboBox<String> cboHinhAnh;
     private javax.swing.JComboBox<String> cboKhoaAo;
     private javax.swing.JComboBox<String> cboKichThuoc;
+    private javax.swing.JComboBox<String> cboKieuDang;
     private javax.swing.JComboBox<String> cboMauSac;
     private javax.swing.JComboBox<String> cboNSX;
     private javax.swing.JComboBox<String> cboTenSanPham;

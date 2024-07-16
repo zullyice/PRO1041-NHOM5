@@ -22,14 +22,16 @@ public class SanPham {
     private String tenNSX;
     private String tenThuongHieu;
     private String tenChatLieu;
-    private String IMG;
     private String tenKichThuoc;
     private String tenMauSac;
-    private String loaiKhoa;
+    private String tenKhoa;
     private int id_SPCT;
+    private String kieuDang;
 
     public SanPham() {
     }
+
+   
 
     public SanPham(int id_sanPham, String maSanPham, String tenSanPham, Date ngayTao, Date ngaySua, String tenNSX, String tenThuongHieu) {
         this.id_sanPham = id_sanPham;
@@ -40,8 +42,8 @@ public class SanPham {
         this.tenNSX = tenNSX;
         this.tenThuongHieu = tenThuongHieu;
     }
-
-    public SanPham(int id_sanPham, String maSanPham, String tenSanPham, int gia, int soluongtonkho, Date ngayTao, Date ngaySua, String tenNSX, String tenThuongHieu, String tenChatLieu, String IMG, String tenKichThuoc, String tenMauSac, String loaiKhoa, int id_SPCT) {
+    
+    public SanPham(int id_SPCT,int id_sanPham, String maSanPham, String tenSanPham, int gia, int soluongtonkho, Date ngayTao, Date ngaySua, String tenNSX, String tenThuongHieu, String tenChatLieu, String kieuDang,String tenKichThuoc, String tenMauSac, String tenKhoa) {
         this.id_sanPham = id_sanPham;
         this.maSanPham = maSanPham;
         this.tenSanPham = tenSanPham;
@@ -52,12 +54,15 @@ public class SanPham {
         this.tenNSX = tenNSX;
         this.tenThuongHieu = tenThuongHieu;
         this.tenChatLieu = tenChatLieu;
-        this.IMG = IMG;
         this.tenKichThuoc = tenKichThuoc;
         this.tenMauSac = tenMauSac;
-        this.loaiKhoa = loaiKhoa;
+        this.tenKhoa = tenKhoa;
         this.id_SPCT = id_SPCT;
+        this.kieuDang = kieuDang;
     }
+
+    
+    
 
     public int getId_sanPham() {
         return id_sanPham;
@@ -139,14 +144,6 @@ public class SanPham {
         this.tenChatLieu = tenChatLieu;
     }
 
-    public String getIMG() {
-        return IMG;
-    }
-
-    public void setIMG(String IMG) {
-        this.IMG = IMG;
-    }
-
     public String getTenKichThuoc() {
         return tenKichThuoc;
     }
@@ -163,12 +160,12 @@ public class SanPham {
         this.tenMauSac = tenMauSac;
     }
 
-    public String getLoaiKhoa() {
-        return loaiKhoa;
+    public String getTenKhoa() {
+        return tenKhoa;
     }
 
-    public void setLoaiKhoa(String loaiKhoa) {
-        this.loaiKhoa = loaiKhoa;
+    public void setTenKhoa(String tenKhoa) {
+        this.tenKhoa = tenKhoa;
     }
 
     public int getId_SPCT() {
@@ -178,6 +175,17 @@ public class SanPham {
     public void setId_SPCT(int id_SPCT) {
         this.id_SPCT = id_SPCT;
     }
+
+    public String getKieuDang() {
+        return kieuDang;
+    }
+
+    public void setKieuDang(String kieuDang) {
+        this.kieuDang = kieuDang;
+    }
+
+    
+    
     public Date getNgaySuaOrDefault() {
         return (ngaySua != null) ? ngaySua : new Date();
     }
