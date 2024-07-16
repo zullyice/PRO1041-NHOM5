@@ -32,6 +32,7 @@ public class formKhachHang extends javax.swing.JPanel {
         dskh = khachHangService.getAll();
         tbm = (DefaultTableModel) tblKhachHang.getModel();
         showDuLieu();
+        clearForm();
     }
 
     public void showDuLieu() {
@@ -52,13 +53,7 @@ public class formKhachHang extends javax.swing.JPanel {
         txtSoDienThoai.setText(kh.getSdt());
 
         jNgayTao.setDate(kh.getNgayTao());
-        jNgaySua.setDate(kh.getNgaySua());
-        if (kh.getNgaySua().toString().isEmpty()) {
-            Date now = new Date();
-            jNgaySua.setDate(now);
-        } else {
-            jNgaySua.setDate(kh.getNgaySua());
-        }
+        jNgaySua.setDate(kh.getNgaySuaOrDefault());
         String gioiTinh = kh.getGioiTinh();
         if (gioiTinh.equalsIgnoreCase("Nam")) {
             rdoNam.setSelected(true);

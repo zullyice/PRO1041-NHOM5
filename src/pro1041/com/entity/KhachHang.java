@@ -112,5 +112,8 @@ public class KhachHang {
     public String toString() {
         return "KhachHang{" + "id_khachHang=" + id_khachHang + ", maKh=" + maKh + ", hoTenKh=" + hoTenKh + ", diaChi=" + diaChi + ", gioiTinh=" + gioiTinh + ", email=" + email + ", sdt=" + sdt + ", ngayTao=" + ngayTao + ", ngaySua=" + ngaySua + '}';
     }
+    public Date getNgaySuaOrDefault() {
+        return (ngaySua != null) ? ngaySua : new Date();
+    }
     
 }

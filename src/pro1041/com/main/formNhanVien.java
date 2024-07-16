@@ -33,6 +33,7 @@ public class formNhanVien extends javax.swing.JPanel {
         dsnv = nhanVienService.getAll();
         tableModel = (DefaultTableModel) tblNhanVien.getModel();
         showData();
+        clearForm();
     }
 
     public void showData() {
@@ -475,12 +476,7 @@ public class formNhanVien extends javax.swing.JPanel {
         txtTaiKhoan.setText(nv.getTaiKhoan());
         txtMatKhau.setText(nv.getMatKhau());
         jNgayTao.setDate(nv.getNgayTao());
-        if (nv.getNgaySua().toString().isEmpty()) {
-            Date now = new Date();
-            jNgaySua.setDate(now);
-        } else {
-            jNgaySua.setDate(nv.getNgaySua());
-        }
+        jNgaySua.setDate(nv.getNgaySuaOrDefault());
         Boolean trangThai = nv.isTrangThai();
         if (trangThai == true) {
             rdoLamViec.setSelected(true);

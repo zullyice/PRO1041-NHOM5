@@ -52,13 +52,13 @@ public class MainAction extends javax.swing.JFrame {
         JPfull = new javax.swing.JPanel();
         JPnew = new javax.swing.JPanel();
         JPhoadon = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jHoaDon = new javax.swing.JLabel();
         JPnhanvien = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         JPkhachhang = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        JPthonoke = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
+        JPnhaSanXuat = new javax.swing.JPanel();
+        jNSX = new javax.swing.JLabel();
         JPexit = new javax.swing.JPanel();
         jDangXuat = new javax.swing.JLabel();
         JPsanpham = new javax.swing.JPanel();
@@ -83,19 +83,25 @@ public class MainAction extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/tax-planning_15636855.png"))); // NOI18N
-        jLabel2.setText("Hóa Đơn");
+        jHoaDon.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jHoaDon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/tax-planning_15636855.png"))); // NOI18N
+        jHoaDon.setText("Hóa Đơn");
+        jHoaDon.setAlignmentY(0.0F);
+        jHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jHoaDonMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout JPhoadonLayout = new javax.swing.GroupLayout(JPhoadon);
         JPhoadon.setLayout(JPhoadonLayout);
         JPhoadonLayout.setHorizontalGroup(
             JPhoadonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+            .addComponent(jHoaDon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
         );
         JPhoadonLayout.setVerticalGroup(
             JPhoadonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+            .addComponent(jHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
         );
 
         JPnhanvien.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -104,9 +110,10 @@ public class MainAction extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/man_16044770.png"))); // NOI18N
         jLabel3.setText("Nhân Viên");
+        jLabel3.setAlignmentY(0.0F);
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel3MouseClicked(evt);
@@ -130,9 +137,10 @@ public class MainAction extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/team_924520.png"))); // NOI18N
         jLabel4.setText("Khách Hàng");
+        jLabel4.setAlignmentY(0.0F);
 
         javax.swing.GroupLayout JPkhachhangLayout = new javax.swing.GroupLayout(JPkhachhang);
         JPkhachhang.setLayout(JPkhachhangLayout);
@@ -145,24 +153,31 @@ public class MainAction extends javax.swing.JFrame {
             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
         );
 
-        JPthonoke.addMouseListener(new java.awt.event.MouseAdapter() {
+        JPnhaSanXuat.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                JPthonokeMouseClicked(evt);
+                JPnhaSanXuatMouseClicked(evt);
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/information_12608297.png"))); // NOI18N
+        jNSX.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        jNSX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/information_12608297.png"))); // NOI18N
+        jNSX.setText("Nhà Sản Xuất ");
+        jNSX.setAlignmentY(0.0F);
+        jNSX.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jNSXMouseClicked(evt);
+            }
+        });
 
-        javax.swing.GroupLayout JPthonokeLayout = new javax.swing.GroupLayout(JPthonoke);
-        JPthonoke.setLayout(JPthonokeLayout);
-        JPthonokeLayout.setHorizontalGroup(
-            JPthonokeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+        javax.swing.GroupLayout JPnhaSanXuatLayout = new javax.swing.GroupLayout(JPnhaSanXuat);
+        JPnhaSanXuat.setLayout(JPnhaSanXuatLayout);
+        JPnhaSanXuatLayout.setHorizontalGroup(
+            JPnhaSanXuatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jNSX, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
         );
-        JPthonokeLayout.setVerticalGroup(
-            JPthonokeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+        JPnhaSanXuatLayout.setVerticalGroup(
+            JPnhaSanXuatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jNSX, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
         );
 
         JPexit.setBackground(new java.awt.Color(0, 153, 153));
@@ -204,9 +219,10 @@ public class MainAction extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/takeaway_12648452.png"))); // NOI18N
         jLabel7.setText("Sản Phẩm");
+        jLabel7.setAlignmentY(0.0F);
         jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel7MouseClicked(evt);
@@ -230,9 +246,10 @@ public class MainAction extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/sand-watch_12457762.png"))); // NOI18N
         jLabel5.setText("Khuyến Mãi");
+        jLabel5.setAlignmentY(0.0F);
 
         javax.swing.GroupLayout JPkhuyenmaiLayout = new javax.swing.GroupLayout(JPkhuyenmai);
         JPkhuyenmai.setLayout(JPkhuyenmaiLayout);
@@ -252,10 +269,11 @@ public class MainAction extends javax.swing.JFrame {
         });
 
         jBanHang.setBackground(new java.awt.Color(0, 153, 153));
-        jBanHang.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jBanHang.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         jBanHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/add_13663406.png"))); // NOI18N
         jBanHang.setText("Bán Hàng");
         jBanHang.setToolTipText("");
+        jBanHang.setAlignmentY(0.0F);
         jBanHang.setFocusCycleRoot(true);
         jBanHang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -285,14 +303,14 @@ public class MainAction extends javax.swing.JFrame {
                         .addComponent(JPhoadon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(JPnhanvien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(JPkhachhang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(JPthonoke, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(JPnhaSanXuat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(JPsanpham, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(JPkhuyenmai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(JPexit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        JPnewLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {JPhoadon, JPkhachhang, JPkhuyenmai, JPnhanvien, JPsanpham, JPthonoke});
+        JPnewLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {JPhoadon, JPkhachhang, JPkhuyenmai, JPnhaSanXuat, JPnhanvien, JPsanpham});
 
         JPnewLayout.setVerticalGroup(
             JPnewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -308,14 +326,14 @@ public class MainAction extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(JPkhuyenmai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(JPthonoke, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(JPnhaSanXuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(JPhoadon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
                 .addComponent(JPexit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        JPnewLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {JPhoadon, JPkhachhang, JPkhuyenmai, JPnhanvien, JPsanpham, JPthonoke});
+        JPnewLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {JPhoadon, JPkhachhang, JPkhuyenmai, JPnhaSanXuat, JPnhanvien, JPsanpham});
 
         javax.swing.GroupLayout JPfullLayout = new javax.swing.GroupLayout(JPfull);
         JPfull.setLayout(JPfullLayout);
@@ -372,7 +390,7 @@ public class MainAction extends javax.swing.JFrame {
         setColorPanel(JPkhachhang);
         resetColorPanel(JPbanhang);
         resetColorPanel(JPnhanvien);
-        resetColorPanel(JPthonoke);
+        resetColorPanel(JPnhaSanXuat);
         resetColorPanel(JPsanpham);
         resetColorPanel(JPkhuyenmai);
         resetColorPanel(JPhoadon);
@@ -383,22 +401,14 @@ public class MainAction extends javax.swing.JFrame {
 
     private void JPhoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JPhoadonMouseClicked
         // TODO add your handling code here:
-        setColorPanel(JPhoadon);
-        resetColorPanel(JPkhachhang);
-        resetColorPanel(JPbanhang);
-        resetColorPanel(JPnhanvien);
-        resetColorPanel(JPthonoke);
-        resetColorPanel(JPkhuyenmai);
-        resetColorPanel(JPsanpham);
-
-        //showPanel(new formhoadon());
+        
     }//GEN-LAST:event_JPhoadonMouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         setColorPanel(JPnhanvien);
         resetColorPanel(JPkhachhang);
         resetColorPanel(JPbanhang);
-        resetColorPanel(JPthonoke);
+        resetColorPanel(JPnhaSanXuat);
         resetColorPanel(JPsanpham);
         resetColorPanel(JPkhuyenmai);
         resetColorPanel(JPhoadon);
@@ -406,29 +416,11 @@ public class MainAction extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void JPnhanvienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JPnhanvienMouseClicked
-        // TODO add your handling code here:
-        setColorPanel(JPnhanvien);
-        resetColorPanel(JPkhachhang);
-        resetColorPanel(JPbanhang);
-        resetColorPanel(JPthonoke);
-        resetColorPanel(JPsanpham);
-        resetColorPanel(JPkhuyenmai);
-        resetColorPanel(JPhoadon);
-
-        //showPanel(new formnhanvien());
+      
     }//GEN-LAST:event_JPnhanvienMouseClicked
 
     private void JPsanphamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JPsanphamMouseClicked
-        // TODO add your handling code here:
-        setColorPanel(JPsanpham);
-        resetColorPanel(JPkhachhang);
-        resetColorPanel(JPbanhang);
-        resetColorPanel(JPnhanvien);
-        resetColorPanel(JPthonoke);
-        resetColorPanel(JPkhuyenmai);
-        resetColorPanel(JPhoadon);
-
-        //showPanel(new formsanpham());
+      
     }//GEN-LAST:event_JPsanphamMouseClicked
 
     private void JPkhuyenmaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JPkhuyenmaiMouseClicked
@@ -437,11 +429,10 @@ public class MainAction extends javax.swing.JFrame {
         resetColorPanel(JPkhachhang);
         resetColorPanel(JPbanhang);
         resetColorPanel(JPnhanvien);
-        resetColorPanel(JPthonoke);
+        resetColorPanel(JPnhaSanXuat);
         resetColorPanel(JPsanpham);
         resetColorPanel(JPhoadon);
         showPanel(new formKhuyenMai());
-        //showPanel(new formkhuyenmai());
     }//GEN-LAST:event_JPkhuyenmaiMouseClicked
 
     private void JPexitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JPexitMouseClicked
@@ -450,23 +441,13 @@ public class MainAction extends javax.swing.JFrame {
     }//GEN-LAST:event_JPexitMouseClicked
 
     private void JPbanhangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JPbanhangMouseClicked
-        // TODO add your handling code here:
-        setColorPanel(JPbanhang);
-        resetColorPanel(JPkhachhang);
-        resetColorPanel(JPnhanvien);
-        resetColorPanel(JPthonoke);
-        resetColorPanel(JPsanpham);
-        resetColorPanel(JPkhuyenmai);
-        resetColorPanel(JPhoadon);
-
-        //showPanel(new formBanHangChinh());
     }//GEN-LAST:event_JPbanhangMouseClicked
 
     private void jBanHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBanHangMouseClicked
         setColorPanel(JPbanhang);
         resetColorPanel(JPkhachhang);
         resetColorPanel(JPnhanvien);
-        resetColorPanel(JPthonoke);
+        resetColorPanel(JPnhaSanXuat);
         resetColorPanel(JPsanpham);
         resetColorPanel(JPkhuyenmai);
         resetColorPanel(JPhoadon);
@@ -479,25 +460,41 @@ public class MainAction extends javax.swing.JFrame {
         setColorPanel(JPsanpham);
         resetColorPanel(JPkhachhang);
         resetColorPanel(JPnhanvien);
-        resetColorPanel(JPthonoke);
+        resetColorPanel(JPnhaSanXuat);
         resetColorPanel(JPbanhang);
         resetColorPanel(JPkhuyenmai);
         resetColorPanel(JPhoadon);
         showPanel(new formSanPham());
     }//GEN-LAST:event_jLabel7MouseClicked
 
-    private void JPthonokeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JPthonokeMouseClicked
-        // TODO add your handling code here:
-        setColorPanel(JPthonoke);
+    private void JPnhaSanXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JPnhaSanXuatMouseClicked
+        
+    }//GEN-LAST:event_JPnhaSanXuatMouseClicked
+
+    private void jHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jHoaDonMouseClicked
+        // TODO add your handling code here:setColorPanel(JPhoadon);
+        setColorPanel(JPhoadon);
         resetColorPanel(JPkhachhang);
         resetColorPanel(JPbanhang);
         resetColorPanel(JPnhanvien);
+        resetColorPanel(JPnhaSanXuat);
+        resetColorPanel(JPkhuyenmai);
         resetColorPanel(JPsanpham);
+
+        showPanel(new formHoaDon());
+    }//GEN-LAST:event_jHoaDonMouseClicked
+
+    private void jNSXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jNSXMouseClicked
+        // TODO add your handling code here:
+        setColorPanel(JPnhaSanXuat);
+        resetColorPanel(JPkhachhang);
+        resetColorPanel(JPnhanvien);
+        resetColorPanel(JPsanpham);
+        resetColorPanel(JPbanhang);
         resetColorPanel(JPkhuyenmai);
         resetColorPanel(JPhoadon);
-
-        //showPanel(new formthongke());
-    }//GEN-LAST:event_JPthonokeMouseClicked
+        showPanel(new formNhaSanXuat());
+    }//GEN-LAST:event_jNSXMouseClicked
 
     /**
      * @param args the command line arguments
@@ -545,17 +542,17 @@ public class MainAction extends javax.swing.JFrame {
     private javax.swing.JPanel JPkhachhang;
     private javax.swing.JPanel JPkhuyenmai;
     private javax.swing.JPanel JPnew;
+    private javax.swing.JPanel JPnhaSanXuat;
     private javax.swing.JPanel JPnhanvien;
     private javax.swing.JPanel JPsanpham;
-    private javax.swing.JPanel JPthonoke;
     private javax.swing.JLabel jBanHang;
     private javax.swing.JLabel jDangXuat;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jHoaDon;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jNSX;
     private javax.swing.JPanel jpn;
     // End of variables declaration//GEN-END:variables
 }

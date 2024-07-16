@@ -46,13 +46,15 @@ public class formSanPham extends javax.swing.JPanel {
         fillNSXComboBox();
         fillThuongHieuComboBox();
         fillKhoaAoComboBox();
+        clearForm();
+        clearFormSP();
     }
 
     public void showDuLieu() {
         tableModel.setRowCount(0);
         for (SanPham sp : dssp) {
             tableModel.addRow(new Object[]{
-                sp.getId_sanPham(), sp.getMaSanPham(), sp.getTenSanPham(), sp.getGia(), sp.getSoluongtonkho(), sp.getNgayTao(), sp.getNgaySua(), sp.getTenNSX(), sp.getTenThuongHieu(), sp.getTenChatLieu(), sp.getIMG(), sp.getTenKichThuoc(), sp.getTenMauSac(),sp.getLoaiKhoa(), sp.getId_SPCT()
+                sp.getId_SPCT(), sp.getMaSanPham(), sp.getTenSanPham(), sp.getGia(), sp.getSoluongtonkho(), sp.getNgayTao(), sp.getNgaySua(), sp.getTenNSX(), sp.getTenThuongHieu(), sp.getTenChatLieu(), sp.getIMG(), sp.getTenKichThuoc(), sp.getTenMauSac(),sp.getLoaiKhoa(), sp.getId_sanPham()
             });
 
         }
@@ -403,6 +405,12 @@ public class formSanPham extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel6.setText("NGÀY TẠO");
 
+        jNgayTao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jNgayTaoMouseEntered(evt);
+            }
+        });
+
         jLabel9.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel9.setText("NGÀY SỬA");
 
@@ -508,7 +516,7 @@ public class formSanPham extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID SẢN PHẨM", "MÃ SP", "TÊN SP", "GIÁ", "SỐ LƯỢNG TỒN KHO", "NGÀY TẠO", "NGÀY SỬA", "NSX", "THƯƠNG HIỆU", "CHẤT LIỆU", "HÌNH ẢNH", "KÍCH THƯỚC", "MÀU SẮC", "LOẠI KHÓA ÁO", "ID SPCT"
+                "ID SPCT", "MÃ SP", "TÊN SP", "GIÁ", "SỐ LƯỢNG TỒN KHO", "NGÀY TẠO", "NGÀY SỬA", "NSX", "THƯƠNG HIỆU", "CHẤT LIỆU", "HÌNH ẢNH", "KÍCH THƯỚC", "MÀU SẮC", "LOẠI KHÓA ÁO", "ID SẢN PHẨM"
             }
         ));
         tblSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -796,16 +804,16 @@ public class formSanPham extends javax.swing.JPanel {
         int confirm = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm sản phẩm ?", "Xác nhận", JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
-            if (sanPhamService.addSP(getForm()) != 0) {
+            if (sanPhamService.add(getForm()) != 0) {
                 JOptionPane.showMessageDialog(this, "Thêm thành công");
                 clearForm();
                 dssp = sanPhamService.getAll();
-                showData();
+                showDuLieu();
             } else {
                 JOptionPane.showMessageDialog(this, "Thêm không thành công");
             }
         } else {
-            showData();
+            showDuLieu();
         }
     }//GEN-LAST:event_btnThemActionPerformed
 
@@ -894,17 +902,16 @@ public class formSanPham extends javax.swing.JPanel {
         int row = tblSanPhamChinh.getSelectedRow();
         showDetailSP(row);
     }//GEN-LAST:event_tblSanPhamChinhMouseClicked
+
+    private void jNgayTaoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jNgayTaoMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jNgayTaoMouseEntered
     public void showDetail(int index) {
         SanPham sp = dssp.get(index);
         txtSoLuong.setText(String.valueOf(sp.getSoluongtonkho()));
         txtGia.setText(String.valueOf(sp.getGia()));
         jNgayTao.setDate(sp.getNgayTao());
-        if (sp.getNgaySua() == null) {
-            Date now = new Date();
-            jNgaySua.setDate(now);
-        } else {
-            jNgaySua.setDate(sp.getNgaySua());
-        }
+        jNgaySua.setDate(sp.getNgaySuaOrDefault());
 
         cboChatLieu.setSelectedItem(sp.getTenChatLieu());
         cboTenSanPham.setSelectedItem(sp.getTenSanPham());
@@ -919,12 +926,7 @@ public class formSanPham extends javax.swing.JPanel {
         txtTenSP.setText(sp.getTenSanPham());
         txtMaSP.setText(sp.getMaSanPham());
         jNgayTaoSP.setDate(sp.getNgayTao());
-        if (sp.getNgaySua() == null) {
-            Date now = new Date();
-            jNgaySuaSP.setDate(now);
-        } else {
-            jNgaySuaSP.setDate(sp.getNgaySua());
-        }
+        jNgaySuaSP.setDate(sp.getNgaySuaOrDefault());
 
         cboNSX.setSelectedItem(sp.getTenNSX());
         cboThuongHieu.setSelectedItem(sp.getTenThuongHieu());

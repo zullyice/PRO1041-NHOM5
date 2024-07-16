@@ -113,5 +113,7 @@ public class KhuyenMai {
     public String toString() {
         return "KhuyenMai{" + "id_khuyenMai=" + id_khuyenMai + ", tenKM=" + tenKM + ", ngayBatDau=" + ngayBatDau + ", ngayKetThuc=" + ngayKetThuc + ", giaTri=" + giaTri + ", donVi=" + donVi + ", trangThai=" + trangThai + ", ngayTao=" + ngayTao + ", ngaySua=" + ngaySua + '}';
     }
-    
+    public Date getNgaySuaOrDefault() {
+        return (ngaySua != null) ? ngaySua : new Date();
+    }
 }

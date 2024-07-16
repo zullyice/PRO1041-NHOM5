@@ -178,5 +178,8 @@ public class SanPham {
     public void setId_SPCT(int id_SPCT) {
         this.id_SPCT = id_SPCT;
     }
+    public Date getNgaySuaOrDefault() {
+        return (ngaySua != null) ? ngaySua : new Date();
+    }
 
 }

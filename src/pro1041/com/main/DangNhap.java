@@ -81,6 +81,11 @@ public class DangNhap extends javax.swing.JFrame {
         btnDangNhap.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         btnDangNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/login_3040755.png"))); // NOI18N
         btnDangNhap.setText("ĐĂNG NHẬP");
+        btnDangNhap.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDangNhapMouseEntered(evt);
+            }
+        });
         btnDangNhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDangNhapActionPerformed(evt);
@@ -93,6 +98,12 @@ public class DangNhap extends javax.swing.JFrame {
         btnThoat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThoatActionPerformed(evt);
+            }
+        });
+
+        txtPass.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtPassMouseEntered(evt);
             }
         });
 
@@ -212,6 +223,14 @@ public class DangNhap extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnThoatActionPerformed
 
+    private void btnDangNhapMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangNhapMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDangNhapMouseEntered
+
+    private void txtPassMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPassMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPassMouseEntered
+
     /**
      * @param args the command line arguments
      */
@@ -244,6 +263,7 @@ public class DangNhap extends javax.swing.JFrame {
             public void run() {
                 new DangNhap().setVisible(true);
             }
+            
         });
     }
 

@@ -636,6 +636,9 @@
                   </Properties>
                 </Component>
                 <Component class="com.toedter.calendar.JDateChooser" name="jNgayTao">
+                  <Events>
+                    <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jNgayTaoMouseEntered"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel9">
                   <Properties>
@@ -856,7 +859,7 @@
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="15" rowCount="0">
-                            <Column editable="true" title="ID S&#x1ea2;N PH&#x1ea8;M" type="java.lang.Object"/>
+                            <Column editable="true" title="ID SPCT" type="java.lang.Object"/>
                             <Column editable="true" title="M&#xc3; SP" type="java.lang.Object"/>
                             <Column editable="true" title="T&#xca;N SP" type="java.lang.Object"/>
                             <Column editable="true" title="GI&#xc1;" type="java.lang.Object"/>
@@ -870,7 +873,7 @@
                             <Column editable="true" title="K&#xcd;CH TH&#x1af;&#x1eda;C" type="java.lang.Object"/>
                             <Column editable="true" title="M&#xc0;U S&#x1eae;C" type="java.lang.Object"/>
                             <Column editable="true" title="LO&#x1ea0;I KH&#xd3;A &#xc1;O" type="java.lang.Object"/>
-                            <Column editable="true" title="ID SPCT" type="java.lang.Object"/>
+                            <Column editable="true" title="ID S&#x1ea2;N PH&#x1ea8;M" type="java.lang.Object"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

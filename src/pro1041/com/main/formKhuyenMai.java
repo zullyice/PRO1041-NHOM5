@@ -31,6 +31,7 @@ public class formKhuyenMai extends javax.swing.JPanel {
         dskm = khuyenMaiService.getAll();
         tblModel = (DefaultTableModel) tblKhuyenMai.getModel();
         showDuLieu();
+        clearForm();
     }
 
     public void showDuLieu() {
@@ -512,12 +513,7 @@ public class formKhuyenMai extends javax.swing.JPanel {
         jNgayBatDau.setDate(km.getNgayBatDau());
         jNgayKetThuc.setDate(km.getNgayKetThuc());
         jNgayTao.setDate(km.getNgayTao());
-        if (km.getNgaySua().toString().isEmpty() || km.getNgaySua() == null) {
-            Date now = new Date();
-            jNgaySua.setDate(now);
-        } else {
-            jNgaySua.setDate(km.getNgaySua());
-        }
+        jNgaySua.setDate(km.getNgaySuaOrDefault());
         Boolean trangThai = km.getTrangThai();
         if (trangThai == true) {
             rdoDangHoatDong.setSelected(true);

@@ -118,6 +118,8 @@ public class NhanVien {
         this.ngaySua = ngaySua;
     }
 
-    
+    public Date getNgaySuaOrDefault() {
+        return (ngaySua != null) ? ngaySua : new Date();
+    }
     
 }
