@@ -286,10 +286,6 @@ public class SanPhamService {
     }
 
     public int addSP(SanPham sanPham) {
-        if (sanPham.getMaSanPham().isEmpty() || sanPham.getTenSanPham().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Không được để trống");
-            return 0;
-        }
         String checkSql = """
                           SELECT COUNT(*) FROM [dbo].[SanPham] WHERE maSanPham = ?
                           """;
@@ -406,6 +402,8 @@ public class SanPhamService {
     }
 
     public int add(SanPham sanPham) {
+        String checkExistingSql = "SELECT COUNT(*) FROM [dbo].[SanPhamChiTiet] WHERE id_sanPham = "
+                + "(SELECT id_sanPham FROM [dbo].[SanPham] WHERE tenSanPham LIKE ?)";
         String sql = """
                  INSERT INTO [dbo].[SanPhamChiTiet]
                             ([id_chatLieu]
@@ -419,8 +417,14 @@ public class SanPhamService {
                       VALUES
                             (?,?,?,?,?,?,?,?)
                  """;
-        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql); 
+                PreparedStatement pscheck = con.prepareStatement(checkExistingSql)) {
+            pscheck.setString(1, "%" + sanPham.getTenSanPham() + "%");
+            ResultSet rs = pscheck.executeQuery();
+            if (rs.next() && rs.getInt(1) > 0) {
+                JOptionPane.showMessageDialog(null, "Tên sản phẩm đã tồn tại " + sanPham.getTenSanPham());
+                return 0;
+            }
             // Lấy id sản phẩm 
             String getIDSP = "SELECT id_sanPham FROM [SanPham] WHERE tenSanPham LIKE ?";
             PreparedStatement getIDSanPham = con.prepareStatement(getIDSP);

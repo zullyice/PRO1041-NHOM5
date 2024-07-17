@@ -161,7 +161,7 @@ public class MainAction extends javax.swing.JFrame {
 
         jNSX.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         jNSX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/information_12608297.png"))); // NOI18N
-        jNSX.setText("   Nhà Sản Xuất ");
+        jNSX.setText("Thuộc Tính");
         jNSX.setAlignmentY(0.0F);
         jNSX.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

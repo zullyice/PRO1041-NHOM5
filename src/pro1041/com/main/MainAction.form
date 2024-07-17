@@ -253,7 +253,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/pro1041/com/icon/information_12608297.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="   Nh&#xe0; S&#x1ea3;n Xu&#x1ea5;t "/>
+                    <Property name="text" type="java.lang.String" value="Thu&#x1ed9;c T&#xed;nh"/>
                     <Property name="alignmentY" type="float" value="0.0"/>
                   </Properties>
                   <Events>

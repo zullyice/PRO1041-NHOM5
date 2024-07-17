@@ -821,7 +821,6 @@ public class formSanPham extends javax.swing.JPanel {
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         String soLuong = txtSoLuong.getText().trim();
         String donGia = txtGia.getText().trim();
-        SanPham sanPham = new SanPham();
         // Check if the fields are empty
         if (soLuong.isEmpty() && donGia.isEmpty() && soLuong.isBlank() && donGia.isBlank()) {
             JOptionPane.showMessageDialog(this, "Số lượng và đơn giá không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
@@ -891,8 +890,10 @@ public class formSanPham extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Thêm thành công");
                 clearFormSP();
                 dsspFull = sanPhamService.getAllSP();
+                dssp = sanPhamService.getAll();
                 showData();
                 fillSanPhamComboBox();
+                
             } else {
                 JOptionPane.showMessageDialog(this, "Thêm không thành công");
             }
@@ -958,7 +959,10 @@ public class formSanPham extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Cập nhật thành công");
                 clearFormSP();
                 dsspFull = sanPhamService.getAllSP();
+                dssp = sanPhamService.getAll();
                 showData();
+                showDuLieu();
+                fillSanPhamComboBox();
             } else {
                 JOptionPane.showMessageDialog(this, "Cập nhật thất bại");
             }
