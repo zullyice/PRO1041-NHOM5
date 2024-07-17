@@ -10,6 +10,7 @@ import pro1041.com.entity.NhanVien;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
 import pro1041.com.utils.DBConnect;
 
 /**
@@ -46,6 +47,9 @@ public class NhanVienService {
     }
 
     public int add(NhanVien nv) {
+         String checkSql = """
+                          SELECT COUNT(*) FROM [dbo].[NhanVien] WHERE maNhanVien = ?
+                          """;
         String sql = """
                      INSERT INTO [dbo].[NhanVien]
                                 ([maNhanVien]
@@ -60,7 +64,14 @@ public class NhanVienService {
                           VALUES
                                 (?,?,?,?,?,?,?,?,?)
                      """;
-        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql);
+                PreparedStatement pscheck = con.prepareStatement(checkSql)) {
+            pscheck.setString(1, nv.getMaNhanVien());
+            ResultSet rs = pscheck.executeQuery();
+            if (rs.next() && rs.getInt(1) > 0) {
+                JOptionPane.showMessageDialog(null, "Mã nhân viên đã tồn tại " + nv.getMaNhanVien());
+                return 0;
+            }
             ps.setObject(1, nv.getMaNhanVien());
             ps.setObject(2, nv.getTenNhanVien());
             ps.setObject(3, nv.getTaiKhoan());

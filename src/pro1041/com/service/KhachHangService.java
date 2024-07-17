@@ -11,14 +11,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Tom
  */
 public class KhachHangService {
-
-    ArrayList<KhachHang> dskh = new ArrayList<>();
 
     public List<KhachHang> getAll() {
         String sql = """
@@ -40,6 +39,9 @@ public class KhachHangService {
     }
 
     public int add(KhachHang khachHang) {
+        String checkSql = """
+                          SELECT COUNT(*) FROM [dbo].[KhachHang] WHERE maKh = ?
+                          """;
         String sql = """
                     INSERT INTO [dbo].[KhachHang]
                                ([maKh]
@@ -53,7 +55,13 @@ public class KhachHangService {
                          VALUES
                                (?,?,?,?,?,?,?,?)
                      """;
-        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql); PreparedStatement pscheck = con.prepareStatement(checkSql)) {
+            pscheck.setString(1, khachHang.getMaKh());
+            ResultSet rs = pscheck.executeQuery();
+            if (rs.next() && rs.getInt(1) > 0) {
+                JOptionPane.showMessageDialog(null, "Mã khách hàng đã tồn tại " + khachHang.getMaKh() );
+                return 0;
+            }
             ps.setObject(1, khachHang.getMaKh());
             ps.setObject(2, khachHang.getHoTenKh());
             ps.setObject(3, khachHang.getDiaChi());
@@ -68,8 +76,8 @@ public class KhachHangService {
         }
         return 0;
     }
-    
-      public boolean xoa(int id) {
+
+    public boolean xoa(int id) {
         String sql = """
           DELETE FROM [dbo].[KhachHang]
                 WHERE id_khachHang=?
@@ -82,7 +90,8 @@ public class KhachHangService {
             return false;
         }
     }
-      public int sua(int id, KhachHang kh) {
+
+    public int sua(int id, KhachHang kh) {
         String sql = """
               UPDATE [dbo].[KhachHang]
                  SET [maKh] = ?
@@ -96,8 +105,8 @@ public class KhachHangService {
                WHERE id_khachHang=?
               """;
 
-        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)){
-            
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+
             ps.setObject(1, kh.getMaKh());
             ps.setObject(2, kh.getHoTenKh());
             ps.setObject(3, kh.getDiaChi());

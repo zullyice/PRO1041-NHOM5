@@ -286,6 +286,9 @@ public class SanPhamService {
     }
 
     public int addSP(SanPham sanPham) {
+         String checkSql = """
+                          SELECT COUNT(*) FROM [dbo].[SanPham] WHERE maSanPham = ?
+                          """;
         String sql = """
                  INSERT INTO [dbo].[SanPham]
                             ([maSanPham]
@@ -297,8 +300,14 @@ public class SanPhamService {
                       VALUES
                             (?,?,?,?,?,?)
                  """;
-        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql);
+                PreparedStatement pscheck = con.prepareStatement(checkSql)) {
+            pscheck.setString(1, sanPham.getMaSanPham());
+            ResultSet rs = pscheck.executeQuery();
+            if (rs.next() && rs.getInt(1) > 0) {
+                JOptionPane.showMessageDialog(null, "Mã sản phẩm đã tồn tại " + sanPham.getMaSanPham());
+                return 0;
+            }
             String getIDNSXuat = "SELECT id_NSX FROM [NhaSanXuat] WHERE tenNSX LIKE ?";
             PreparedStatement getIDNSX = con.prepareStatement(getIDNSXuat);
             getIDNSX.setString(1, "%" + sanPham.getTenNSX() + "%");
