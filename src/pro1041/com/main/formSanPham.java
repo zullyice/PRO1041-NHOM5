@@ -54,7 +54,7 @@ public class formSanPham extends javax.swing.JPanel {
         tableModel.setRowCount(0);
         for (SanPham sp : dssp) {
             tableModel.addRow(new Object[]{
-                sp.getId_SPCT(),sp.getId_sanPham(), sp.getMaSanPham(), sp.getTenSanPham(), sp.getGia(), sp.getSoluongtonkho(), sp.getNgayTao(), sp.getNgaySua(), sp.getTenNSX(), sp.getTenThuongHieu(), sp.getTenChatLieu(), sp.getKieuDang(), sp.getTenKichThuoc(), sp.getTenMauSac(), sp.getTenKhoa()
+                sp.getId_SPCT(), sp.getId_sanPham(), sp.getMaSanPham(), sp.getTenSanPham(), sp.getGia(), sp.getSoluongtonkho(), sp.getNgayTao(), sp.getNgaySua(), sp.getTenNSX(), sp.getTenThuongHieu(), sp.getTenChatLieu(), sp.getKieuDang(), sp.getTenKichThuoc(), sp.getTenMauSac(), sp.getTenKhoa()
             });
 
         }
@@ -748,7 +748,25 @@ public class formSanPham extends javax.swing.JPanel {
     }//GEN-LAST:event_tblSanPhamMouseClicked
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        String soLuong = txtSoLuong.getText().trim();
+        String donGia = txtGia.getText().trim();
 
+        // Check if the fields are empty
+        if (soLuong.isEmpty() || donGia.isEmpty() || soLuong.isBlank() || donGia.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Số lượng và đơn giá không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        try {
+            int soLuongInt = Integer.parseInt(soLuong);
+            double donGiaDouble = Double.parseDouble(donGia);
+            if (soLuongInt < 0 || donGiaDouble < 0) {
+                JOptionPane.showMessageDialog(this, "Số lượng và đơn giá phải là số dương", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Số lượng và đơn giá phải là số hợp lệ", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         int selectedRow = tblSanPham.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn dữ liệu cần cập nhật.");
@@ -801,7 +819,34 @@ public class formSanPham extends javax.swing.JPanel {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-
+        String soLuong = txtSoLuong.getText().trim();
+        String donGia = txtGia.getText().trim();
+        SanPham sanPham = new SanPham();
+        // Check if the fields are empty
+        if (soLuong.isEmpty() && donGia.isEmpty() && soLuong.isBlank() && donGia.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Số lượng và đơn giá không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else if (soLuong.isBlank() || soLuong.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Số lượng không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }else if (donGia.isBlank() || donGia.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Đơn giá không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        try {
+            int soLuongInt = Integer.parseInt(soLuong);
+            double donGiaDouble = Double.parseDouble(donGia);
+            if (soLuongInt < 0 ) {
+                JOptionPane.showMessageDialog(this, "Số lượng phải là số dương", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                return;
+            }else if(donGiaDouble < 0){
+                JOptionPane.showMessageDialog(this, "Đơn giá phải là số dương", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Số lượng và đơn giá phải là số hợp lệ", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         int confirm = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm sản phẩm ?", "Xác nhận", JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
@@ -819,7 +864,6 @@ public class formSanPham extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void txtGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGiaActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_txtGiaActionPerformed
 
     private void txtSoLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoLuongActionPerformed
@@ -828,6 +872,18 @@ public class formSanPham extends javax.swing.JPanel {
 
     private void btnThemSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemSPActionPerformed
         // TODO add your handling code here:
+        String maSP = txtMaSP.getText().trim();
+        String tenSP = txtTenSP.getText().trim();
+        if (maSP.isEmpty() && maSP.isBlank() && tenSP.isBlank() && tenSP.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Mã sản phẩm và tên không không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else if (maSP.isEmpty() || maSP.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Mã sản phẩm không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else if (tenSP.isEmpty() || tenSP.isBlank()) {
+            JOptionPane.showMessageDialog(this, " Tên sản phẩm không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         int confirm = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm sản phẩm ?", "Xác nhận", JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
@@ -836,6 +892,7 @@ public class formSanPham extends javax.swing.JPanel {
                 clearFormSP();
                 dsspFull = sanPhamService.getAllSP();
                 showData();
+                fillSanPhamComboBox();
             } else {
                 JOptionPane.showMessageDialog(this, "Thêm không thành công");
             }
@@ -875,12 +932,24 @@ public class formSanPham extends javax.swing.JPanel {
 
     private void btnSuaSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaSPActionPerformed
         // TODO add your handling code here:
+
         int selectedRow = tblSanPhamChinh.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn dữ liệu cần cập nhật.");
             return;
         }
-
+        String maSP = txtMaSP.getText().trim();
+        String tenSP = txtTenSP.getText().trim();
+        if (maSP.isEmpty() && maSP.isBlank() && tenSP.isBlank() && tenSP.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Mã sản phẩm và tên không không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else if (maSP.isEmpty() || maSP.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Mã sản phẩm không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else if (tenSP.isEmpty() || tenSP.isBlank()) {
+            JOptionPane.showMessageDialog(this, " Tên sản phẩm không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         int id = Integer.parseInt(tblSanPhamChinh.getValueAt(selectedRow, 0).toString());
         int confirm = JOptionPane.showConfirmDialog(this, "Bạn có muốn cập nhật dữ liệu không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
 

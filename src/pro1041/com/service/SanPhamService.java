@@ -65,20 +65,20 @@ public class SanPhamService {
             List<SanPham> dssp = new ArrayList<>();
             while (rs.next()) {
                 SanPham sp = new SanPham(
-                        rs.getInt(1), 
-                        rs.getInt(2), 
+                        rs.getInt(1),
+                        rs.getInt(2),
                         rs.getString(3),
-                        rs.getString(4), 
-                        rs.getInt(5), 
-                        rs.getInt(6), 
-                        rs.getDate(7), 
-                        rs.getDate(8), 
-                        rs.getString(9), 
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getInt(6),
+                        rs.getDate(7),
+                        rs.getDate(8),
+                        rs.getString(9),
                         rs.getString(10),
-                        rs.getString(11), 
-                        rs.getString(12), 
-                        rs.getString(13), 
-                        rs.getString(14), 
+                        rs.getString(11),
+                        rs.getString(12),
+                        rs.getString(13),
+                        rs.getString(14),
                         rs.getString(15));
                 dssp.add(sp);
             }
@@ -286,7 +286,11 @@ public class SanPhamService {
     }
 
     public int addSP(SanPham sanPham) {
-         String checkSql = """
+        if (sanPham.getMaSanPham().isEmpty() || sanPham.getTenSanPham().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Không được để trống");
+            return 0;
+        }
+        String checkSql = """
                           SELECT COUNT(*) FROM [dbo].[SanPham] WHERE maSanPham = ?
                           """;
         String sql = """
@@ -300,8 +304,7 @@ public class SanPhamService {
                       VALUES
                             (?,?,?,?,?,?)
                  """;
-        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql);
-                PreparedStatement pscheck = con.prepareStatement(checkSql)) {
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql); PreparedStatement pscheck = con.prepareStatement(checkSql)) {
             pscheck.setString(1, sanPham.getMaSanPham());
             ResultSet rs = pscheck.executeQuery();
             if (rs.next() && rs.getInt(1) > 0) {
@@ -341,7 +344,7 @@ public class SanPhamService {
         return 0;
     }
 
-    public int updateSP(int id,SanPham sanPham) {
+    public int updateSP(int id, SanPham sanPham) {
         String sql = """
                 UPDATE [dbo].[SanPham]
                     SET [maSanPham] = ?
@@ -451,7 +454,7 @@ public class SanPhamService {
             // Lấy id kieuDang
             String getIDHAQuery = "SELECT id_kieuDang FROM [KieuDang] WHERE tenKieuDang LIKE ?";
             PreparedStatement getIDHinhAnh = con.prepareStatement(getIDHAQuery);
-            getIDHinhAnh.setString(1, "%" + sanPham.getKieuDang()+ "%");
+            getIDHinhAnh.setString(1, "%" + sanPham.getKieuDang() + "%");
             ResultSet kdResult = getIDHinhAnh.executeQuery();
             if (!kdResult.next()) {
                 throw new SQLException("Cannot find KieuDang for: " + sanPham.getKieuDang());
@@ -470,7 +473,7 @@ public class SanPhamService {
             // Lấy id khóa áo
             String getIDKAQuery = "SELECT id_khoaAo FROM [KhoaAo] WHERE tenKhoa LIKE ?";
             PreparedStatement getIDKhoaAo = con.prepareStatement(getIDKAQuery);
-            getIDKhoaAo.setString(1, "%" + sanPham.getTenKhoa()+ "%");
+            getIDKhoaAo.setString(1, "%" + sanPham.getTenKhoa() + "%");
             ResultSet kaResult = getIDKhoaAo.executeQuery();
             if (!kaResult.next()) {
                 throw new SQLException("Cannot find KhoaAo for: " + sanPham.getTenKhoa());
@@ -493,7 +496,7 @@ public class SanPhamService {
         return 0;
     }
 
-    public int update(int id,SanPham sanPham) {
+    public int update(int id, SanPham sanPham) {
         String sql = """
                  UPDATE [dbo].[SanPhamChiTiet]
                     SET [id_chatLieu] = ?
@@ -541,7 +544,7 @@ public class SanPhamService {
             // Lấy id kieuDang
             String getIDHAQuery = "SELECT id_kieuDang FROM [KieuDang] WHERE tenKieuDang LIKE ?";
             PreparedStatement getIDHinhAnh = con.prepareStatement(getIDHAQuery);
-            getIDHinhAnh.setString(1, "%" + sanPham.getKieuDang()+ "%");
+            getIDHinhAnh.setString(1, "%" + sanPham.getKieuDang() + "%");
             ResultSet kdResult = getIDHinhAnh.executeQuery();
             if (!kdResult.next()) {
                 throw new SQLException("Cannot find KieuDang for: " + sanPham.getKieuDang());
@@ -560,7 +563,7 @@ public class SanPhamService {
             // Lấy id khóa áo
             String getIDKAQuery = "SELECT id_khoaAo FROM [KhoaAo] WHERE tenKhoa LIKE ?";
             PreparedStatement getIDKhoaAo = con.prepareStatement(getIDKAQuery);
-            getIDKhoaAo.setString(1, "%" + sanPham.getTenKhoa()+ "%");
+            getIDKhoaAo.setString(1, "%" + sanPham.getTenKhoa() + "%");
             ResultSet kaResult = getIDKhoaAo.executeQuery();
             if (!kaResult.next()) {
                 throw new SQLException("Cannot find KhoaAo for: " + sanPham.getTenKhoa());
