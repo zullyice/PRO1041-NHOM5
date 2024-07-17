@@ -4,7 +4,6 @@
  */
 package pro1041.com.main;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import pro1041.com.entity.HoaDon;
@@ -19,8 +18,7 @@ public class formHoaDon extends javax.swing.JPanel {
     private HoaDonService hoaDonService = new HoaDonService();
     private DefaultTableModel dtm = new DefaultTableModel();
     private DefaultTableModel tbm = new DefaultTableModel();
-    private int a = -1;
-    private int b = -1;
+   
 
     /**
      * Creates new form formHoaDon
@@ -49,9 +47,7 @@ public class formHoaDon extends javax.swing.JPanel {
             );
 
         }
-
     }
-
     void showTable(List<HoaDon> list) {
         tbm = (DefaultTableModel) tblHoaDonChiTiet.getModel();
         tbm.setRowCount(0);
@@ -175,7 +171,7 @@ public class formHoaDon extends javax.swing.JPanel {
 
     private void tblHoaDonChiTietMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonChiTietMouseClicked
         // TODO add your handling code here:
-        b = tblHoaDonChiTiet.getSelectedRow();
+        int row = tblHoaDonChiTiet.getSelectedRow();
     }//GEN-LAST:event_tblHoaDonChiTietMouseClicked
 
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked

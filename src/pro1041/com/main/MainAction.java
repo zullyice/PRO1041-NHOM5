@@ -85,7 +85,7 @@ public class MainAction extends javax.swing.JFrame {
 
         jHoaDon.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         jHoaDon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/tax-planning_15636855.png"))); // NOI18N
-        jHoaDon.setText("Hóa Đơn");
+        jHoaDon.setText("   Hóa Đơn");
         jHoaDon.setAlignmentY(0.0F);
         jHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -112,7 +112,7 @@ public class MainAction extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/man_16044770.png"))); // NOI18N
-        jLabel3.setText("Nhân Viên");
+        jLabel3.setText("    Nhân Viên");
         jLabel3.setAlignmentY(0.0F);
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -139,7 +139,7 @@ public class MainAction extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/team_924520.png"))); // NOI18N
-        jLabel4.setText("Khách Hàng");
+        jLabel4.setText("    Khách Hàng");
         jLabel4.setAlignmentY(0.0F);
 
         javax.swing.GroupLayout JPkhachhangLayout = new javax.swing.GroupLayout(JPkhachhang);
@@ -161,7 +161,7 @@ public class MainAction extends javax.swing.JFrame {
 
         jNSX.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         jNSX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/information_12608297.png"))); // NOI18N
-        jNSX.setText("Nhà Sản Xuất ");
+        jNSX.setText("   Nhà Sản Xuất ");
         jNSX.setAlignmentY(0.0F);
         jNSX.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -188,7 +188,7 @@ public class MainAction extends javax.swing.JFrame {
         });
 
         jDangXuat.setBackground(new java.awt.Color(0, 153, 153));
-        jDangXuat.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jDangXuat.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jDangXuat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/exit_3094700.png"))); // NOI18N
         jDangXuat.setText("Đăng xuất");
         jDangXuat.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -221,7 +221,7 @@ public class MainAction extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/takeaway_12648452.png"))); // NOI18N
-        jLabel7.setText("Sản Phẩm");
+        jLabel7.setText("    Sản Phẩm");
         jLabel7.setAlignmentY(0.0F);
         jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -248,7 +248,7 @@ public class MainAction extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/sand-watch_12457762.png"))); // NOI18N
-        jLabel5.setText("Khuyến Mãi");
+        jLabel5.setText("   Khuyến Mãi");
         jLabel5.setAlignmentY(0.0F);
 
         javax.swing.GroupLayout JPkhuyenmaiLayout = new javax.swing.GroupLayout(JPkhuyenmai);
@@ -271,7 +271,7 @@ public class MainAction extends javax.swing.JFrame {
         jBanHang.setBackground(new java.awt.Color(0, 153, 153));
         jBanHang.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         jBanHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/add_13663406.png"))); // NOI18N
-        jBanHang.setText("Bán Hàng");
+        jBanHang.setText("   Bán Hàng");
         jBanHang.setToolTipText("");
         jBanHang.setAlignmentY(0.0F);
         jBanHang.setFocusCycleRoot(true);

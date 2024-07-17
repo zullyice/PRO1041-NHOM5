@@ -151,7 +151,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/pro1041/com/icon/tax-planning_15636855.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="H&#xf3;a &#x110;&#x1a1;n"/>
+                    <Property name="text" type="java.lang.String" value="   H&#xf3;a &#x110;&#x1a1;n"/>
                     <Property name="alignmentY" type="float" value="0.0"/>
                   </Properties>
                   <Events>
@@ -186,7 +186,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/pro1041/com/icon/man_16044770.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Nh&#xe2;n Vi&#xea;n"/>
+                    <Property name="text" type="java.lang.String" value="    Nh&#xe2;n Vi&#xea;n"/>
                     <Property name="alignmentY" type="float" value="0.0"/>
                   </Properties>
                   <Events>
@@ -221,7 +221,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/pro1041/com/icon/team_924520.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Kh&#xe1;ch H&#xe0;ng"/>
+                    <Property name="text" type="java.lang.String" value="    Kh&#xe1;ch H&#xe0;ng"/>
                     <Property name="alignmentY" type="float" value="0.0"/>
                   </Properties>
                 </Component>
@@ -253,7 +253,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/pro1041/com/icon/information_12608297.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Nh&#xe0; S&#x1ea3;n Xu&#x1ea5;t "/>
+                    <Property name="text" type="java.lang.String" value="   Nh&#xe0; S&#x1ea3;n Xu&#x1ea5;t "/>
                     <Property name="alignmentY" type="float" value="0.0"/>
                   </Properties>
                   <Events>
@@ -298,7 +298,7 @@
                       <Color blue="99" green="99" red="0" type="rgb"/>
                     </Property>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="12" style="1"/>
+                      <Font name="Times New Roman" size="14" style="1"/>
                     </Property>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/pro1041/com/icon/exit_3094700.png"/>
@@ -337,7 +337,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/pro1041/com/icon/takeaway_12648452.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="S&#x1ea3;n Ph&#x1ea9;m"/>
+                    <Property name="text" type="java.lang.String" value="    S&#x1ea3;n Ph&#x1ea9;m"/>
                     <Property name="alignmentY" type="float" value="0.0"/>
                   </Properties>
                   <Events>
@@ -372,7 +372,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/pro1041/com/icon/sand-watch_12457762.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Khuy&#x1ebf;n M&#xe3;i"/>
+                    <Property name="text" type="java.lang.String" value="   Khuy&#x1ebf;n M&#xe3;i"/>
                     <Property name="alignmentY" type="float" value="0.0"/>
                   </Properties>
                 </Component>
@@ -407,7 +407,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/pro1041/com/icon/add_13663406.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="B&#xe1;n H&#xe0;ng"/>
+                    <Property name="text" type="java.lang.String" value="   B&#xe1;n H&#xe0;ng"/>
                     <Property name="toolTipText" type="java.lang.String" value=""/>
                     <Property name="alignmentY" type="float" value="0.0"/>
                     <Property name="focusCycleRoot" type="boolean" value="true"/>
