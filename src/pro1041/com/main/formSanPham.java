@@ -835,6 +835,12 @@ public class formSanPham extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        txtMaThuocTinh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMaThuocTinhActionPerformed(evt);
+            }
+        });
+
         txtTenThuocTinh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTenThuocTinhActionPerformed(evt);
@@ -1240,7 +1246,6 @@ public class formSanPham extends javax.swing.JPanel {
                 dssp = sanPhamService.getAll();
                 showData();
                 fillSanPhamComboBox();
-
             } else {
                 JOptionPane.showMessageDialog(this, "Thêm không thành công");
             }
@@ -1391,6 +1396,15 @@ public class formSanPham extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 fillCL();
                 clearForm();
+                dssp = sanPhamService.getAll();
+                fillChatLieuComboBox();
+                fillKhoaAoComboBox();
+                fillKieuDangComboBox();
+                fillKichThuocComboBox();
+                fillMauSacComboBox();
+                fillThuongHieuComboBox();
+                fillNSXComboBox();
+                showDuLieu();
             } else {
                 JOptionPane.showMessageDialog(this, "Thêm không thành công", "Thông báo", JOptionPane.ERROR_MESSAGE);
             }
@@ -1406,6 +1420,15 @@ public class formSanPham extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 fillKT();
                 clearForm();
+                dssp = sanPhamService.getAll();
+                fillChatLieuComboBox();
+                fillKhoaAoComboBox();
+                fillKieuDangComboBox();
+                fillKichThuocComboBox();
+                fillMauSacComboBox();
+                fillThuongHieuComboBox();
+                fillNSXComboBox();
+                showDuLieu();
             } else {
                 JOptionPane.showMessageDialog(this, "Thêm không thành công", "Thông báo", JOptionPane.ERROR_MESSAGE);
             }
@@ -1421,6 +1444,15 @@ public class formSanPham extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 fillMS();
                 clearForm();
+                dssp = sanPhamService.getAll();
+                fillChatLieuComboBox();
+                fillKhoaAoComboBox();
+                fillKieuDangComboBox();
+                fillKichThuocComboBox();
+                fillMauSacComboBox();
+                fillThuongHieuComboBox();
+                fillNSXComboBox();
+                showDuLieu();
             } else {
                 JOptionPane.showMessageDialog(this, "Thêm không thành công", "Thông báo", JOptionPane.ERROR_MESSAGE);
             }
@@ -1443,6 +1475,15 @@ public class formSanPham extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Cập nhật thành công");
                 fillCL();
                 clearForm();
+                dssp = sanPhamService.getAll();
+                fillChatLieuComboBox();
+                fillKhoaAoComboBox();
+                fillKieuDangComboBox();
+                fillKichThuocComboBox();
+                fillMauSacComboBox();
+                fillThuongHieuComboBox();
+                fillNSXComboBox();
+                showDuLieu();
             } else {
                 JOptionPane.showMessageDialog(this, "Không tìm thấy mã để cập nhật", "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
@@ -1460,6 +1501,15 @@ public class formSanPham extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Cập nhật thành công");
                 fillKT();
                 clearForm();
+                dssp = sanPhamService.getAll();
+                fillChatLieuComboBox();
+                fillKhoaAoComboBox();
+                fillKieuDangComboBox();
+                fillKichThuocComboBox();
+                fillMauSacComboBox();
+                fillThuongHieuComboBox();
+                fillNSXComboBox();
+                showDuLieu();
             } else {
                 JOptionPane.showMessageDialog(this, "Không tìm thấy mã để cập nhật", "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
@@ -1477,6 +1527,15 @@ public class formSanPham extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Cập nhật thành công");
                 fillMS();
                 clearForm();
+                dssp = sanPhamService.getAll();
+                fillChatLieuComboBox();
+                fillKhoaAoComboBox();
+                fillKieuDangComboBox();
+                fillKichThuocComboBox();
+                fillMauSacComboBox();
+                fillThuongHieuComboBox();
+                fillNSXComboBox();
+                showDuLieu();
             } else {
                 JOptionPane.showMessageDialog(this, "Không tìm thấy mã để cập nhật", "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
@@ -1514,6 +1573,10 @@ public class formSanPham extends javax.swing.JPanel {
             fillMS();
         }
     }//GEN-LAST:event_tblBangMouseClicked
+
+    private void txtMaThuocTinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaThuocTinhActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMaThuocTinhActionPerformed
     public void showDetail(int index) {
         SanPham sp = dssp.get(index);
         txtSoLuong.setText(String.valueOf(sp.getSoluongtonkho()));

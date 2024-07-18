@@ -23,7 +23,6 @@ public class kichThuocDao {
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 kichThuoc t = new kichThuoc();
-//                t.setId(rs.getInt("id_kichThuoc"));
                 t.setMaKichThuoc(rs.getString("maKichThuoc"));
                 t.setTenKichThuoc(rs.getString("tenKichThuoc"));
                 t.setNgayTao(rs.getDate("ngayTao"));
@@ -44,12 +43,8 @@ public class kichThuocDao {
         try (Connection conn = dbconnect.getConnection(); PreparedStatement pst = conn.prepareCall(sql)){
             pst.setObject(1,kichthuoc.getMaKichThuoc());
             pst.setObject(2,kichthuoc.getTenKichThuoc());
-//            pst.setObject(3,kichthuoc.getNgayTao());
-//            pst.setObject(4,kichthuoc.getNgaySua());
-//             pst.setBoolean(5, kichthuoc.isTrangThai()); 
+            
             return pst.executeUpdate();
-            
-            
         } catch (Exception e) {
             e.printStackTrace();
         }
