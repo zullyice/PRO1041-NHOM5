@@ -27,7 +27,6 @@ public class SanPhamService {
                      SELECT 
                      spc.id_SPCT,
                          sp.id_sanPham,
-                         sp.maSanPham,
                          sp.tenSanPham,
                          spc.gia,
                      	    spc.soluongtonkho,
@@ -68,18 +67,17 @@ public class SanPhamService {
                         rs.getInt(1),
                         rs.getInt(2),
                         rs.getString(3),
-                        rs.getString(4),
+                        rs.getInt(4),
                         rs.getInt(5),
-                        rs.getInt(6),
+                        rs.getDate(6),
                         rs.getDate(7),
-                        rs.getDate(8),
+                        rs.getString(8),
                         rs.getString(9),
                         rs.getString(10),
                         rs.getString(11),
                         rs.getString(12),
                         rs.getString(13),
-                        rs.getString(14),
-                        rs.getString(15));
+                        rs.getString(14));
                 dssp.add(sp);
             }
             return dssp;
@@ -92,7 +90,6 @@ public class SanPhamService {
     public List<SanPham> getAllSP() {
         String sql = """
                      SELECT sp.id_sanPham
-                                                                         ,maSanPham
                                                                          ,tenSanPham
                                                                          ,sp.ngayTao
                                                                          ,sp.ngaySua,
@@ -108,7 +105,7 @@ public class SanPhamService {
             ResultSet rs = ps.executeQuery();
             List<SanPham> dssp = new ArrayList<>();
             while (rs.next()) {
-                SanPham sp = new SanPham(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getDate(5), rs.getString(6), rs.getString(7));
+                SanPham sp = new SanPham(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getDate(4), rs.getString(5), rs.getString(6));
                 dssp.add(sp);
             }
             return dssp;
@@ -286,27 +283,21 @@ public class SanPhamService {
     }
 
     public int addSP(SanPham sanPham) {
-        String checkSql = """
-                          SELECT COUNT(*) FROM [dbo].[SanPham] WHERE maSanPham = ?
-                          """;
+        
         String sql = """
                  INSERT INTO [dbo].[SanPham]
-                            ([maSanPham]
-                            ,[tenSanPham]
+                            (
+                            [tenSanPham]
                             ,[ngayTao]
                             ,[ngaySua]
                             ,[id_thuongHieu]
                             ,[id_NSX])
                       VALUES
-                            (?,?,?,?,?,?)
+                            (?,?,?,?,?)
                  """;
-        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql); PreparedStatement pscheck = con.prepareStatement(checkSql)) {
-            pscheck.setString(1, sanPham.getMaSanPham());
-            ResultSet rs = pscheck.executeQuery();
-            if (rs.next() && rs.getInt(1) > 0) {
-                JOptionPane.showMessageDialog(null, "Mã sản phẩm đã tồn tại " + sanPham.getMaSanPham());
-                return 0;
-            }
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+            
+            
             String getIDNSXuat = "SELECT id_NSX FROM [NhaSanXuat] WHERE tenNSX LIKE ?";
             PreparedStatement getIDNSX = con.prepareStatement(getIDNSXuat);
             getIDNSX.setString(1, "%" + sanPham.getTenNSX() + "%");
@@ -326,12 +317,11 @@ public class SanPhamService {
             int idth = clResult.getInt("id_thuongHieu");
 
             // Thiết lập các tham số cho PreparedStatement
-            ps.setObject(1, sanPham.getMaSanPham());
-            ps.setObject(2, sanPham.getTenSanPham());
-            ps.setObject(3, sanPham.getNgayTao());
-            ps.setObject(4, sanPham.getNgaySua());
-            ps.setObject(5, idth);
-            ps.setObject(6, idNSX);
+            ps.setObject(1, sanPham.getTenSanPham());
+            ps.setObject(2, sanPham.getNgayTao());
+            ps.setObject(3, sanPham.getNgaySua());
+            ps.setObject(4, idth);
+            ps.setObject(5, idNSX);
 
             return ps.executeUpdate();
         } catch (Exception e) {
@@ -341,18 +331,20 @@ public class SanPhamService {
     }
 
     public int updateSP(int id, SanPham sanPham) {
+        
         String sql = """
                 UPDATE [dbo].[SanPham]
-                    SET [maSanPham] = ?
-                       ,[tenSanPham] = ?
+                    SET 
+                       [tenSanPham] = ?
                        ,[ngayTao] = ?
                        ,[ngaySua] = ?
                        ,[id_thuongHieu] = ?
                        ,[id_NSX] = ?
                   WHERE id_sanPham = ?
                  """;
-        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql);
+                ) {
+            
             String getIDNSXuat = "SELECT id_NSX FROM [NhaSanXuat] WHERE tenNSX LIKE ?";
             PreparedStatement getIDNSX = con.prepareStatement(getIDNSXuat);
             getIDNSX.setString(1, "%" + sanPham.getTenNSX() + "%");
@@ -372,15 +364,14 @@ public class SanPhamService {
             int idth = idthuongHieu.getInt("id_thuongHieu");
 
             // Thiết lập các tham số cho PreparedStatement
-            ps.setObject(1, sanPham.getMaSanPham());
-            ps.setObject(2, sanPham.getTenSanPham());
-            ps.setObject(3, sanPham.getNgayTao());
-            ps.setObject(4, sanPham.getNgaySua());
-            ps.setObject(5, idth);
-            ps.setObject(6, idNSX);
-            ps.setObject(7, id);
-
-            return ps.executeUpdate();
+            ps.setObject(1, sanPham.getTenSanPham());
+            ps.setObject(2, sanPham.getNgayTao());
+            ps.setObject(3, sanPham.getNgaySua());
+            ps.setObject(4, idth);
+            ps.setObject(5, idNSX);
+            ps.setObject(6, id);
+            int result = ps.executeUpdate();
+            return result;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -402,8 +393,6 @@ public class SanPhamService {
     }
 
     public int add(SanPham sanPham) {
-        String checkExistingSql = "SELECT COUNT(*) FROM [dbo].[SanPhamChiTiet] WHERE id_sanPham = "
-                + "(SELECT id_sanPham FROM [dbo].[SanPham] WHERE tenSanPham LIKE ?)";
         String sql = """
                  INSERT INTO [dbo].[SanPhamChiTiet]
                             ([id_chatLieu]
@@ -417,14 +406,8 @@ public class SanPhamService {
                       VALUES
                             (?,?,?,?,?,?,?,?)
                  """;
-        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql); 
-                PreparedStatement pscheck = con.prepareStatement(checkExistingSql)) {
-            pscheck.setString(1, "%" + sanPham.getTenSanPham() + "%");
-            ResultSet rs = pscheck.executeQuery();
-            if (rs.next() && rs.getInt(1) > 0) {
-                JOptionPane.showMessageDialog(null, "Tên sản phẩm đã tồn tại " + sanPham.getTenSanPham());
-                return 0;
-            }
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+
             // Lấy id sản phẩm 
             String getIDSP = "SELECT id_sanPham FROM [SanPham] WHERE tenSanPham LIKE ?";
             PreparedStatement getIDSanPham = con.prepareStatement(getIDSP);
@@ -500,15 +483,15 @@ public class SanPhamService {
         return 0;
     }
 
-    public int update(int id, SanPham sanPham) {
+    public int update(int id,SanPham sanPham) {
         String sql = """
                  UPDATE [dbo].[SanPhamChiTiet]
                     SET [id_chatLieu] = ?
                        ,[id_kichThuoc] = ?
                        ,[id_sanPham] = ?
                        ,[id_mauSac] = ?
-                       ,[id_kieuDang] = ?,
-                        [id_khoaAo]=?
+                       ,[id_kieuDang] = ?
+                        ,[id_khoaAo]= ?
                        ,[gia] = ?
                        ,[soluongtonkho] = ?
                   WHERE id_SPCT = ?
@@ -546,10 +529,10 @@ public class SanPhamService {
             int idkt = ktResult.getInt("id_kichThuoc");
 
             // Lấy id kieuDang
-            String getIDHAQuery = "SELECT id_kieuDang FROM [KieuDang] WHERE tenKieuDang LIKE ?";
-            PreparedStatement getIDHinhAnh = con.prepareStatement(getIDHAQuery);
-            getIDHinhAnh.setString(1, "%" + sanPham.getKieuDang() + "%");
-            ResultSet kdResult = getIDHinhAnh.executeQuery();
+            String getIDKDQuery = "SELECT id_kieuDang FROM [KieuDang] WHERE tenKieuDang LIKE ?";
+            PreparedStatement getKieuDang = con.prepareStatement(getIDKDQuery);
+            getKieuDang.setString(1, "%" + sanPham.getKieuDang() + "%");
+            ResultSet kdResult = getKieuDang.executeQuery();
             if (!kdResult.next()) {
                 throw new SQLException("Cannot find KieuDang for: " + sanPham.getKieuDang());
             }
@@ -583,7 +566,6 @@ public class SanPhamService {
             ps.setObject(7, sanPham.getGia());
             ps.setObject(8, sanPham.getSoluongtonkho());
             ps.setObject(9, id);
-
             return ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -593,8 +575,8 @@ public class SanPhamService {
 
     public boolean xoa(int id) {
         String sql = """
-                     DELETE FROM [dbo].[SanPhamChiTiet]
-                                            WHERE id_SPCT = ?
+                         DELETE 
+                       FROM [dbo].[SanPhamChiTiet] WHERE id_SPCT = ?
                      """;
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setObject(1, id);

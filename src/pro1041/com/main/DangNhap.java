@@ -201,26 +201,18 @@ public class DangNhap extends javax.swing.JFrame {
             String username = txtUser.getText();
             String password = new String(txtPass.getPassword());
             if (authenticate(username, password)) {
-                JOptionPane.showMessageDialog(null, "Đăng nhập thành công !");
+                JOptionPane.showMessageDialog(null, "Đăng nhập thành công !","Success", JOptionPane.INFORMATION_MESSAGE);
                 new MainAction().setVisible(true);
                 this.dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "Sai tài khoản hoặc mật khẩu ");
+                JOptionPane.showMessageDialog(this, "Sai tài khoản hoặc mật khẩu ","Thông báo", JOptionPane.ERROR_MESSAGE);
             }
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     private void btnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatActionPerformed
         // TODO add your handling code here:
-        int click = JOptionPane.showConfirmDialog(null, "Bạn có muốn thoát không !");
-        if (click == JOptionPane.YES_OPTION) {
-            System.exit(0);
-        }
-        if (click == JOptionPane.NO_OPTION) {
-        }
-        if (click == JOptionPane.CANCEL_OPTION) {
-        }
-        if (click == JOptionPane.CLOSED_OPTION) {
-        }
+           System.exit(0);
+        
     }//GEN-LAST:event_btnThoatActionPerformed
 
     private void btnDangNhapMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDangNhapMouseEntered

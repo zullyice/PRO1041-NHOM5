@@ -13,7 +13,6 @@ import java.util.Date;
 public class SanPham {
 
     private int id_sanPham;
-    private String maSanPham;
     private String tenSanPham;
     private int gia;
     private int soluongtonkho;
@@ -33,9 +32,8 @@ public class SanPham {
 
    
 
-    public SanPham(int id_sanPham, String maSanPham, String tenSanPham, Date ngayTao, Date ngaySua, String tenNSX, String tenThuongHieu) {
+    public SanPham(int id_sanPham, String tenSanPham, Date ngayTao, Date ngaySua, String tenNSX, String tenThuongHieu) {
         this.id_sanPham = id_sanPham;
-        this.maSanPham = maSanPham;
         this.tenSanPham = tenSanPham;
         this.ngayTao = ngayTao;
         this.ngaySua = ngaySua;
@@ -43,9 +41,8 @@ public class SanPham {
         this.tenThuongHieu = tenThuongHieu;
     }
     
-    public SanPham(int id_SPCT,int id_sanPham, String maSanPham, String tenSanPham, int gia, int soluongtonkho, Date ngayTao, Date ngaySua, String tenNSX, String tenThuongHieu, String tenChatLieu, String kieuDang,String tenKichThuoc, String tenMauSac, String tenKhoa) {
+    public SanPham(int id_SPCT,int id_sanPham , String tenSanPham, int gia, int soluongtonkho, Date ngayTao, Date ngaySua, String tenNSX, String tenThuongHieu, String tenChatLieu, String kieuDang,String tenKichThuoc, String tenMauSac, String tenKhoa) {
         this.id_sanPham = id_sanPham;
-        this.maSanPham = maSanPham;
         this.tenSanPham = tenSanPham;
         this.gia = gia;
         this.soluongtonkho = soluongtonkho;
@@ -72,13 +69,7 @@ public class SanPham {
         this.id_sanPham = id_sanPham;
     }
 
-    public String getMaSanPham() {
-        return maSanPham;
-    }
-
-    public void setMaSanPham(String maSanPham) {
-        this.maSanPham = maSanPham;
-    }
+    
 
     public String getTenSanPham() {
         return tenSanPham;

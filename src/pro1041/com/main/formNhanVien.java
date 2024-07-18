@@ -9,8 +9,6 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import pro1041.com.entity.KhachHang;
-import pro1041.com.entity.KhuyenMai;
 import pro1041.com.entity.NhanVien;
 import pro1041.com.service.NhanVienService;
 
