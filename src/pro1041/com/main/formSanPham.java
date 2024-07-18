@@ -986,7 +986,7 @@ public class formSanPham extends javax.swing.JPanel {
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnAdd1)
+                .addComponent(btnAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSuaThuocTinh)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1382,9 +1382,14 @@ public class formSanPham extends javax.swing.JPanel {
     private void btnAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd1ActionPerformed
         String maThuocTinh = txtMaThuocTinh.getText();
         String tenThuocTinh = txtTenThuocTinh.getText();
-
+        
         if (rdoChatLieu.isSelected()) {
             if (!checkForm()) {
+                return;
+            }
+            if(clDao.checkIdTrung(maThuocTinh)){
+                JOptionPane.showMessageDialog(this, "Không được để trùng mã","Thông báo",JOptionPane.WARNING_MESSAGE);
+                txtMaThuocTinh.requestFocus();
                 return;
             }
             chatLieu chatLieu1 = new chatLieu();
@@ -1413,6 +1418,11 @@ public class formSanPham extends javax.swing.JPanel {
             if (!checkForm()) {
                 return;
             }
+            if(kichDao.checkIdTrung(maThuocTinh)){
+                JOptionPane.showMessageDialog(this, "Không được để trùng mã","Thông báo",JOptionPane.WARNING_MESSAGE);
+                txtMaThuocTinh.requestFocus();
+                return;
+            }
             kichThuoc kicThuoc = new kichThuoc();
             kicThuoc.setMaKichThuoc(maThuocTinh);
             kicThuoc.setTenKichThuoc(tenThuocTinh);
@@ -1435,6 +1445,11 @@ public class formSanPham extends javax.swing.JPanel {
         }
         if (rdoMauSac.isSelected()) {
             if (!checkForm()) {
+                return;
+            }
+            if(mauS.checkIdTrung(maThuocTinh)){
+                JOptionPane.showMessageDialog(this, "Không được để trùng mã","Thông báo",JOptionPane.WARNING_MESSAGE);
+                txtMaThuocTinh.requestFocus();
                 return;
             }
             MauSac mauSac = new MauSac();
@@ -1466,11 +1481,10 @@ public class formSanPham extends javax.swing.JPanel {
             if (!checkForm()) {
                 return;
             }
-
             chatLieu chatLieu1 = new chatLieu();
             chatLieu1.setMachatLieu(maThuocTinh);
             chatLieu1.setTenchatLieu(tenThuocTinh);
-
+            
             if (clDao.Update(chatLieu1, maThuocTinh) > 0) {
                 JOptionPane.showMessageDialog(this, "Cập nhật thành công");
                 fillCL();
@@ -1492,11 +1506,9 @@ public class formSanPham extends javax.swing.JPanel {
             if (!checkForm()) {
                 return;
             }
-
             kichThuoc kciThuoc = new kichThuoc();
             kciThuoc.setMaKichThuoc(maThuocTinh);
             kciThuoc.setTenKichThuoc(tenThuocTinh);
-
             if (kichDao.Update(kciThuoc, maThuocTinh) > 0) {
                 JOptionPane.showMessageDialog(this, "Cập nhật thành công");
                 fillKT();

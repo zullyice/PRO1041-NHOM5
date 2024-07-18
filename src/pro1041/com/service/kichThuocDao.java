@@ -85,5 +85,20 @@ public class kichThuocDao {
         }
         return 0;
     }
+    public boolean checkIdTrung(String id) {
+        String sql = "SELECT COUNT(*) AS count FROM dbo.KichThuoc WHERE maKichThuoc = ?";
+        try (Connection conn = dbconnect.getConnection(); PreparedStatement pst = conn.prepareCall(sql)) {
+
+            pst.setObject(1, id);
+            ResultSet rs = pst.executeQuery();  
+            if (rs.next()) {
+                int count = rs.getInt("count");
+                return count > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     
 }
