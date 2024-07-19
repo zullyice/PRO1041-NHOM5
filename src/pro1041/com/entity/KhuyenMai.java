@@ -16,7 +16,7 @@ public class KhuyenMai {
     private String tenKM;
     private Date ngayBatDau;
     private Date ngayKetThuc;
-    private int giaTri;
+    private Double giaTri;
     private String donVi;
     private boolean trangThai;
     private Date ngayTao;
@@ -25,7 +25,7 @@ public class KhuyenMai {
     public KhuyenMai() {
     }
 
-    public KhuyenMai(int id_khuyenMai, String tenKM, Date ngayBatDau, Date ngayKetThuc, int giaTri, String donVi, boolean trangThai, Date ngayTao, Date ngaySua) {
+    public KhuyenMai(int id_khuyenMai, String tenKM, Date ngayBatDau, Date ngayKetThuc, Double giaTri, String donVi, boolean trangThai, Date ngayTao, Date ngaySua) {
         this.id_khuyenMai = id_khuyenMai;
         this.tenKM = tenKM;
         this.ngayBatDau = ngayBatDau;
@@ -69,11 +69,11 @@ public class KhuyenMai {
         this.ngayKetThuc = ngayKetThuc;
     }
 
-    public int getGiaTri() {
+    public Double getGiaTri() {
         return giaTri;
     }
 
-    public void setGiaTri(int giaTri) {
+    public void setGiaTri(Double giaTri) {
         this.giaTri = giaTri;
     }
 

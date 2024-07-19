@@ -39,7 +39,7 @@ public class formNhanVien extends javax.swing.JPanel {
         for (NhanVien nv : dsnv) {
             String trangThai = nv.isTrangThai() == true ? "Đang làm việc" : "Nghỉ việc";
             tableModel.addRow(new Object[]{
-                nv.getId_nhanVien(), nv.getMaNhanVien(), nv.getTenNhanVien(),nv.getTaiKhoan(),nv.getMatKhau(), nv.getGioiTinh(),trangThai, nv.getSdt(), nv.getNgayTao(), nv.getNgaySua()
+                nv.getId_nhanVien(), nv.getMaNhanVien(), nv.getTenNhanVien(), nv.getTaiKhoan(), nv.getMatKhau(), nv.getGioiTinh(), trangThai, nv.getSdt(), nv.getNgayTao(), nv.getNgaySua()
             });
 
         }
@@ -381,7 +381,19 @@ public class formNhanVien extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        int confirm = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm khách hàng?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+        String ma = txtMa.getText().trim();
+        String ten = txtTen.getText().trim();
+        if (ma.isEmpty() && ten.isEmpty() && ma.isBlank() && ten.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Tên và mã nhân viên không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else if (ma.isBlank() || ma.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Mã nhân viên không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else if (ten.isBlank() || ten.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Tên nhân viên không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        int confirm = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm nhân viên?", "Xác nhận", JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
             if (nhanVienService.add(getForm()) != 0) {
@@ -404,7 +416,18 @@ public class formNhanVien extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn dữ liệu cần cập nhật.");
             return;
         }
-
+        String ma = txtMa.getText().trim();
+        String ten = txtTen.getText().trim();
+        if (ma.isEmpty() && ten.isEmpty() && ma.isBlank() && ten.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Tên và mã nhân viên không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else if (ma.isBlank() || ma.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Mã nhân viên không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else if (ten.isBlank() || ten.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Tên nhân viên không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         int id = Integer.parseInt(tblNhanVien.getValueAt(selectedRow, 0).toString());
         int confirm = JOptionPane.showConfirmDialog(this, "Bạn có muốn cập nhật dữ liệu không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
 
@@ -507,7 +530,7 @@ public class formNhanVien extends javax.swing.JPanel {
         } else if (rdoNu.isSelected()) {
             gioiTinh = "Nữ";
         }
-        
+
         nv.setMaNhanVien(ma);
         nv.setTenNhanVien(ten);
         nv.setTaiKhoan(taiKhoan);

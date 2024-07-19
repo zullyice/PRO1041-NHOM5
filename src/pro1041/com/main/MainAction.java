@@ -57,8 +57,6 @@ public class MainAction extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         JPkhachhang = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        JPnhaSanXuat = new javax.swing.JPanel();
-        jNSX = new javax.swing.JLabel();
         JPexit = new javax.swing.JPanel();
         jDangXuat = new javax.swing.JLabel();
         JPsanpham = new javax.swing.JPanel();
@@ -101,7 +99,7 @@ public class MainAction extends javax.swing.JFrame {
         );
         JPhoadonLayout.setVerticalGroup(
             JPhoadonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jHoaDon, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+            .addComponent(jHoaDon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
         );
 
         JPnhanvien.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -151,33 +149,6 @@ public class MainAction extends javax.swing.JFrame {
         JPkhachhangLayout.setVerticalGroup(
             JPkhachhangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
-        );
-
-        JPnhaSanXuat.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                JPnhaSanXuatMouseClicked(evt);
-            }
-        });
-
-        jNSX.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jNSX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/information_12608297.png"))); // NOI18N
-        jNSX.setText("Thuộc Tính");
-        jNSX.setAlignmentY(0.0F);
-        jNSX.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jNSXMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout JPnhaSanXuatLayout = new javax.swing.GroupLayout(JPnhaSanXuat);
-        JPnhaSanXuat.setLayout(JPnhaSanXuatLayout);
-        JPnhaSanXuatLayout.setHorizontalGroup(
-            JPnhaSanXuatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jNSX, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-        );
-        JPnhaSanXuatLayout.setVerticalGroup(
-            JPnhaSanXuatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jNSX, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
         );
 
         JPexit.setBackground(new java.awt.Color(0, 153, 153));
@@ -297,20 +268,24 @@ public class MainAction extends javax.swing.JFrame {
         JPnewLayout.setHorizontalGroup(
             JPnewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JPnewLayout.createSequentialGroup()
-                .addGroup(JPnewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(JPbanhang, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(JPnewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(JPhoadon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(JPnhanvien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(JPkhachhang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(JPnhaSanXuat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(JPsanpham, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(JPkhuyenmai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(JPexit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addGroup(JPnewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(JPnewLayout.createSequentialGroup()
+                        .addGroup(JPnewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(JPbanhang, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(JPnewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(JPnhanvien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(JPkhachhang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(JPsanpham, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(JPkhuyenmai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(JPexit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPnewLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(JPhoadon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
-        JPnewLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {JPhoadon, JPkhachhang, JPkhuyenmai, JPnhaSanXuat, JPnhanvien, JPsanpham});
+        JPnewLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {JPhoadon, JPkhachhang, JPkhuyenmai, JPnhanvien, JPsanpham});
 
         JPnewLayout.setVerticalGroup(
             JPnewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -326,21 +301,19 @@ public class MainAction extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(JPkhuyenmai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(JPnhaSanXuat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(JPhoadon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
                 .addComponent(JPexit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        JPnewLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {JPhoadon, JPkhachhang, JPkhuyenmai, JPnhaSanXuat, JPnhanvien, JPsanpham});
+        JPnewLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {JPhoadon, JPkhachhang, JPkhuyenmai, JPnhanvien, JPsanpham});
 
         javax.swing.GroupLayout JPfullLayout = new javax.swing.GroupLayout(JPfull);
         JPfull.setLayout(JPfullLayout);
         JPfullLayout.setHorizontalGroup(
             JPfullLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, JPfullLayout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
+                .addContainerGap(22, Short.MAX_VALUE)
                 .addComponent(JPnew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -390,7 +363,6 @@ public class MainAction extends javax.swing.JFrame {
         setColorPanel(JPkhachhang);
         resetColorPanel(JPbanhang);
         resetColorPanel(JPnhanvien);
-        resetColorPanel(JPnhaSanXuat);
         resetColorPanel(JPsanpham);
         resetColorPanel(JPkhuyenmai);
         resetColorPanel(JPhoadon);
@@ -408,7 +380,6 @@ public class MainAction extends javax.swing.JFrame {
         setColorPanel(JPnhanvien);
         resetColorPanel(JPkhachhang);
         resetColorPanel(JPbanhang);
-        resetColorPanel(JPnhaSanXuat);
         resetColorPanel(JPsanpham);
         resetColorPanel(JPkhuyenmai);
         resetColorPanel(JPhoadon);
@@ -429,7 +400,6 @@ public class MainAction extends javax.swing.JFrame {
         resetColorPanel(JPkhachhang);
         resetColorPanel(JPbanhang);
         resetColorPanel(JPnhanvien);
-        resetColorPanel(JPnhaSanXuat);
         resetColorPanel(JPsanpham);
         resetColorPanel(JPhoadon);
         showPanel(new formKhuyenMai());
@@ -447,7 +417,6 @@ public class MainAction extends javax.swing.JFrame {
         setColorPanel(JPbanhang);
         resetColorPanel(JPkhachhang);
         resetColorPanel(JPnhanvien);
-        resetColorPanel(JPnhaSanXuat);
         resetColorPanel(JPsanpham);
         resetColorPanel(JPkhuyenmai);
         resetColorPanel(JPhoadon);
@@ -460,16 +429,11 @@ public class MainAction extends javax.swing.JFrame {
         setColorPanel(JPsanpham);
         resetColorPanel(JPkhachhang);
         resetColorPanel(JPnhanvien);
-        resetColorPanel(JPnhaSanXuat);
         resetColorPanel(JPbanhang);
         resetColorPanel(JPkhuyenmai);
         resetColorPanel(JPhoadon);
         showPanel(new formSanPham());
     }//GEN-LAST:event_jLabel7MouseClicked
-
-    private void JPnhaSanXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JPnhaSanXuatMouseClicked
-        
-    }//GEN-LAST:event_JPnhaSanXuatMouseClicked
 
     private void jHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jHoaDonMouseClicked
         // TODO add your handling code here:setColorPanel(JPhoadon);
@@ -477,24 +441,11 @@ public class MainAction extends javax.swing.JFrame {
         resetColorPanel(JPkhachhang);
         resetColorPanel(JPbanhang);
         resetColorPanel(JPnhanvien);
-        resetColorPanel(JPnhaSanXuat);
         resetColorPanel(JPkhuyenmai);
         resetColorPanel(JPsanpham);
 
         showPanel(new formHoaDon());
     }//GEN-LAST:event_jHoaDonMouseClicked
-
-    private void jNSXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jNSXMouseClicked
-        // TODO add your handling code here:
-        setColorPanel(JPnhaSanXuat);
-        resetColorPanel(JPkhachhang);
-        resetColorPanel(JPnhanvien);
-        resetColorPanel(JPsanpham);
-        resetColorPanel(JPbanhang);
-        resetColorPanel(JPkhuyenmai);
-        resetColorPanel(JPhoadon);
-        showPanel(new formNhaSanXuat());
-    }//GEN-LAST:event_jNSXMouseClicked
 
     /**
      * @param args the command line arguments
@@ -542,7 +493,6 @@ public class MainAction extends javax.swing.JFrame {
     private javax.swing.JPanel JPkhachhang;
     private javax.swing.JPanel JPkhuyenmai;
     private javax.swing.JPanel JPnew;
-    private javax.swing.JPanel JPnhaSanXuat;
     private javax.swing.JPanel JPnhanvien;
     private javax.swing.JPanel JPsanpham;
     private javax.swing.JLabel jBanHang;
@@ -552,7 +502,6 @@ public class MainAction extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jNSX;
     private javax.swing.JPanel jpn;
     // End of variables declaration//GEN-END:variables
 }

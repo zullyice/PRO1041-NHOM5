@@ -408,13 +408,34 @@ public class formKhuyenMai extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTenKhuyenMaiActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-
+        String tenKM = txtTenKhuyenMai.getText().trim();
+        String giaTri = txtGiaTri.getText().trim();
         int selectedRow = tblKhuyenMai.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn dữ liệu cần cập nhật.");
             return;
         }
+        if (tenKM.isEmpty() && giaTri.isEmpty() && tenKM.isBlank() && giaTri.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Tên và giá trị khuyến mãi không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else if (tenKM.isBlank() || tenKM.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Tên khuyến mãi không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else if (giaTri.isBlank() || giaTri.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Gía trị không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        try {
 
+            double giaTriDouble = Double.parseDouble(giaTri);
+            if (giaTriDouble < 0) {
+                JOptionPane.showMessageDialog(this, "Gía trị phải là số dương", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Gía trị khuyến mãi phải là số hợp lệ", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         int id = Integer.parseInt(tblKhuyenMai.getValueAt(selectedRow, 0).toString());
         int confirm = JOptionPane.showConfirmDialog(this, "Bạn có muốn cập nhật dữ liệu không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
 
@@ -461,7 +482,30 @@ public class formKhuyenMai extends javax.swing.JPanel {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        String tenKM = txtTenKhuyenMai.getText().trim();
+        String giaTri = txtGiaTri.getText().trim();
 
+        if (tenKM.isEmpty() && giaTri.isEmpty() && tenKM.isBlank() && giaTri.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Tên và giá trị khuyến mãi không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else if (tenKM.isBlank() || tenKM.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Tên khuyến mãi không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else if (giaTri.isBlank() || giaTri.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Gía trị không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        try {
+
+            double giaTriDouble = Double.parseDouble(giaTri);
+            if (giaTriDouble < 0) {
+                JOptionPane.showMessageDialog(this, "Gía trị phải là số dương", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Gía trị khuyến mãi phải là số hợp lệ", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         int confirm = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm khuyến mãi?", "Xác nhận", JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
@@ -494,7 +538,7 @@ public class formKhuyenMai extends javax.swing.JPanel {
         Boolean trangThai = rdoDangHoatDong.isSelected();
 
         km.setDonVi(donVi);
-        km.setGiaTri(Integer.valueOf(giaTri));
+        km.setGiaTri(Double.valueOf(giaTri));
         km.setDonVi(donVi);
         km.setNgayBatDau(batDau);
         km.setNgayKetThuc(ketThuc);

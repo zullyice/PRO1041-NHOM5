@@ -10,7 +10,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import pro1041.com.entity.KhachHang;
-import pro1041.com.entity.KhuyenMai;
 import pro1041.com.service.KhachHangService;
 
 /**
@@ -396,6 +395,18 @@ public class formKhachHang extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
+        String ma = txtMa.getText().trim();
+        String ten = txtTen.getText().trim();
+        if (ma.isEmpty() && ten.isEmpty() && ma.isBlank() && ten.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Tên và mã khách hàng không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else if (ma.isBlank() || ma.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Mã khách hàng không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else if (ten.isBlank() || ten.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Tên khách hàng không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         int confirm = JOptionPane.showConfirmDialog(this, "Bạn có muốn thêm khách hàng?", "Xác nhận", JOptionPane.YES_NO_OPTION);
 
         if (confirm == JOptionPane.YES_OPTION) {
@@ -419,7 +430,18 @@ public class formKhachHang extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn dữ liệu cần cập nhật.");
             return;
         }
-
+        String ma = txtMa.getText().trim();
+        String ten = txtTen.getText().trim();
+        if (ma.isEmpty() && ten.isEmpty() && ma.isBlank() && ten.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Tên và mã khách hàng không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else if (ma.isBlank() || ma.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Mã khách hàng không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else if (ten.isBlank() || ten.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Tên khách hàng không được để trống", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         int id = Integer.parseInt(tblKhachHang.getValueAt(selectedRow, 0).toString());
         int confirm = JOptionPane.showConfirmDialog(this, "Bạn có muốn cập nhật dữ liệu không?", "Xác nhận", JOptionPane.YES_NO_OPTION);
 

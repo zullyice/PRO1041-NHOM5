@@ -61,7 +61,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="16" max="32767" attributes="0"/>
+                  <EmptySpace pref="22" max="32767" attributes="0"/>
                   <Component id="JPnew" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -84,20 +84,27 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="JPbanhang" alignment="0" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="JPbanhang" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="JPnhanvien" linkSize="1" max="32767" attributes="0"/>
+                                      <Component id="JPkhachhang" linkSize="1" max="32767" attributes="0"/>
+                                      <Component id="JPsanpham" linkSize="1" max="32767" attributes="0"/>
+                                      <Component id="JPkhuyenmai" linkSize="1" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="JPexit" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               <Component id="JPhoadon" linkSize="1" max="32767" attributes="0"/>
-                              <Component id="JPnhanvien" linkSize="1" max="32767" attributes="0"/>
-                              <Component id="JPkhachhang" linkSize="1" max="32767" attributes="0"/>
-                              <Component id="JPnhaSanXuat" linkSize="1" max="32767" attributes="0"/>
-                              <Component id="JPsanpham" linkSize="1" max="32767" attributes="0"/>
-                              <Component id="JPkhuyenmai" linkSize="1" alignment="0" max="32767" attributes="0"/>
-                              <Component id="JPexit" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="12" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -114,11 +121,9 @@
                       <Component id="JPsanpham" linkSize="5" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="JPkhuyenmai" linkSize="5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Component id="JPnhaSanXuat" linkSize="5" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="JPhoadon" linkSize="5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="107" max="32767" attributes="0"/>
+                      <EmptySpace pref="173" max="32767" attributes="0"/>
                       <Component id="JPexit" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -138,7 +143,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jHoaDon" alignment="0" pref="48" max="32767" attributes="0"/>
+                      <Component id="jHoaDon" alignment="1" pref="48" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -224,41 +229,6 @@
                     <Property name="text" type="java.lang.String" value="    Kh&#xe1;ch H&#xe0;ng"/>
                     <Property name="alignmentY" type="float" value="0.0"/>
                   </Properties>
-                </Component>
-              </SubComponents>
-            </Container>
-            <Container class="javax.swing.JPanel" name="JPnhaSanXuat">
-              <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="JPnhaSanXuatMouseClicked"/>
-              </Events>
-
-              <Layout>
-                <DimensionLayout dim="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jNSX" alignment="1" pref="166" max="32767" attributes="0"/>
-                  </Group>
-                </DimensionLayout>
-                <DimensionLayout dim="1">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jNSX" alignment="0" pref="48" max="32767" attributes="0"/>
-                  </Group>
-                </DimensionLayout>
-              </Layout>
-              <SubComponents>
-                <Component class="javax.swing.JLabel" name="jNSX">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Times New Roman" size="16" style="1"/>
-                    </Property>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/pro1041/com/icon/information_12608297.png"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Thu&#x1ed9;c T&#xed;nh"/>
-                    <Property name="alignmentY" type="float" value="0.0"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jNSXMouseClicked"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>

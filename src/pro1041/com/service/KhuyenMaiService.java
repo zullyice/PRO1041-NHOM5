@@ -42,7 +42,7 @@ public class KhuyenMaiService {
             ResultSet rs = ps.executeQuery();
             List<KhuyenMai> dskm = new ArrayList<>();
             while (rs.next()) {
-                KhuyenMai km = new KhuyenMai(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getDate(4), rs.getInt(5), rs.getString(6), rs.getBoolean(7), rs.getDate(8), rs.getDate(9));
+                KhuyenMai km = new KhuyenMai(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getDate(4), rs.getDouble(5), rs.getString(6), rs.getBoolean(7), rs.getDate(8), rs.getDate(9));
                 dskm.add(km);
             }
             return dskm;
@@ -148,7 +148,7 @@ public class KhuyenMaiService {
                 km = new KhuyenMai();
                 km.setId_khuyenMai(rs.getInt("id_khuyenMai"));
                 km.setTenKM(rs.getString("tenKM"));
-                km.setGiaTri(rs.getInt("giaTri"));
+                km.setGiaTri(rs.getDouble("giaTri"));
                 km.setDonVi(rs.getString("donVi")); 
             }
             rs.close();
