@@ -7,10 +7,12 @@ package pro1041.com.service;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import pro1041.com.entity.HoaDon;
 import pro1041.com.entity.KhachHang;
+import pro1041.com.entity.SanPham;
 import pro1041.com.utils.DBConnect;
 
 /**
@@ -18,7 +20,8 @@ import pro1041.com.utils.DBConnect;
  * @author Tom
  */
 public class HoaDonService {
-        private ResultSet rs = null;
+
+    private ResultSet rs = null;
 
     public List<HoaDon> getAll() {
         String sql = """
@@ -48,6 +51,7 @@ public class HoaDonService {
         }
         return null;
     }
+
     public List<HoaDon> getAllSP() {
         String sql = """
                      SELECT[maHDCT]
@@ -64,7 +68,7 @@ public class HoaDonService {
             ResultSet rs = ps.executeQuery();
             List<HoaDon> dshdct = new ArrayList<>();
             while (rs.next()) {
-                HoaDon hdct = new HoaDon(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getDate(5),rs.getDate(6));
+                HoaDon hdct = new HoaDon(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getDate(5), rs.getDate(6));
                 dshdct.add(hdct);
             }
             return dshdct;
@@ -73,9 +77,10 @@ public class HoaDonService {
         }
         return null;
     }
+
     public List<HoaDon> getbyID(int idhd) {
-    List<HoaDon> searchID = new ArrayList<>();
-    String sql = """
+        List<HoaDon> searchID = new ArrayList<>();
+        String sql = """
                  SELECT [maHDCT]
                      , sp.tenSanPham
                      , [soLuong]
@@ -87,27 +92,41 @@ public class HoaDonService {
                  LEFT JOIN HoaDon hd on hdct.id_hoaDon = hd.id_hoaDon
                  WHERE hd.id_hoaDon = ?
                  """;
-    try (Connection con = DBConnect.getConnection(); 
-         PreparedStatement ps = con.prepareStatement(sql)) {
-        ps.setObject(1, idhd);
-        try (ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                HoaDon hdct = new HoaDon(
-                    rs.getString(1),
-                    rs.getString(2),
-                    rs.getInt(3),
-                    rs.getInt(4),
-                    rs.getDate(5),
-                    rs.getDate(6)
-                );
-                searchID.add(hdct);
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setObject(1, idhd);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    HoaDon hdct = new HoaDon(
+                            rs.getString(1),
+                            rs.getString(2),
+                            rs.getInt(3),
+                            rs.getInt(4),
+                            rs.getDate(5),
+                            rs.getDate(6)
+                    );
+                    searchID.add(hdct);
+                }
             }
+            return searchID;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return searchID;
-    } catch (Exception e) {
-        e.printStackTrace();
+        return null;
     }
-    return null;
-}
+    private void themChiTietHoaDon(int idhdct, SanPham sp) {
+        String sql = "INSERT INTO HoaDonChiTiet (id_hoaDon, id_SPCT, soluongtonkho, gia, tongTien, trangThai) VALUES (?, ?, ?, ?, ?, ?)";
 
+        try (Connection con = DBConnect.getConnection(); PreparedStatement statement = con.prepareStatement(sql)) {
+            statement.setInt(1, idhdct);
+            statement.setInt(2, sp.getId_SPCT());
+            statement.setInt(3, sp.getSoluongtonkho());
+            statement.setDouble(4, sp.getGia());
+            statement.setDouble(5, sp.getSoluongtonkho() * sp.getGia());
+            statement.setBoolean(6, true);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
 }

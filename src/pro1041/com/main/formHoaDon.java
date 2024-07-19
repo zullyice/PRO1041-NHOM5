@@ -14,12 +14,9 @@ import pro1041.com.service.HoaDonService;
  * @author Tom
  */
 public class formHoaDon extends javax.swing.JPanel {
-
     private HoaDonService hoaDonService = new HoaDonService();
     private DefaultTableModel dtm = new DefaultTableModel();
     private DefaultTableModel tbm = new DefaultTableModel();
-   
-
     /**
      * Creates new form formHoaDon
      */
@@ -33,7 +30,7 @@ public class formHoaDon extends javax.swing.JPanel {
         dtm = (DefaultTableModel) tblHoaDon.getModel();
         dtm.setRowCount(0);
         for (HoaDon hoaDon : list) {
-            String trangThai = hoaDon.getTrangThai() == true ? "Thanh Toán" : "Chưa Thanh Toán";
+            String trangThai = hoaDon.getTrangThai() == false ? "Thanh Toán" : "Chưa Thanh Toán";
             dtm.addRow(new Object[]{
                 hoaDon.getIdHoaDon(),
                 hoaDon.getMaHoaDon(),

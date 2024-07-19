@@ -40,6 +40,22 @@ public class SanPham {
         this.tenNSX = tenNSX;
         this.tenThuongHieu = tenThuongHieu;
     }
+
+    public SanPham(int id_sanPham, String tenSanPham, int soluongtonkho, int gia, String tenThuongHieu, String tenNSX, String tenChatLieu, String tenKichThuoc, String tenKhoa, String kieuDang, String tenMauSac) {
+        this.id_sanPham = id_sanPham;
+        this.tenSanPham = tenSanPham;
+        
+        this.soluongtonkho = soluongtonkho;
+        this.gia = gia;
+        this.tenNSX = tenNSX;
+        this.tenThuongHieu = tenThuongHieu;
+        this.tenChatLieu = tenChatLieu;
+        this.tenKichThuoc = tenKichThuoc;
+        this.tenMauSac = tenMauSac;
+        this.tenKhoa = tenKhoa;
+        this.kieuDang = kieuDang;
+    }
+    
     
     public SanPham(int id_SPCT,int id_sanPham , String tenSanPham, int gia, int soluongtonkho, Date ngayTao, Date ngaySua, String tenNSX, String tenThuongHieu, String tenChatLieu, String kieuDang,String tenKichThuoc, String tenMauSac, String tenKhoa) {
         this.id_sanPham = id_sanPham;

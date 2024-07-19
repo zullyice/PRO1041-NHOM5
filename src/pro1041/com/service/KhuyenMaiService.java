@@ -134,26 +134,24 @@ public class KhuyenMaiService {
             return false;
         }
     }
+
     public KhuyenMai getKhuyenMaiByID(int id_khuyenMai) {
         KhuyenMai km = null;
-         con = DBConnect.getConnection();
-        String sql = """
-                     SELECT * FROM [dbo].[KhuyenMai] WHERE id_khuyenMai = ? 
-                     """;
-        
-        try {
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+        String sql = "SELECT * FROM [dbo].[KhuyenMai] WHERE id_khuyenMai = ?";
+
+        try (Connection con = DBConnect.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id_khuyenMai);
+            ResultSet rs = pstmt.executeQuery();
+
             if (rs.next()) {
                 km = new KhuyenMai();
                 km.setId_khuyenMai(rs.getInt("id_khuyenMai"));
                 km.setTenKM(rs.getString("tenKM"));
                 km.setGiaTri(rs.getDouble("giaTri"));
-                km.setDonVi(rs.getString("donVi")); 
+                km.setDonVi(rs.getString("donVi"));
             }
             rs.close();
-            stmt.close();
-            con.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
