@@ -14,6 +14,7 @@ import java.util.ArrayList;
 //import java.util.Date;
 import java.sql.PreparedStatement;
 import java.util.List;
+
 import pro1041.com.utils.DBConnect;
 
 /**
@@ -24,22 +25,18 @@ public class NhaSanXuatService {
 
     public List<NhaSanXuat> getAll() {
         String sql = """
-                SELECT id_nsx, tenNSX, maNSX, dia_chi, email, sdt, ngaySua, ngayTao
+                SELECT id_nsx, tenNSX, maNSX
                 FROM NhaSanXuat
                  """;
-        List<NhaSanXuat> listNsx = new ArrayList<>();
+        ArrayList<NhaSanXuat> listNsx = new ArrayList<>();
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 NhaSanXuat nsx = new NhaSanXuat(
                         rs.getInt(1),
                         rs.getString(2),
-                        rs.getString(3),
-                        rs.getString(4),
-                        rs.getString(5),
-                        rs.getString(6),
-                        rs.getDate(7),
-                        rs.getDate(8)
+                        rs.getString(3)
+   
                 );
                 listNsx.add(nsx);
             }
@@ -51,18 +48,15 @@ public class NhaSanXuatService {
 
     public int add(NhaSanXuat nsx) {
         String sql = """
-                     INSERT INTO NhaSanXuat (tenNSX, maNSX, dia_chi, email, sdt, ngayTao, ngaySua)
+                     INSERT INTO NhaSanXuat (maNSX,tenNSX)
                           VALUES
-                                (?,?,?,?,?,?,?)
+                                (?,?)
                      """;
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setObject(1, nsx.getMaNsx());
             ps.setObject(2, nsx.getTenNsx());
-            ps.setObject(3, nsx.getDiaChi());
-            ps.setObject(4, nsx.getEmail());
-            ps.setObject(5, nsx.getSdt());
-            ps.setObject(6, nsx.getNgayTao());
-            ps.setObject(7, nsx.getNgaySua());
+            
+      
 
             return ps.executeUpdate();
         } catch (Exception e) {
@@ -71,36 +65,19 @@ public class NhaSanXuatService {
         }
     }
 
-    public int sua(int id_Nsx, NhaSanXuat nsx) {
-        String sql = """
-                     UPDATE [dbo].[NhaSanxuat]
-                        SET [maNSX] = ?
-                           ,[tenNSX] = ?
-                     ,[dia_chi] = ?
-                           ,[email] = ?
-                       
-                           ,[sdt] =?
-                          
-                           ,[ngayTao] = ?
-                           ,[ngaySua] = ?
-                      WHERE id_NSX=?
-                     """;
-        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setObject(1, nsx.getMaNsx());
-            ps.setObject(2, nsx.getTenNsx());
-            ps.setObject(3, nsx.getDiaChi());
-            ps.setObject(4, nsx.getEmail());
-            ps.setObject(5, nsx.getSdt());
-            ps.setObject(6, nsx.getNgayTao());
-            ps.setObject(7, nsx.getNgaySua());
-            ps.setObject(8, id_Nsx);
-            return ps.executeUpdate();
+    public int Update(NhaSanXuat nsx, String ma) {
+        String sql = "UPDATE dbo.NhaSanXuat SET tenNSX = ? WHERE maNSX = ? ";
+        try (Connection conn = DBConnect.getConnection(); PreparedStatement pst = conn.prepareCall(sql)) {
+            pst.setObject(1, nsx.getTenNsx());
+            pst.setString(2, ma);
+            return pst.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
-            return 0;
         }
+        return 0;
     }
-        public boolean xoa(int id) {
+
+    public boolean xoa(int id) {
         String sql = """
                      BEGIN TRANSACTION;
                            
@@ -118,13 +95,28 @@ public class NhaSanXuatService {
                      """;
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setObject(1, id);
-                        ps.setObject(2, id);
+            ps.setObject(2, id);
 
             return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
+    }
+    public boolean checkIdTrung(String id) {
+        String sql = "SELECT COUNT(*) AS count FROM dbo.NhaSanXuat WHERE maNSX = ?";
+        try (Connection conn = DBConnect.getConnection(); PreparedStatement pst = conn.prepareCall(sql)) {
+
+            pst.setObject(1, id);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt("count");
+                return count > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

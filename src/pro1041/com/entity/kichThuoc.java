@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author Van Can
  */
-public class kichThuoc {
+public class KichThuoc {
     private Integer id;
     private String maKichThuoc;
     private String tenKichThuoc;
@@ -19,10 +19,10 @@ public class kichThuoc {
     private Date ngaySua;
     private boolean trangThai;
 
-    public kichThuoc() {
+    public KichThuoc() {
     }
 
-    public kichThuoc(Integer id, String maKichThuoc, String tenKichThuoc, Date ngayTao, Date ngaySua, boolean trangThai) {
+    public KichThuoc(Integer id, String maKichThuoc, String tenKichThuoc, Date ngayTao, Date ngaySua, boolean trangThai) {
         this.id = id;
         this.maKichThuoc = maKichThuoc;
         this.tenKichThuoc = tenKichThuoc;

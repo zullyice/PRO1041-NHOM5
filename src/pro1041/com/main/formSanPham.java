@@ -12,14 +12,22 @@ import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
+import pro1041.com.entity.KhoaAo;
+import pro1041.com.entity.KieuDang;
 import pro1041.com.entity.MauSac;
+import pro1041.com.entity.NhaSanXuat;
 import pro1041.com.entity.SanPham;
-import pro1041.com.entity.chatLieu;
-import pro1041.com.entity.kichThuoc;
-import pro1041.com.service.MauSacDao;
+import pro1041.com.entity.ThuongHieu;
+import pro1041.com.entity.ChatLieu;
+import pro1041.com.entity.KichThuoc;
+import pro1041.com.service.KhoaAoService;
+import pro1041.com.service.KieuDangService;
+import pro1041.com.service.MauSacService;
+import pro1041.com.service.NhaSanXuatService;
 import pro1041.com.service.SanPhamService;
-import pro1041.com.service.chatLieuDao;
-import pro1041.com.service.kichThuocDao;
+import pro1041.com.service.ThuongHieuService;
+import pro1041.com.service.ChatLieuService;
+import pro1041.com.service.KichThuocService;
 
 /**
  *
@@ -29,13 +37,17 @@ public class formSanPham extends javax.swing.JPanel {
 
     private List<SanPham> dssp = new ArrayList<>();
     private List<SanPham> dsspFull = new ArrayList<>();
-    private chatLieuDao clDao = new chatLieuDao();
-    private kichThuocDao kichDao = new kichThuocDao();
-    private MauSacDao mauS = new MauSacDao();
+    private ChatLieuService clDao = new ChatLieuService();
+    private KichThuocService kichDao = new KichThuocService();
+    private MauSacService mauS = new MauSacService();
     private DefaultTableModel tableModel = new DefaultTableModel();
     private final SanPhamService sanPhamService = new SanPhamService();
     private DefaultTableModel tbm = new DefaultTableModel();
     private DefaultTableModel model = new DefaultTableModel();
+    private KhoaAoService khoaAoService = new KhoaAoService();
+    private NhaSanXuatService nhaSanXuatService = new NhaSanXuatService();
+    private ThuongHieuService thuongHieuService = new ThuongHieuService();
+    private KieuDangService kieuDangService = new KieuDangService();
 
     /**
      * Creates new form formSanPham
@@ -121,6 +133,87 @@ public class formSanPham extends javax.swing.JPanel {
         cboKieuDang.setModel(thModel);
     }
 
+    public void fillKT() {
+        rdoKichThuoc.setSelected(true);
+        model = (DefaultTableModel) tblBang.getModel();
+        model.setRowCount(0);
+        ArrayList<KichThuoc> data = kichDao.getAll();
+        for (int i = 0; i < data.size(); i++) {
+            KichThuoc kicThuoc = data.get(i);
+            model.addRow(new Object[]{i + 1, kicThuoc.getMaKichThuoc(), kicThuoc.getTenKichThuoc()});
+        }
+    }
+
+    public void fillMS() {
+        rdoMauSac.setSelected(true);
+        model = (DefaultTableModel) tblBang.getModel();
+        model.setRowCount(0);
+        ArrayList<MauSac> data = mauS.getALL();
+        for (int i = 0; i < data.size(); i++) {
+            MauSac mauSac = data.get(i);
+            model.addRow(new Object[]{i + 1, mauSac.getMaMauSac(), mauSac.getTenMauSac()});
+        }
+    }
+
+    public void fillCL() {
+        rdoChatLieu.setSelected(true);
+        model = (DefaultTableModel) tblBang.getModel();
+        model.setRowCount(0);
+        ArrayList<ChatLieu> data = clDao.getAll();
+        for (int i = 0; i < data.size(); i++) {
+            ChatLieu chatLieu = data.get(i);
+            model.addRow(new Object[]{i + 1, chatLieu.getMachatLieu(), chatLieu.getTenchatLieu()});
+        }
+    }
+
+    public void fillKa() {
+        rdoKhoaAo.setSelected(true);
+        model = (DefaultTableModel) tblBang.getModel();
+        model.setRowCount(0);
+        List<KhoaAo> data = khoaAoService.getAll();
+        for (int i = 0; i < data.size(); i++) {
+            KhoaAo khoaAo = data.get(i);
+            model.addRow(new Object[]{i + 1, khoaAo.getMaKhoa(), khoaAo.getTenKhoa()});
+        }
+
+    }
+
+    public void fillNsx() {
+        rdoNSX.setSelected(true);
+        model = (DefaultTableModel) tblBang.getModel();
+        model.setRowCount(0);
+        List<NhaSanXuat> data = nhaSanXuatService.getAll();
+        for (int i = 0; i < data.size(); i++) {
+            NhaSanXuat nsx = data.get(i);
+            model.addRow(new Object[]{i + 1, nsx.getMaNsx(), nsx.getTenNsx()});
+        }
+
+    }
+
+    public void fillTh() {
+        rdoThuongHieu.setSelected(true);
+        model = (DefaultTableModel) tblBang.getModel();
+        model.setRowCount(0);
+        List<ThuongHieu> data = thuongHieuService.getAll();
+        for (int i = 0; i < data.size(); i++) {
+            ThuongHieu th = data.get(i);
+            model.addRow(new Object[]{i + 1, th.getMaThuonghieu(), th.getTenThuongHieu()});
+        }
+
+    }
+
+    public void fillKD() {
+        rdoKieuDang.setSelected(true);
+        model = (DefaultTableModel) tblBang.getModel();
+        model.setRowCount(0);
+        List<KieuDang> data = kieuDangService.getAll();
+        for (int i = 0; i < data.size(); i++) {
+            KieuDang kd = data.get(i);
+            model.addRow(new Object[]{i + 1, kd.getMaKieuDang(), kd.getTenKieuDang()});
+        }
+
+    }
+
     void clearForm() {
         cboKieuDang.setSelectedIndex(0);
         cboChatLieu.setSelectedIndex(0);
@@ -134,17 +227,6 @@ public class formSanPham extends javax.swing.JPanel {
         jNgaySua.setDate(now);
     }
 
-    public void fillCL() {
-        rdoChatLieu.setSelected(true);
-        model = (DefaultTableModel) tblBang.getModel();
-        model.setRowCount(0);
-        ArrayList<chatLieu> data = clDao.getAll();
-        for (int i = 0; i < data.size(); i++) {
-            chatLieu chatLieu = data.get(i);
-            model.addRow(new Object[]{i + 1, chatLieu.getMachatLieu(), chatLieu.getTenchatLieu()});
-        }
-    }
-
     void clearFormSP() {
         txtTenSP.setText("");
         Date now = new Date();
@@ -153,6 +235,42 @@ public class formSanPham extends javax.swing.JPanel {
         cboNSX.setSelectedIndex(0);
         cboThuongHieu.setSelectedIndex(0);
 
+    }
+
+    void clearformTT() {
+        txtMaThuocTinh.setText("");
+        txtTenThuocTinh.setText("");
+        txtTimKiemThuocTinh.setText("");
+    }
+
+    private boolean checkForm() {
+        String mathuocTinh = txtMaThuocTinh.getText().trim();
+        String tenThuocTinh = txtTenThuocTinh.getText().trim();
+
+        if (mathuocTinh.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập mã thuộc tính", "Warning", JOptionPane.WARNING_MESSAGE);
+            txtMaThuocTinh.requestFocus();
+            return false;
+        }
+
+        if (mathuocTinh.length() > 100) {
+            JOptionPane.showMessageDialog(null, "Mã thuộc tính không được vượt quá 100 ký tự", "Warning", JOptionPane.WARNING_MESSAGE);
+            txtMaThuocTinh.requestFocus();
+            return false;
+        }
+        if (tenThuocTinh.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập tên thuộc tính", "Warning", JOptionPane.WARNING_MESSAGE);
+            txtTenThuocTinh.requestFocus();
+            return false;
+        }
+
+        if (tenThuocTinh.length() > 100) {
+            JOptionPane.showMessageDialog(null, "Tên thuộc tính không được vượt quá 100 ký tự", "Warning", JOptionPane.WARNING_MESSAGE);
+            txtTenThuocTinh.requestFocus();
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -224,11 +342,12 @@ public class formSanPham extends javax.swing.JPanel {
         rdoChatLieu = new javax.swing.JRadioButton();
         rdoKichThuoc = new javax.swing.JRadioButton();
         rdoMauSac = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
-        jRadioButton6 = new javax.swing.JRadioButton();
+        rdoNSX = new javax.swing.JRadioButton();
+        rdoThuongHieu = new javax.swing.JRadioButton();
+        rdoKhoaAo = new javax.swing.JRadioButton();
         jLabel18 = new javax.swing.JLabel();
         txtTimKiemThuocTinh = new javax.swing.JTextField();
+        rdoKieuDang = new javax.swing.JRadioButton();
         jPanel12 = new javax.swing.JPanel();
         txtMaThuocTinh = new javax.swing.JTextField();
         txtTenThuocTinh = new javax.swing.JTextField();
@@ -243,8 +362,7 @@ public class formSanPham extends javax.swing.JPanel {
         jPanel14 = new javax.swing.JPanel();
         btnAdd1 = new javax.swing.JButton();
         btnSuaThuocTinh = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        btnLamMoiTT = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblBang = new javax.swing.JTable();
 
@@ -394,7 +512,7 @@ public class formSanPham extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 843, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(228, Short.MAX_VALUE))
+                .addContainerGap(244, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -693,7 +811,7 @@ public class formSanPham extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 152, Short.MAX_VALUE))
+                .addGap(0, 168, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -751,30 +869,30 @@ public class formSanPham extends javax.swing.JPanel {
             }
         });
 
-        buttonGroup1.add(jRadioButton4);
-        jRadioButton4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jRadioButton4.setText("Nhà Sản Xuất");
-        jRadioButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+        buttonGroup1.add(rdoNSX);
+        rdoNSX.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        rdoNSX.setText("Nhà Sản Xuất");
+        rdoNSX.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jRadioButton4MouseClicked(evt);
+                rdoNSXMouseClicked(evt);
             }
         });
 
-        buttonGroup1.add(jRadioButton5);
-        jRadioButton5.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jRadioButton5.setText("Thương Hiệu");
-        jRadioButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+        buttonGroup1.add(rdoThuongHieu);
+        rdoThuongHieu.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        rdoThuongHieu.setText("Thương Hiệu");
+        rdoThuongHieu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jRadioButton5MouseClicked(evt);
+                rdoThuongHieuMouseClicked(evt);
             }
         });
 
-        buttonGroup1.add(jRadioButton6);
-        jRadioButton6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jRadioButton6.setText("Khóa Áo");
-        jRadioButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+        buttonGroup1.add(rdoKhoaAo);
+        rdoKhoaAo.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        rdoKhoaAo.setText("Khóa Áo");
+        rdoKhoaAo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jRadioButton6MouseClicked(evt);
+                rdoKhoaAoMouseClicked(evt);
             }
         });
 
@@ -787,6 +905,20 @@ public class formSanPham extends javax.swing.JPanel {
             }
         });
 
+        buttonGroup1.add(rdoKieuDang);
+        rdoKieuDang.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        rdoKieuDang.setText("Kiểu Dáng");
+        rdoKieuDang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rdoKieuDangMouseClicked(evt);
+            }
+        });
+        rdoKieuDang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoKieuDangActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -795,19 +927,23 @@ public class formSanPham extends javax.swing.JPanel {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel18)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtTimKiemThuocTinh))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(rdoMauSac)
                             .addComponent(rdoKichThuoc)
                             .addComponent(rdoChatLieu))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadioButton4)
-                            .addComponent(jRadioButton5)
-                            .addComponent(jRadioButton6))))
+                            .addComponent(rdoNSX)
+                            .addComponent(rdoThuongHieu)
+                            .addComponent(rdoKhoaAo)))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(rdoKieuDang)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(txtTimKiemThuocTinh))))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -817,22 +953,24 @@ public class formSanPham extends javax.swing.JPanel {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
-                        .addComponent(jRadioButton5)
+                        .addComponent(rdoThuongHieu)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButton4))
+                        .addComponent(rdoNSX))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(rdoChatLieu)
-                            .addComponent(jRadioButton6))
+                            .addComponent(rdoKhoaAo))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(rdoKichThuoc)
                         .addGap(15, 15, 15)
                         .addComponent(rdoMauSac)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rdoKieuDang)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
                     .addComponent(txtTimKiemThuocTinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         txtMaThuocTinh.addActionListener(new java.awt.event.ActionListener() {
@@ -942,6 +1080,7 @@ public class formSanPham extends javax.swing.JPanel {
         );
 
         btnAdd1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btnAdd1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/icons8-add-16.png"))); // NOI18N
         btnAdd1.setText("Thêm");
         btnAdd1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -950,6 +1089,7 @@ public class formSanPham extends javax.swing.JPanel {
         });
 
         btnSuaThuocTinh.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btnSuaThuocTinh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/icons8-update-16.png"))); // NOI18N
         btnSuaThuocTinh.setText("Sửa");
         btnSuaThuocTinh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -957,17 +1097,14 @@ public class formSanPham extends javax.swing.JPanel {
             }
         });
 
-        jButton6.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jButton6.setText("Xóa");
-        jButton6.setEnabled(false);
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnLamMoiTT.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btnLamMoiTT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/icons8-captcha-16.png"))); // NOI18N
+        btnLamMoiTT.setText("Làm Mới");
+        btnLamMoiTT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnLamMoiTTActionPerformed(evt);
             }
         });
-
-        jButton7.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jButton7.setText("Tìm Kiếm");
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -976,10 +1113,9 @@ public class formSanPham extends javax.swing.JPanel {
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton6)
                     .addComponent(btnSuaThuocTinh)
                     .addComponent(btnAdd1)
-                    .addComponent(jButton7))
+                    .addComponent(btnLamMoiTT))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
         jPanel14Layout.setVerticalGroup(
@@ -989,11 +1125,9 @@ public class formSanPham extends javax.swing.JPanel {
                 .addComponent(btnAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSuaThuocTinh)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton7)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnLamMoiTT)
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         tblBang.setModel(new javax.swing.table.DefaultTableModel(
@@ -1026,17 +1160,17 @@ public class formSanPham extends javax.swing.JPanel {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 731, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel9Layout.createSequentialGroup()
                                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(276, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
@@ -1050,8 +1184,8 @@ public class formSanPham extends javax.swing.JPanel {
                     .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(124, 124, 124))
         );
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -1350,17 +1484,20 @@ public class formSanPham extends javax.swing.JPanel {
         fillMS();
     }//GEN-LAST:event_rdoMauSacActionPerformed
 
-    private void jRadioButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton4MouseClicked
+    private void rdoNSXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdoNSXMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton4MouseClicked
+        fillNsx();
+    }//GEN-LAST:event_rdoNSXMouseClicked
 
-    private void jRadioButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton5MouseClicked
+    private void rdoThuongHieuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdoThuongHieuMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton5MouseClicked
+        fillTh();
+    }//GEN-LAST:event_rdoThuongHieuMouseClicked
 
-    private void jRadioButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButton6MouseClicked
+    private void rdoKhoaAoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdoKhoaAoMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton6MouseClicked
+        fillKa();
+    }//GEN-LAST:event_rdoKhoaAoMouseClicked
 
     private void txtTimKiemThuocTinhKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemThuocTinhKeyPressed
         String tim = txtTimKiemThuocTinh.getText();
@@ -1382,25 +1519,23 @@ public class formSanPham extends javax.swing.JPanel {
     private void btnAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd1ActionPerformed
         String maThuocTinh = txtMaThuocTinh.getText();
         String tenThuocTinh = txtTenThuocTinh.getText();
-        
+
         if (rdoChatLieu.isSelected()) {
             if (!checkForm()) {
                 return;
             }
-            if(clDao.checkIdTrung(maThuocTinh)){
-                JOptionPane.showMessageDialog(this, "Không được để trùng mã","Thông báo",JOptionPane.WARNING_MESSAGE);
+            if (clDao.checkIdTrung(maThuocTinh)) {
+                JOptionPane.showMessageDialog(this, "Không được để trùng mã", "Thông báo", JOptionPane.WARNING_MESSAGE);
                 txtMaThuocTinh.requestFocus();
                 return;
             }
-            chatLieu chatLieu1 = new chatLieu();
+            ChatLieu chatLieu1 = new ChatLieu();
             chatLieu1.setMachatLieu(maThuocTinh);
             chatLieu1.setTenchatLieu(tenThuocTinh);
-
-            // Gọi phương thức addNew() của clDao để thêm mới vào cơ sở dữ liệu
             if (clDao.addNew(chatLieu1) > 0) {
                 JOptionPane.showMessageDialog(this, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 fillCL();
-                clearForm();
+                clearformTT();
                 dssp = sanPhamService.getAll();
                 fillChatLieuComboBox();
                 fillKhoaAoComboBox();
@@ -1418,18 +1553,18 @@ public class formSanPham extends javax.swing.JPanel {
             if (!checkForm()) {
                 return;
             }
-            if(kichDao.checkIdTrung(maThuocTinh)){
-                JOptionPane.showMessageDialog(this, "Không được để trùng mã","Thông báo",JOptionPane.WARNING_MESSAGE);
+            if (kichDao.checkIdTrung(maThuocTinh)) {
+                JOptionPane.showMessageDialog(this, "Không được để trùng mã", "Thông báo", JOptionPane.WARNING_MESSAGE);
                 txtMaThuocTinh.requestFocus();
                 return;
             }
-            kichThuoc kicThuoc = new kichThuoc();
+            KichThuoc kicThuoc = new KichThuoc();
             kicThuoc.setMaKichThuoc(maThuocTinh);
             kicThuoc.setTenKichThuoc(tenThuocTinh);
             if (kichDao.addNew(kicThuoc) > 0) {
                 JOptionPane.showMessageDialog(this, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 fillKT();
-                clearForm();
+                clearformTT();
                 dssp = sanPhamService.getAll();
                 fillChatLieuComboBox();
                 fillKhoaAoComboBox();
@@ -1447,8 +1582,8 @@ public class formSanPham extends javax.swing.JPanel {
             if (!checkForm()) {
                 return;
             }
-            if(mauS.checkIdTrung(maThuocTinh)){
-                JOptionPane.showMessageDialog(this, "Không được để trùng mã","Thông báo",JOptionPane.WARNING_MESSAGE);
+            if (mauS.checkIdTrung(maThuocTinh)) {
+                JOptionPane.showMessageDialog(this, "Không được để trùng mã", "Thông báo", JOptionPane.WARNING_MESSAGE);
                 txtMaThuocTinh.requestFocus();
                 return;
             }
@@ -1458,7 +1593,123 @@ public class formSanPham extends javax.swing.JPanel {
             if (mauS.addNew(mauSac) > 0) {
                 JOptionPane.showMessageDialog(this, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 fillMS();
-                clearForm();
+                clearformTT();
+                dssp = sanPhamService.getAll();
+                fillChatLieuComboBox();
+                fillKhoaAoComboBox();
+                fillKieuDangComboBox();
+                fillKichThuocComboBox();
+                fillMauSacComboBox();
+                fillThuongHieuComboBox();
+                fillNSXComboBox();
+                showDuLieu();
+            } else {
+                JOptionPane.showMessageDialog(this, "Thêm không thành công", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        if (rdoThuongHieu.isSelected()) {
+            if (!checkForm()) {
+                return;
+            }
+            if (thuongHieuService.checkIdTrung(maThuocTinh)) {
+                JOptionPane.showMessageDialog(this, "Không được để trùng mã", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                txtMaThuocTinh.requestFocus();
+                return;
+            }
+            ThuongHieu th = new ThuongHieu();
+            th.setMaThuonghieu(maThuocTinh);
+            th.setTenThuongHieu(tenThuocTinh);
+            if (thuongHieuService.add(th) > 0) {
+                JOptionPane.showMessageDialog(this, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                fillTh();
+                clearformTT();
+                dssp = sanPhamService.getAll();
+                fillChatLieuComboBox();
+                fillKhoaAoComboBox();
+                fillKieuDangComboBox();
+                fillKichThuocComboBox();
+                fillMauSacComboBox();
+                fillThuongHieuComboBox();
+                fillNSXComboBox();
+                showDuLieu();
+            } else {
+                JOptionPane.showMessageDialog(this, "Thêm không thành công", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        if (rdoKhoaAo.isSelected()) {
+            if (!checkForm()) {
+                return;
+            }
+            if (khoaAoService.checkIdTrung(maThuocTinh)) {
+                JOptionPane.showMessageDialog(this, "Không được để trùng mã", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                txtMaThuocTinh.requestFocus();
+                return;
+            }
+            KhoaAo ka = new KhoaAo();
+            ka.setMaKhoa(maThuocTinh);
+            ka.setTenKhoa(tenThuocTinh);
+            if (khoaAoService.add(ka) > 0) {
+                JOptionPane.showMessageDialog(this, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                fillKa();
+                clearformTT();
+                dssp = sanPhamService.getAll();
+                fillChatLieuComboBox();
+                fillKhoaAoComboBox();
+                fillKieuDangComboBox();
+                fillKichThuocComboBox();
+                fillMauSacComboBox();
+                fillThuongHieuComboBox();
+                fillNSXComboBox();
+                showDuLieu();
+            } else {
+                JOptionPane.showMessageDialog(this, "Thêm không thành công", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        if (rdoNSX.isSelected()) {
+            if (!checkForm()) {
+                return;
+            }
+            if (nhaSanXuatService.checkIdTrung(maThuocTinh)) {
+                JOptionPane.showMessageDialog(this, "Không được để trùng mã", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                txtMaThuocTinh.requestFocus();
+                return;
+            }
+            NhaSanXuat nsx = new NhaSanXuat();
+            nsx.setMaNsx(maThuocTinh);
+            nsx.setTenNsx(tenThuocTinh);
+            if (nhaSanXuatService.add(nsx) > 0) {
+                JOptionPane.showMessageDialog(this, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                fillNsx();
+                clearformTT();
+                dssp = sanPhamService.getAll();
+                fillChatLieuComboBox();
+                fillKhoaAoComboBox();
+                fillKieuDangComboBox();
+                fillKichThuocComboBox();
+                fillMauSacComboBox();
+                fillThuongHieuComboBox();
+                fillNSXComboBox();
+                showDuLieu();
+            } else {
+                JOptionPane.showMessageDialog(this, "Thêm không thành công", "Thông báo", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        if (rdoKieuDang.isSelected()) {
+            if (!checkForm()) {
+                return;
+            }
+            if (kieuDangService.checkIdTrung(maThuocTinh)) {
+                JOptionPane.showMessageDialog(this, "Không được để trùng mã", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                txtMaThuocTinh.requestFocus();
+                return;
+            }
+            KieuDang kd = new KieuDang();
+            kd.setMaKieuDang(maThuocTinh);
+            kd.setTenKieuDang(tenThuocTinh);
+            if (kieuDangService.add(kd) > 0) {
+                JOptionPane.showMessageDialog(this, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                fillKD();
+                clearformTT();
                 dssp = sanPhamService.getAll();
                 fillChatLieuComboBox();
                 fillKhoaAoComboBox();
@@ -1481,14 +1732,14 @@ public class formSanPham extends javax.swing.JPanel {
             if (!checkForm()) {
                 return;
             }
-            chatLieu chatLieu1 = new chatLieu();
+            ChatLieu chatLieu1 = new ChatLieu();
             chatLieu1.setMachatLieu(maThuocTinh);
             chatLieu1.setTenchatLieu(tenThuocTinh);
-            
+
             if (clDao.Update(chatLieu1, maThuocTinh) > 0) {
                 JOptionPane.showMessageDialog(this, "Cập nhật thành công");
                 fillCL();
-                clearForm();
+                clearformTT();
                 dssp = sanPhamService.getAll();
                 fillChatLieuComboBox();
                 fillKhoaAoComboBox();
@@ -1506,13 +1757,13 @@ public class formSanPham extends javax.swing.JPanel {
             if (!checkForm()) {
                 return;
             }
-            kichThuoc kciThuoc = new kichThuoc();
+            KichThuoc kciThuoc = new KichThuoc();
             kciThuoc.setMaKichThuoc(maThuocTinh);
             kciThuoc.setTenKichThuoc(tenThuocTinh);
             if (kichDao.Update(kciThuoc, maThuocTinh) > 0) {
                 JOptionPane.showMessageDialog(this, "Cập nhật thành công");
                 fillKT();
-                clearForm();
+                clearformTT();
                 dssp = sanPhamService.getAll();
                 fillChatLieuComboBox();
                 fillKhoaAoComboBox();
@@ -1538,7 +1789,105 @@ public class formSanPham extends javax.swing.JPanel {
             if (mauS.Update(mauSac, maThuocTinh) > 0) {
                 JOptionPane.showMessageDialog(this, "Cập nhật thành công");
                 fillMS();
-                clearForm();
+                clearformTT();
+                dssp = sanPhamService.getAll();
+                fillChatLieuComboBox();
+                fillKhoaAoComboBox();
+                fillKieuDangComboBox();
+                fillKichThuocComboBox();
+                fillMauSacComboBox();
+                fillThuongHieuComboBox();
+                fillNSXComboBox();
+                showDuLieu();
+            } else {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy mã để cập nhật", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        if (rdoKhoaAo.isSelected()) {
+            if (!checkForm()) {
+                return;
+            }
+            KhoaAo ka = new KhoaAo();
+            ka.setMaKhoa(maThuocTinh);
+            ka.setTenKhoa(tenThuocTinh);
+            if (khoaAoService.Update(ka, maThuocTinh) > 0) {
+                JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+                fillKa();
+                clearformTT();
+                dssp = sanPhamService.getAll();
+                fillChatLieuComboBox();
+                fillKhoaAoComboBox();
+                fillKieuDangComboBox();
+                fillKichThuocComboBox();
+                fillMauSacComboBox();
+                fillThuongHieuComboBox();
+                fillNSXComboBox();
+                showDuLieu();
+            } else {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy mã để cập nhật", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        if (rdoNSX.isSelected()) {
+            if (!checkForm()) {
+                return;
+            }
+            NhaSanXuat nsx = new NhaSanXuat();
+            nsx.setMaNsx(maThuocTinh);
+            nsx.setTenNsx(tenThuocTinh);
+            if (nhaSanXuatService.Update(nsx, maThuocTinh) > 0) {
+                JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+                fillNsx();
+                clearformTT();
+                dssp = sanPhamService.getAll();
+                fillChatLieuComboBox();
+                fillKhoaAoComboBox();
+                fillKieuDangComboBox();
+                fillKichThuocComboBox();
+                fillMauSacComboBox();
+                fillThuongHieuComboBox();
+                fillNSXComboBox();
+                showDuLieu();
+            } else {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy mã để cập nhật", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        if (rdoThuongHieu.isSelected()) {
+            if (!checkForm()) {
+                return;
+            }
+            ThuongHieu th = new ThuongHieu();
+            th.setMaThuonghieu(maThuocTinh);
+            th.setTenThuongHieu(tenThuocTinh);
+
+            if (thuongHieuService.Update(th, maThuocTinh) > 0) {
+                JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+                fillTh();
+                clearformTT();
+                dssp = sanPhamService.getAll();
+                fillChatLieuComboBox();
+                fillKhoaAoComboBox();
+                fillKieuDangComboBox();
+                fillKichThuocComboBox();
+                fillMauSacComboBox();
+                fillThuongHieuComboBox();
+                fillNSXComboBox();
+                showDuLieu();
+            } else {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy mã để cập nhật", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        if (rdoKieuDang.isSelected()) {
+            if (!checkForm()) {
+                return;
+            }
+            KieuDang kd = new KieuDang();
+            kd.setMaKieuDang(maThuocTinh);
+            kd.setTenKieuDang(tenThuocTinh);
+
+            if (kieuDangService.Update(kd, maThuocTinh) > 0) {
+                JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+                fillKD();
+                clearformTT();
                 dssp = sanPhamService.getAll();
                 fillChatLieuComboBox();
                 fillKhoaAoComboBox();
@@ -1554,25 +1903,17 @@ public class formSanPham extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnSuaThuocTinhActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        String maThuocTinh = txtMaThuocTinh.getText();
-        if (rdoChatLieu.isSelected()) {
-            //            int del = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa này ?"
-            //                    + (clDao.Delete(id,maThuocTinh)), "Xác nhận", JOptionPane.YES_NO_OPTION);
-        }
-    }//GEN-LAST:event_jButton6ActionPerformed
-
     private void tblBangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBangMouseClicked
         if (rdoChatLieu.isSelected()) {
             int index = tblBang.getSelectedRow();
-            chatLieu l = clDao.getAll().get(index);
+            ChatLieu l = clDao.getAll().get(index);
             txtMaThuocTinh.setText(l.getMachatLieu());
             txtTenThuocTinh.setText(l.getTenchatLieu());
             fillCL();
         }
         if (rdoKichThuoc.isSelected()) {
             int index = tblBang.getSelectedRow();
-            kichThuoc kt = kichDao.getAll().get(index);
+            KichThuoc kt = kichDao.getAll().get(index);
             txtMaThuocTinh.setText(kt.getMaKichThuoc());
             txtTenThuocTinh.setText(kt.getTenKichThuoc());
             fillKT();
@@ -1584,11 +1925,52 @@ public class formSanPham extends javax.swing.JPanel {
             txtTenThuocTinh.setText(ms.getTenMauSac());
             fillMS();
         }
+        if (rdoThuongHieu.isSelected()) {
+            int index = tblBang.getSelectedRow();
+            ThuongHieu th = thuongHieuService.getAll().get(index);
+            txtMaThuocTinh.setText(th.getMaThuonghieu());
+            txtTenThuocTinh.setText(th.getTenThuongHieu());
+            fillTh();
+        }
+        if (rdoNSX.isSelected()) {
+            int index = tblBang.getSelectedRow();
+            NhaSanXuat nsx = nhaSanXuatService.getAll().get(index);
+            txtMaThuocTinh.setText(nsx.getMaNsx());
+            txtTenThuocTinh.setText(nsx.getTenNsx());
+            fillNsx();
+        }
+        if (rdoKhoaAo.isSelected()) {
+            int index = tblBang.getSelectedRow();
+            KhoaAo ka = khoaAoService.getAll().get(index);
+            txtMaThuocTinh.setText(ka.getMaKhoa());
+            txtTenThuocTinh.setText(ka.getTenKhoa());
+            fillKa();
+        }
+        if (rdoKieuDang.isSelected()) {
+            int index = tblBang.getSelectedRow();
+            KieuDang kd = kieuDangService.getAll().get(index);
+            txtMaThuocTinh.setText(kd.getMaKieuDang());
+            txtTenThuocTinh.setText(kd.getTenKieuDang());
+            fillKD();
+        }
     }//GEN-LAST:event_tblBangMouseClicked
 
     private void txtMaThuocTinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaThuocTinhActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMaThuocTinhActionPerformed
+
+    private void btnLamMoiTTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiTTActionPerformed
+        clearformTT();
+    }//GEN-LAST:event_btnLamMoiTTActionPerformed
+
+    private void rdoKieuDangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdoKieuDangMouseClicked
+        // TODO add your handling code here:
+        fillKD();
+    }//GEN-LAST:event_rdoKieuDangMouseClicked
+
+    private void rdoKieuDangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoKieuDangActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdoKieuDangActionPerformed
     public void showDetail(int index) {
         SanPham sp = dssp.get(index);
         txtSoLuong.setText(String.valueOf(sp.getSoluongtonkho()));
@@ -1631,28 +2013,6 @@ public class formSanPham extends javax.swing.JPanel {
 
     }
 
-    public void fillKT() {
-        rdoKichThuoc.setSelected(true);
-        model = (DefaultTableModel) tblBang.getModel();
-        model.setRowCount(0);
-        ArrayList<kichThuoc> data = kichDao.getAll();
-        for (int i = 0; i < data.size(); i++) {
-            kichThuoc kicThuoc = data.get(i);
-            model.addRow(new Object[]{i + 1, kicThuoc.getMaKichThuoc(), kicThuoc.getTenKichThuoc()});
-        }
-    }
-
-    public void fillMS() {
-        rdoMauSac.setSelected(true);
-        model = (DefaultTableModel) tblBang.getModel();
-        model.setRowCount(0);
-        ArrayList<MauSac> data = mauS.getALL();
-        for (int i = 0; i < data.size(); i++) {
-            MauSac mauSac = data.get(i);
-            model.addRow(new Object[]{i + 1, mauSac.getMaMauSac(), mauSac.getTenMauSac()});
-        }
-    }
-
     public void Search(String tim) {
         DefaultTableModel model = (DefaultTableModel) tblBang.getModel();
         TableRowSorter<DefaultTableModel> tableRowSorter = new TableRowSorter<>(model);
@@ -1691,44 +2051,16 @@ public class formSanPham extends javax.swing.JPanel {
         sp.setNgayTao(ngayTao);
         sp.setNgaySua(ngaySua);
         sp.setSoluongtonkho(Integer.valueOf(soLuong));
-
         return sp;
     }
 
-    private boolean checkForm() {
-        String mathuocTinh = txtMaThuocTinh.getText().trim();
-        String tenThuocTinh = txtTenThuocTinh.getText().trim();
 
-        if (mathuocTinh.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập mã thuộc tính", "Warning", JOptionPane.WARNING_MESSAGE);
-            txtMaThuocTinh.requestFocus();
-            return false;
-        }
-
-        if (mathuocTinh.length() > 100) {
-            JOptionPane.showMessageDialog(null, "Mã thuộc tính không được vượt quá 100 ký tự", "Warning", JOptionPane.WARNING_MESSAGE);
-            txtMaThuocTinh.requestFocus();
-            return false;
-        }
-        if (tenThuocTinh.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập tên thuộc tính", "Warning", JOptionPane.WARNING_MESSAGE);
-            txtTenThuocTinh.requestFocus();
-            return false;
-        }
-
-        if (tenThuocTinh.length() > 100) {
-            JOptionPane.showMessageDialog(null, "Tên thuộc tính không được vượt quá 100 ký tự", "Warning", JOptionPane.WARNING_MESSAGE);
-            txtTenThuocTinh.requestFocus();
-            return false;
-        }
-
-        return true;
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnAdd1;
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnLamMoiSP;
+    private javax.swing.JButton btnLamMoiTT;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnSuaSP;
     private javax.swing.JButton btnSuaThuocTinh;
@@ -1748,8 +2080,6 @@ public class formSanPham extends javax.swing.JPanel {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1789,16 +2119,17 @@ public class formSanPham extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JRadioButton jRadioButton6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JRadioButton rdoChatLieu;
+    private javax.swing.JRadioButton rdoKhoaAo;
     private javax.swing.JRadioButton rdoKichThuoc;
+    private javax.swing.JRadioButton rdoKieuDang;
     private javax.swing.JRadioButton rdoMauSac;
+    private javax.swing.JRadioButton rdoNSX;
+    private javax.swing.JRadioButton rdoThuongHieu;
     private javax.swing.JTable tblBang;
     private javax.swing.JTable tblSanPham;
     private javax.swing.JTable tblSanPhamChinh;

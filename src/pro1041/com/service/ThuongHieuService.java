@@ -24,7 +24,7 @@ public class ThuongHieuService {
                 SELECT id_thuongHieu, tenThuongHieu, maThuongHieu, ngaySua, ngayTao
                 FROM ThuongHieu
                  """;
-        List<ThuongHieu> listThuongHieu = new ArrayList<>();
+        ArrayList<ThuongHieu> listThuongHieu = new ArrayList<>();
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -62,29 +62,16 @@ public class ThuongHieuService {
             return 0;
         }
     }
-     public int sua(int idThuongHieu, ThuongHieu th) {
-        String sql = """
-                     UPDATE [dbo].[ThuongHieu]
-                        SET [maThuongHieu] = ?
-                           ,[tenThuongHieu] = ?
-                    
-                          
-                           ,[ngayTao] = ?
-                           ,[ngaySua] = ?
-                      WHERE id_thuongHieu=?
-                     """;
-        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setObject(1, th.getMaThuonghieu());
-            ps.setObject(2, th.getTenThuongHieu());
-       
-            ps.setObject(3, th.getNgayTao());
-            ps.setObject(4, th.getNgaySua());
-            ps.setObject(5, idThuongHieu);
-            return ps.executeUpdate();
+     public int Update(ThuongHieu th,String ma) {
+        String sql = "UPDATE dbo.ThuongHieu SET tenThuongHieu = ? WHERE maThuongHieu = ? ";
+        try (Connection conn = DBConnect.getConnection(); PreparedStatement pst = conn.prepareCall(sql)){
+            pst.setObject(1,th.getTenThuongHieu());
+            pst.setString(2,ma);
+            return pst.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
-            return 0;
         }
+        return 0;
     }
        public boolean xoa(int id) {
         String sql = """
@@ -104,6 +91,21 @@ public class ThuongHieuService {
             e.printStackTrace();
             return false;
         }
+    }
+       public boolean checkIdTrung(String id) {
+        String sql = "SELECT COUNT(*) AS count FROM dbo.ThuongHieu WHERE maThuongHieu = ?";
+        try (Connection conn = DBConnect.getConnection(); PreparedStatement pst = conn.prepareCall(sql)) {
+
+            pst.setObject(1, id);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt("count");
+                return count > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

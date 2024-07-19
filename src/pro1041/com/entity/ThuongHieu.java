@@ -17,10 +17,10 @@ public class ThuongHieu {
     private Date ngayTao;
     private Date ngaySua;
 
-    public ThuongHieu(int idThuongHieu, String tenThuongHieu, String maThuonghieu, Date ngayTao, Date ngaySua) {
+    public ThuongHieu(int idThuongHieu, String maThuongHieu, String tenThuongHieu, Date ngayTao, Date ngaySua) {
         this.idThuongHieu = idThuongHieu;
-        this.tenThuongHieu = tenThuongHieu;
-        this.maThuonghieu = maThuonghieu;
+        this.tenThuongHieu = maThuongHieu;
+        this.maThuonghieu = tenThuongHieu;
         this.ngayTao = ngayTao;
         this.ngaySua = ngaySua;
     }

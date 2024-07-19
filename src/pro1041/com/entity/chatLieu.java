@@ -10,7 +10,7 @@ import java.util.Date;
 
 
 
-public class chatLieu {
+public class ChatLieu {
     private Integer id ;
     private String machatLieu;
     private String tenchatLieu;
@@ -19,10 +19,10 @@ public class chatLieu {
     private String moTa;
     private boolean trangThai;
 
-    public chatLieu() {
+    public ChatLieu() {
     }
 
-    public chatLieu(Integer id, String machatLieu, String tenchatLieu, Date ngayTao, Date ngaySua, String moTa, boolean trangThai) {
+    public ChatLieu(Integer id, String machatLieu, String tenchatLieu, Date ngayTao, Date ngaySua, String moTa, boolean trangThai) {
         this.id = id;
         this.machatLieu = machatLieu;
         this.tenchatLieu = tenchatLieu;
@@ -32,7 +32,7 @@ public class chatLieu {
         this.trangThai = trangThai;
     }
 
-    public chatLieu(String maChatLieu, String tenChatLieu) {
+    public ChatLieu(String maChatLieu, String tenChatLieu) {
     }
 
     public Integer getId() {
