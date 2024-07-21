@@ -11,13 +11,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import pro1041.com.entity.HoaDon;
 import pro1041.com.entity.HoaDonCho;
 import pro1041.com.entity.KhuyenMai;
 import pro1041.com.entity.SanPham;
 import pro1041.com.service.HoaDonService;
 import pro1041.com.service.KhuyenMaiService;
+import pro1041.com.service.NhanVienService;
 import pro1041.com.service.SanPhamService;
 import pro1041.com.utils.DBConnect;
 
@@ -27,10 +30,12 @@ import pro1041.com.utils.DBConnect;
  */
 public class formBanHangChinh extends javax.swing.JPanel {
 
+    private DefaultTableModel dtm = new DefaultTableModel();
     private DefaultTableModel model = new DefaultTableModel();
     private SanPhamService sanPhamService = new SanPhamService();
     private List<HoaDonCho> hoaDonTest = new ArrayList<>();
     private HoaDonService hoaDonService = new HoaDonService();
+    private NhanVienService nhanVienService = new NhanVienService();
 
     /**
      * Creates new form formBanHangChinh
@@ -40,6 +45,7 @@ public class formBanHangChinh extends javax.swing.JPanel {
         setSize(2000, 2000);
         loadSanPham();
         loadHoadon();
+        fillNhanVienComboBox();
     }
 
     public static int themHoaDonVaoDatabase(boolean trangThai) {
@@ -61,7 +67,6 @@ public class formBanHangChinh extends javax.swing.JPanel {
         }
 
         return generatedId;
-
     }
 
     private void xoaHoaDonDaThanhToan(int id) {
@@ -229,6 +234,11 @@ public class formBanHangChinh extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn một hóa đơn để hủy.");
         }
+    }
+
+    private void fillNhanVienComboBox() {
+        DefaultComboBoxModel<String> thModel = nhanVienService.getAllTenNV();
+        cboTenNV.setModel(thModel);
     }
 
     /**
@@ -525,6 +535,11 @@ public class formBanHangChinh extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblHoaDonCho.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblHoaDonChoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblHoaDonCho);
 
         btnTaoMoiHoaDonCho.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
@@ -603,13 +618,13 @@ public class formBanHangChinh extends javax.swing.JPanel {
 
         tblHDCT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "MÃ HÓA ĐƠN", "TÊN SẢN PHẨM", "SỐ LƯỢNG", "TỔNG TIỀN", "NGÀY TẠO HÓA ĐƠN"
+                "MÃ HÓA ĐƠN", "TÊN SẢN PHẨM", "SỐ LƯỢNG", "ĐƠN GIÁ", "TỔNG TIỀN", "NGÀY TẠO HÓA ĐƠN"
             }
         ));
         jScrollPane3.setViewportView(tblHDCT);
@@ -725,22 +740,22 @@ public class formBanHangChinh extends javax.swing.JPanel {
 
     private void btnApDungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApDungActionPerformed
         // TODO add your handling code here:
-        int idgg = Integer.parseInt(txtIDGG.getText()); 
-        String tienKhachDuaStr = txtTienKhachDua.getText(); 
-        KhuyenMaiService khuyenMaiService = new KhuyenMaiService(); 
+        int idgg = Integer.parseInt(txtIDGG.getText());
+        String tienKhachDuaStr = txtTienKhachDua.getText();
+        KhuyenMaiService khuyenMaiService = new KhuyenMaiService();
         KhuyenMai km = khuyenMaiService.getKhuyenMaiByID(idgg);
         if (km != null) {
             hienThiThongTinKhuyenMai(km);
-            double giaTriGiam = km.getGiaTri(); 
-            boolean isPercent = km.getDonVi().equals("%"); 
-            double tongTien = tinhTongTienGioHang(); 
-            double tienGiam = isPercent ? (tongTien * giaTriGiam / 100) : giaTriGiam;
+            double giaTriGiam = km.getGiaTri();
+            //boolean isPercent = km.getDonVi().equals("%");
+            double tongTien = tinhTongTienGioHang();
+            double tienGiam =  (tongTien * giaTriGiam / 100);
             double tongTienSauGiam = tongTien - tienGiam;
             txtSoTienGiam.setText(String.format("%.2f", tienGiam));
             txtTongTien.setText(String.format("%.2f", tongTienSauGiam));
             try {
                 double tienKhachDua = Double.parseDouble(tienKhachDuaStr);
-                double tienThua = tienKhachDua - tongTienSauGiam; 
+                double tienThua = tienKhachDua - tongTienSauGiam;
                 txtTienThua.setText(String.format("%.2f", tienThua));
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Số tiền khách đưa không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE); // Handle invalid input
@@ -758,7 +773,32 @@ public class formBanHangChinh extends javax.swing.JPanel {
         txtSoTienGiam.setText("");
     }//GEN-LAST:event_btnLamMoiMaActionPerformed
 
+    private void tblHoaDonChoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonChoMouseClicked
+        // TODO add your handling code here:
+        int index = tblHoaDonCho.getSelectedRow();
+        if (index != -1) {
+        int id = Integer.parseInt(tblHoaDonCho.getValueAt(index, 0).toString());
+            List<HoaDon> dsct = hoaDonService.getById(id);
+            showTable(dsct);
+        }
+        String maHoaDon = tblHoaDonCho.getValueAt(index, 1).toString();
+        txtMaHD.setText(maHoaDon);
+    }//GEN-LAST:event_tblHoaDonChoMouseClicked
 
+    void showTable(List<HoaDon> list) {
+        dtm = (DefaultTableModel) tblHDCT.getModel();
+        dtm.setRowCount(0);
+        for (HoaDon hdct : list) {
+            dtm.addRow(new Object[]{
+                hdct.getMaHDCT(),
+                hdct.getTenSanPham(),
+                hdct.getSoLuong(),
+                hdct.getGia(),
+                hdct.getTongTien(),
+                hdct.getNgayTaoHD(),
+            });
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApDung;
     private javax.swing.JButton btnLamMoiMa;

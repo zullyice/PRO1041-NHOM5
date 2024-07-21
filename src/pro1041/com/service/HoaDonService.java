@@ -55,20 +55,22 @@ public class HoaDonService {
     public List<HoaDon> getAllSP() {
         String sql = """
                      SELECT[maHDCT]
-                     	,	sp.tenSanPham
-                     	  ,[soLuong]
-                           ,[tongTien]
-                           ,hd.ngayTao 
-                           ,sp.ngayTao 
-                       FROM [dbo].[HoaDonChiTiet] hdct
-                       JOIN SanPham sp ON sp.id_sanPham = hdct.id_SPCT
-                       LEFT JOIN HoaDon hd on hdct.id_hoaDon = hd.id_hoaDon
+                                          	,	sp.tenSanPham
+                                          	  ,hdct.soLuong
+                     						  ,spct.gia
+                                                ,[tongTien]
+                                                ,hd.ngayTao 
+                                                ,sp.ngayTao 
+                                            FROM [dbo].[HoaDonChiTiet] hdct
+                                            JOIN SanPham sp ON sp.id_sanPham = hdct.id_SPCT
+                                            LEFT JOIN HoaDon hd on hdct.id_hoaDon = hd.id_hoaDon
+                     					   INNER JOIN SanPhamChiTiet spct ON hdct.id_SPCT = spct.id_SPCT
                      """;
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             List<HoaDon> dshdct = new ArrayList<>();
             while (rs.next()) {
-                HoaDon hdct = new HoaDon(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getDate(5), rs.getDate(6));
+                HoaDon hdct = new HoaDon(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getDate(6), rs.getDate(7));
                 dshdct.add(hdct);
             }
             return dshdct;
@@ -78,41 +80,44 @@ public class HoaDonService {
         return null;
     }
 
-    public List<HoaDon> getbyID(int idhd) {
+    public List<HoaDon> getById(int idhd) {
         List<HoaDon> searchID = new ArrayList<>();
         String sql = """
-                 SELECT [maHDCT]
-                     , sp.tenSanPham
-                     , [soLuong]
-                     , [tongTien]
-                     , hd.ngayTao 
-                     , sp.ngayTao 
-                 FROM [dbo].[HoaDonChiTiet] hdct
-                 JOIN SanPham sp ON sp.id_sanPham = hdct.id_SPCT
-                 LEFT JOIN HoaDon hd on hdct.id_hoaDon = hd.id_hoaDon
-                 WHERE hd.id_hoaDon = ?
+                 SELECT hdct.maHDCT
+                                       , sp.tenSanPham
+                                       , hdct.soLuong
+                 					  ,spct.gia
+                                       , hdct.tongTien
+                                       , hd.ngayTao
+                                       , sp.ngayTao
+                                  FROM dbo.HoaDonChiTiet hdct
+                                  JOIN SanPham sp ON sp.id_sanPham = hdct.id_SPCT
+                                  LEFT JOIN HoaDon hd ON hdct.id_hoaDon = hd.id_hoaDon
+                 				 INNER JOIN SanPhamChiTiet spct ON spct.id_SPCT = hdct.id_SPCT
+                                  WHERE hd.id_hoaDon = ?
                  """;
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setObject(1, idhd);
+            ps.setInt(1, idhd);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     HoaDon hdct = new HoaDon(
-                            rs.getString(1),
-                            rs.getString(2),
-                            rs.getInt(3),
-                            rs.getInt(4),
-                            rs.getDate(5),
-                            rs.getDate(6)
+                            rs.getString("maHDCT"),
+                            rs.getString("tenSanPham"),
+                            rs.getInt("soLuong"),
+                            rs.getInt("gia"),
+                            rs.getInt("tongTien"),
+                            rs.getDate("ngayTao"),
+                            rs.getDate("ngayTao")
                     );
                     searchID.add(hdct);
                 }
             }
-            return searchID;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return searchID;
     }
+
     private void themChiTietHoaDon(int idhdct, SanPham sp) {
         String sql = "INSERT INTO HoaDonChiTiet (id_hoaDon, id_SPCT, soluongtonkho, gia, tongTien, trangThai) VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -128,5 +133,5 @@ public class HoaDonService {
             ex.printStackTrace();
         }
     }
-    
+
 }

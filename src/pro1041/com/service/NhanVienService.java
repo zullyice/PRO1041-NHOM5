@@ -10,6 +10,8 @@ import pro1041.com.entity.NhanVien;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import pro1041.com.utils.DBConnect;
 
@@ -133,5 +135,25 @@ public class NhanVienService {
             e.printStackTrace();
             return 0;
         }
+    }
+    public DefaultComboBoxModel<String> getAllTenNV() {
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+        try {
+            String query = """
+                           SELECT [tenNhanVien]
+                             FROM [dbo].[NhanVien]
+                           """;
+            Connection cn = DBConnect.getConnection();
+            PreparedStatement pst = cn.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                String nhanVien = rs.getString("tenNhanVien");
+                model.addElement(nhanVien);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Lỗi khi lấy dữ liệu từ cơ sở dữ liệu: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+        return model;
     }
 }

@@ -26,6 +26,7 @@ public class HoaDon {
     private int tongTien;
     private Date ngayTaoHD;
     private Date ngayTaoSP;
+    private int gia;
 
     public HoaDon() {
     }
@@ -41,10 +42,11 @@ public class HoaDon {
         this.ngayTaoHD = ngayTaoHD;
     }
 
-    public HoaDon(String maHDCT,String tenSanPham,  int soLuong, int tongTien, Date ngayTaoHD, Date ngayTaoSP) {
+    public HoaDon(String maHDCT,String tenSanPham,  int soLuong, int tongTien,int gia, Date ngayTaoHD, Date ngayTaoSP) {
         this.tenSanPham = tenSanPham;
         this.maHDCT = maHDCT;
         this.soLuong = soLuong;
+        this.gia = gia;
         this.tongTien = tongTien;
         this.ngayTaoHD = ngayTaoHD;
         this.ngayTaoSP = ngayTaoSP;
@@ -188,6 +190,14 @@ public class HoaDon {
 
     public void setNgayTaoSP(Date ngayTaoSP) {
         this.ngayTaoSP = ngayTaoSP;
+    }
+
+    public int getGia() {
+        return gia;
+    }
+
+    public void setGia(int gia) {
+        this.gia = gia;
     }
     
     

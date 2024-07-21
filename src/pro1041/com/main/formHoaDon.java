@@ -30,7 +30,7 @@ public class formHoaDon extends javax.swing.JPanel {
         dtm = (DefaultTableModel) tblHoaDon.getModel();
         dtm.setRowCount(0);
         for (HoaDon hoaDon : list) {
-            String trangThai = hoaDon.getTrangThai() == false ? "Thanh Toán" : "Chưa Thanh Toán";
+            String trangThai = hoaDon.getTrangThai() == true ? "Thanh Toán" : "Chưa Thanh Toán";
             dtm.addRow(new Object[]{
                 hoaDon.getIdHoaDon(),
                 hoaDon.getMaHoaDon(),
@@ -53,6 +53,7 @@ public class formHoaDon extends javax.swing.JPanel {
                 hdct.getMaHDCT(),
                 hdct.getTenSanPham(),
                 hdct.getSoLuong(),
+                hdct.getGia(),
                 hdct.getTongTien(),
                 hdct.getNgayTaoHD(),
                 hdct.getNgayTaoSP()
@@ -117,7 +118,7 @@ public class formHoaDon extends javax.swing.JPanel {
 
             },
             new String [] {
-                "MÃ HDCT", "TÊN SẢN PHẨM", "SỐ LƯỢNG", "TỔNG TIỀN", "NGÀY TẠO HÓA ĐƠN ", "NGÀY TẠO SẢN PHẨM"
+                "MÃ HDCT", "TÊN SẢN PHẨM", "SỐ LƯỢNG", "GIÁ", "TỔNG TIỀN", "NGÀY TẠO HÓA ĐƠN ", "NGÀY TẠO SẢN PHẨM"
             }
         ));
         tblHoaDonChiTiet.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -176,7 +177,7 @@ public class formHoaDon extends javax.swing.JPanel {
         int index = tblHoaDon.getSelectedRow();
         if (index != -1) {
         int id = Integer.parseInt(tblHoaDon.getValueAt(index, 0).toString());
-            List<HoaDon> dsct = hoaDonService.getbyID(id);
+            List<HoaDon> dsct = hoaDonService.getById(id);
             showTable(dsct);
         }
     }//GEN-LAST:event_tblHoaDonMouseClicked
