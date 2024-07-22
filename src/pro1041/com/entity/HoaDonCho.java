@@ -13,6 +13,7 @@ import java.util.Date;
 public class HoaDonCho {
     private int id_HoaDon;
     private boolean trangThai;
+    private String tenHoaDon;
     private Date ngayTao;
     private int id_nhanVien;
     private int id_KhachHang;
@@ -29,6 +30,17 @@ public class HoaDonCho {
         this.id_KhachHang = id_KhachHang;
         this.id_HTTT = id_HTTT;
     }
+
+    public HoaDonCho(int id_HoaDon, boolean trangThai, String tenHoaDon, Date ngayTao, int id_nhanVien, int id_KhachHang, int id_HTTT) {
+        this.id_HoaDon = id_HoaDon;
+        this.trangThai = trangThai;
+        this.tenHoaDon = tenHoaDon;
+        this.ngayTao = ngayTao;
+        this.id_nhanVien = id_nhanVien;
+        this.id_KhachHang = id_KhachHang;
+        this.id_HTTT = id_HTTT;
+    }
+    
 
     public HoaDonCho(int id_HoaDon, String trangThai, Date ngayTao) {
         
@@ -81,6 +93,15 @@ public class HoaDonCho {
     public void setId_HTTT(int id_HTTT) {
         this.id_HTTT = id_HTTT;
     }
+
+    public String getTenHoaDon() {
+        return tenHoaDon;
+    }
+
+    public void setTenHoaDon(String tenHoaDon) {
+        this.tenHoaDon = tenHoaDon;
+    }
+    
     
     
 }
