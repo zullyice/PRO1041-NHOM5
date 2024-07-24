@@ -5,6 +5,7 @@
 package pro1041.com.main;
 
 import java.util.List;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import pro1041.com.entity.HoaDon;
 import pro1041.com.service.HoaDonService;
@@ -14,9 +15,11 @@ import pro1041.com.service.HoaDonService;
  * @author Tom
  */
 public class formHoaDon extends javax.swing.JPanel {
+
     private HoaDonService hoaDonService = new HoaDonService();
     private DefaultTableModel dtm = new DefaultTableModel();
     private DefaultTableModel tbm = new DefaultTableModel();
+
     /**
      * Creates new form formHoaDon
      */
@@ -26,6 +29,12 @@ public class formHoaDon extends javax.swing.JPanel {
         this.fill1(hoaDonService.getAll());
     }
 
+    private void checkEditingStatus(JTable table) {
+        boolean isEditing = table.isEditing();
+        if (isEditing == false) {
+        }
+    }
+    
     void fill1(List<HoaDon> list) {
         dtm = (DefaultTableModel) tblHoaDon.getModel();
         dtm.setRowCount(0);
@@ -42,15 +51,15 @@ public class formHoaDon extends javax.swing.JPanel {
                 hoaDon.getLoaiTT()
             }
             );
-
+            
         }
     }
+
     void showTable(List<HoaDon> list) {
         tbm = (DefaultTableModel) tblHoaDonChiTiet.getModel();
         tbm.setRowCount(0);
         for (HoaDon hdct : list) {
             tbm.addRow(new Object[]{
-                hdct.getMaHDCT(),
                 hdct.getTenSanPham(),
                 hdct.getSoLuong(),
                 hdct.getGia(),
@@ -170,16 +179,18 @@ public class formHoaDon extends javax.swing.JPanel {
     private void tblHoaDonChiTietMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonChiTietMouseClicked
         // TODO add your handling code here:
         int row = tblHoaDonChiTiet.getSelectedRow();
+        checkEditingStatus(tblHoaDonChiTiet);
     }//GEN-LAST:event_tblHoaDonChiTietMouseClicked
 
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
         // TODO add your handling code here:
         int index = tblHoaDon.getSelectedRow();
         if (index != -1) {
-        int id = Integer.parseInt(tblHoaDon.getValueAt(index, 0).toString());
+            int id = Integer.parseInt(tblHoaDon.getValueAt(index, 0).toString());
             List<HoaDon> dsct = hoaDonService.getById(id);
             showTable(dsct);
         }
+        checkEditingStatus(tblHoaDon);
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
 

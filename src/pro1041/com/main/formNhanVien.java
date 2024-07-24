@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import pro1041.com.entity.NhanVien;
 import pro1041.com.service.NhanVienService;
@@ -32,6 +33,12 @@ public class formNhanVien extends javax.swing.JPanel {
         tableModel = (DefaultTableModel) tblNhanVien.getModel();
         showData();
         clearForm();
+    }
+
+    private void checkEditingStatus(JTable table) {
+        boolean isEditing = table.isEditing();
+        if (isEditing == false) {
+        }
     }
 
     public void showData() {
@@ -479,6 +486,7 @@ public class formNhanVien extends javax.swing.JPanel {
         // TODO add your handling code here:
         int row = tblNhanVien.getSelectedRow();
         showDetail(row);
+        checkEditingStatus(tblNhanVien);
     }//GEN-LAST:event_tblNhanVienMouseClicked
 
     private void txtTaiKhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTaiKhoanActionPerformed

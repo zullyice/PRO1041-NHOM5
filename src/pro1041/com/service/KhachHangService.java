@@ -10,6 +10,8 @@ import pro1041.com.utils.DBConnect;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -120,6 +122,29 @@ public class KhachHangService {
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
+        }
+    }
+    public void ThemKhandSDT(String tenKhachHang, String sdt) {
+        String sqlInsertKhachHang = "INSERT INTO KHACHHANG (hoTenKh, sdt) VALUES (?, ?)";
+
+        if (tenKhachHang == null || tenKhachHang.trim().isEmpty() || tenKhachHang.matches(".*\\d.*")) {
+            JOptionPane.showMessageDialog(null, "Tên khách hàng không hợp lệ. Vui lòng kiểm tra lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (sdt == null || !sdt.matches("\\d{1,11}")) {
+            JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ. Vui lòng kiểm tra lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try (Connection con = DBConnect.getConnection(); PreparedStatement statement = con.prepareStatement(sqlInsertKhachHang, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setString(1, tenKhachHang);
+            statement.setString(2, sdt);
+            statement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Thêm khách hàng thành công.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi thêm khách hàng. Vui lòng thử lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

@@ -8,8 +8,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import pro1041.com.entity.HoaDon;
 import pro1041.com.entity.KhachHang;
 import pro1041.com.entity.SanPham;
@@ -118,20 +121,112 @@ public class HoaDonService {
         return searchID;
     }
 
-    private void themChiTietHoaDon(int idhdct, SanPham sp) {
-        String sql = "INSERT INTO HoaDonChiTiet (id_hoaDon, id_SPCT, soluongtonkho, gia, tongTien, trangThai) VALUES (?, ?, ?, ?, ?, ?)";
+    public void themChiTietHoaDon(int idhd, SanPham sp) {
+        
+
+        // Proceed with insert if validation passes
+        String sql = """
+                 INSERT INTO [dbo].[HoaDonChiTiet]
+                            (
+                            [trangThai]
+                            ,[soLuong]
+                            ,[donGia]
+                            ,[tongTien]
+                            ,[id_hoaDon]
+                            ,[id_SPCT])
+                      VALUES
+                            (?,?,?,?,?,?)
+                 """;
 
         try (Connection con = DBConnect.getConnection(); PreparedStatement statement = con.prepareStatement(sql)) {
-            statement.setInt(1, idhdct);
-            statement.setInt(2, sp.getId_SPCT());
-            statement.setInt(3, sp.getSoluongtonkho());
-            statement.setDouble(4, sp.getGia());
-            statement.setDouble(5, sp.getSoluongtonkho() * sp.getGia());
-            statement.setBoolean(6, true);
+            statement.setBoolean(1, true);
+            statement.setInt(2, sp.getSoluongtonkho());
+            statement.setDouble(3, sp.getGia());
+            statement.setDouble(4, sp.getSoluongtonkho() * sp.getGia());
+            statement.setInt(5, idhd);
+            statement.setInt(6, sp.getId_sanPham());
             statement.executeUpdate();
         } catch (SQLException ex) {
+            System.err.println("Error while inserting invoice details: " + ex.getMessage());
             ex.printStackTrace();
         }
     }
 
+    public int updateTrangThaiHoaDon(int idHoaDon, boolean trangThai) {
+        String sql = "UPDATE HoaDon SET TrangThai = ? WHERE id_hoaDon = ?";
+        int rowsAffected = 0;
+
+        try (Connection con = DBConnect.getConnection(); PreparedStatement statement = con.prepareStatement(sql)) {
+            statement.setBoolean(1, trangThai);
+            statement.setInt(2, idHoaDon);
+            rowsAffected = statement.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return rowsAffected;
+    }
+
+    public static int themHoaDonVaoDatabase(String tenHD, boolean trangThai) {
+        String sql = "INSERT INTO HoaDon (tenHoaDon,TrangThai) VALUES (?,0)";
+        int generatedId = -1;
+
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, tenHD);
+            int rowsAffected = ps.executeUpdate();
+
+            if (rowsAffected > 0) {
+                ResultSet generatedKeys = ps.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    generatedId = generatedKeys.getInt(1);
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return generatedId;
+    }
+
+    public DefaultComboBoxModel<String> getAllHTTT() {
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+        try {
+            String query = """
+                           SELECT [loai]
+                             FROM [dbo].[ThanhToan]
+                           """;
+            Connection cn = DBConnect.getConnection();
+            PreparedStatement pst = cn.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                String loaiTT = rs.getString("loai");
+                model.addElement(loaiTT);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Lỗi khi lấy dữ liệu từ cơ sở dữ liệu: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+        return model;
+    }
+
+    public DefaultComboBoxModel<String> getAllKM() {
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+        try {
+            String query = """
+                           SELECT [tenKM]
+                             FROM [dbo].[KhuyenMai]
+                           """;
+            Connection cn = DBConnect.getConnection();
+            PreparedStatement pst = cn.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                String tenKM = rs.getString("tenKM");
+                model.addElement(tenKM);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Lỗi khi lấy dữ liệu từ cơ sở dữ liệu: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+        return model;
+    }
 }

@@ -643,7 +643,7 @@ public class SanPhamService {
             return false;
         }
     }
-    private void updateSanPhamSoLuong(int id, int soLuongMoi) {
+    public void updateSanPhamSoLuong(int id, int soLuongMoi) {
         String sql = "UPDATE SanPhamChiTiet SET soluongtonkho = ? WHERE id_SPCT = ?";
         try (Connection con = DBConnect.getConnection(); PreparedStatement statement = con.prepareStatement(sql)) {
             statement.setInt(1, soLuongMoi);

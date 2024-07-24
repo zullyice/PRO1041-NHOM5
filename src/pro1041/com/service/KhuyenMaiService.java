@@ -135,13 +135,13 @@ public class KhuyenMaiService {
         }
     }
 
-    public KhuyenMai getKhuyenMaiByID(int id_khuyenMai) {
+    public KhuyenMai getKhuyenMaiByID(String ten) {
         KhuyenMai km = null;
-        String sql = "SELECT * FROM [dbo].[KhuyenMai] WHERE id_khuyenMai = ?";
+        String sql = "SELECT * FROM [dbo].[KhuyenMai] WHERE tenKM = ?";
 
         try (Connection con = DBConnect.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
 
-            pstmt.setInt(1, id_khuyenMai);
+            pstmt.setString(1, ten);
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {

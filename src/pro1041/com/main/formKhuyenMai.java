@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import pro1041.com.entity.KhuyenMai;
 import pro1041.com.service.KhuyenMaiService;
@@ -32,6 +33,12 @@ public class formKhuyenMai extends javax.swing.JPanel {
         tblModel = (DefaultTableModel) tblKhuyenMai.getModel();
         showDuLieu();
         clearForm();
+    }
+
+    private void checkEditingStatus(JTable table) {
+        boolean isEditing = table.isEditing();
+        if (isEditing == false) {
+        }
     }
 
     public void showDuLieu() {
@@ -525,6 +532,7 @@ public class formKhuyenMai extends javax.swing.JPanel {
     private void tblKhuyenMaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhuyenMaiMouseClicked
         int row = tblKhuyenMai.getSelectedRow();
         showDetail(row);
+        checkEditingStatus(tblKhuyenMai);
     }//GEN-LAST:event_tblKhuyenMaiMouseClicked
     public KhuyenMai getForm() {
         KhuyenMai km = new KhuyenMai();

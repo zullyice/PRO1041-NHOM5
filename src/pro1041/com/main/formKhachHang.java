@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import pro1041.com.entity.KhachHang;
 import pro1041.com.service.KhachHangService;
@@ -32,6 +33,12 @@ public class formKhachHang extends javax.swing.JPanel {
         tbm = (DefaultTableModel) tblKhachHang.getModel();
         showDuLieu();
         clearForm();
+    }
+
+    private void checkEditingStatus(JTable table) {
+        boolean isEditing = table.isEditing();
+        if (isEditing == false) {
+        }
     }
 
     public void showDuLieu() {
@@ -493,6 +500,7 @@ public class formKhachHang extends javax.swing.JPanel {
         // TODO add your handling code here:
         int row = tblKhachHang.getSelectedRow();
         showDetail(row);
+        checkEditingStatus(tblKhachHang);
     }//GEN-LAST:event_tblKhachHangMouseClicked
 
 
