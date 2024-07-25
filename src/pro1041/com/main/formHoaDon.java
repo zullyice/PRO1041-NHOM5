@@ -42,7 +42,6 @@ public class formHoaDon extends javax.swing.JPanel {
             String trangThai = hoaDon.getTrangThai() == true ? "Thanh Toán" : "Chưa Thanh Toán";
             dtm.addRow(new Object[]{
                 hoaDon.getIdHoaDon(),
-                hoaDon.getMaHoaDon(),
                 hoaDon.getTenHoaDon(),
                 trangThai,
                 hoaDon.getNgayTaoHD(),
@@ -60,6 +59,7 @@ public class formHoaDon extends javax.swing.JPanel {
         tbm.setRowCount(0);
         for (HoaDon hdct : list) {
             tbm.addRow(new Object[]{
+                hdct.getMaHDCT(),
                 hdct.getTenSanPham(),
                 hdct.getSoLuong(),
                 hdct.getGia(),
@@ -93,7 +93,7 @@ public class formHoaDon extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID_HÓA ĐƠN ", "MÃ HÓA ĐƠN ", "TÊN HÓA ĐƠN", "TRẠNG THÁI", "NGÀY TẠO ", "TÊN KHÁCH HÀNG", "TÊN NHÂN VIÊN", "HÌNH THỨC THANH TOÁN"
+                "ID_HÓA ĐƠN ", "TÊN HÓA ĐƠN", "TRẠNG THÁI", "NGÀY TẠO ", "TÊN KHÁCH HÀNG", "TÊN NHÂN VIÊN", "HÌNH THỨC THANH TOÁN"
             }
         ));
         tblHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {

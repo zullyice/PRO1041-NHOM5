@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -75,6 +77,13 @@ public class formBanHangChinh extends javax.swing.JPanel {
         });
     }
 
+    public boolean isValidPhoneNumber(String sdt) {
+        String regex = "^[0-9]{10}$"; 
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(sdt);
+        return matcher.matches();
+    }
+
     private void xoaHoaDonDaThanhToan(int id) {
         DefaultTableModel dtmHoaDon = (DefaultTableModel) tblHoaDonCho.getModel();
         int rowCount = dtmHoaDon.getRowCount();
@@ -115,12 +124,9 @@ public class formBanHangChinh extends javax.swing.JPanel {
         double giaTriGiam = km.getGiaTri();
         boolean isPercent = true;
         double tienGiam = isPercent ? (tongTien * giaTriGiam / 100) : giaTriGiam;
-
         double tongTienSauGiam = tongTien - tienGiam;
-
         txtSoTienGiam.setText(String.format("%.2f", tienGiam));
         txtTongTien.setText(String.format("%.2f", tongTienSauGiam));
-
         updateTienThua(giaTriGiam, isPercent);
     }
 
@@ -214,11 +220,11 @@ public class formBanHangChinh extends javax.swing.JPanel {
 
         try (Connection con = DBConnect.getConnection()) {
             con.setAutoCommit(false);
-            try (PreparedStatement statementCT = con.prepareStatement(sqlDeleteHoaDonCT); PreparedStatement statementHD = con.prepareStatement(sqlDeleteHoaDon)) {
-                statementCT.setInt(1, idHoaDon);
-                statementCT.executeUpdate();
-                statementHD.setInt(1, idHoaDon);
-                statementHD.executeUpdate();
+            try (PreparedStatement psHDCT = con.prepareStatement(sqlDeleteHoaDonCT); PreparedStatement psHD = con.prepareStatement(sqlDeleteHoaDon)) {
+                psHDCT.setInt(1, idHoaDon);
+                psHDCT.executeUpdate();
+                psHD.setInt(1, idHoaDon);
+                psHD.executeUpdate();
                 con.commit();
             } catch (SQLException ex) {
                 con.rollback();
@@ -252,22 +258,22 @@ public class formBanHangChinh extends javax.swing.JPanel {
         }
     }
 
-    private void upgiohang(int idHD) {
-        DefaultTableModel dtm = (DefaultTableModel) tblHDCT.getModel();
-        dtm.setRowCount(0);
-
-        List<SanPham> gioHang = gioHangMap.get(idHD);
-        if (gioHang != null) {
-            for (SanPham sp : gioHang) {
-                int soLuong = sp.getSoluongtonkho();
-                double donGia = sp.getGia();
-                double tongTien = soLuong * donGia; // Tính tổng tiền
-                Object[] row = new Object[]{idHD, sp.getTenSanPham(), soLuong, donGia, tongTien};
-                dtm.addRow(row);
-            }
-        }
-        capNhatTongTien(); // Cập nhật tổng tiền sau khi cập nhật giỏ hàng
-    }
+//    private void upgiohang(int idHD) {
+//        DefaultTableModel dtm = (DefaultTableModel) tblHDCT.getModel();
+//        dtm.setRowCount(0);
+//
+//        List<SanPham> gioHang = gioHangMap.get(idHD);
+//        if (gioHang != null) {
+//            for (SanPham sp : gioHang) {
+//                int soLuong = sp.getSoluongtonkho();
+//                double donGia = sp.getGia();
+//                double tongTien = soLuong * donGia; 
+//                Object[] row = new Object[]{idHD, sp.getTenSanPham(), soLuong, donGia, tongTien};
+//                dtm.addRow(row);
+//            }
+//        }
+//        capNhatTongTien();
+//    }
 
     private void fillNhanVienComboBox() {
         DefaultComboBoxModel<String> thModel = nhanVienService.getAllTenNV();
@@ -284,28 +290,37 @@ public class formBanHangChinh extends javax.swing.JPanel {
         cboKhuyenMai.setModel(thModel);
     }
 
+    private double tongTienSauKhiGiam(double tongTien, double phanTramGiam) {
+        double discountAmount = tongTien * (phanTramGiam / 100);
+        return tongTien - discountAmount;
+    }
+
     public void thanhToanHoaDon() {
         int selectedRow = tblHoaDonCho.getSelectedRow();
         if (selectedRow >= 0) {
-            int idHD = Integer.valueOf(tblHoaDonCho.getValueAt(tblHoaDonCho.getSelectedRow(), 0).toString());
+            int idHD = Integer.parseInt(tblHoaDonCho.getValueAt(selectedRow, 0).toString());
+            String tenNV = String.valueOf(cboTenNV.getSelectedItem());
+            String loaiTT = String.valueOf(cboHTTT.getSelectedItem());
+            String tenKH = txtTenKhachHang.getText();
+            try {
+                HoaDon don = new HoaDon(idHD, tenNV, tenKH, loaiTT);
+                hoaDonService.updateTrangThaiHoaDon(idHD, true, don);
 
-            // Cập nhật trạng thái hóa đơn
-            hoaDonService.updateTrangThaiHoaDon(idHD, true);
-
-            // Thêm chi tiết hóa đơn cho mỗi sản phẩm trong giỏ hàng
-            List<SanPham> gioHang = gioHangMap.get(idHD);
-            if (gioHang != null) {
-                for (SanPham sp : gioHang) {
-                    hoaDonService.themChiTietHoaDon(idHD, sp);
+                List<SanPham> gioHang = gioHangMap.get(idHD);
+                if (gioHang != null) {
+                    for (SanPham sp : gioHang) {
+                        hoaDonService.themChiTietHoaDon(idHD, sp);
+                    }
                 }
+                DefaultTableModel dtmHoaDon = (DefaultTableModel) tblHoaDonCho.getModel();
+                dtmHoaDon.removeRow(selectedRow);
+                xoaHoaDonDaThanhToan(idHD);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Lỗi khi thanh toán hóa đơn: ", "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn một hóa đơn để thanh toán.", "Lỗi", JOptionPane.ERROR_MESSAGE);
 
-            // Xóa dòng trong bảng tblhoadon
-            DefaultTableModel dtmHoaDon = (DefaultTableModel) tblHoaDonCho.getModel();
-            dtmHoaDon.removeRow(selectedRow);
-
-            // Xóa hóa đơn đã thanh toán khỏi bảng tblhoadoncho
-            xoaHoaDonDaThanhToan(idHD);
         }
     }
 
@@ -412,6 +427,11 @@ public class formBanHangChinh extends javax.swing.JPanel {
         jLabel10.setText("TỔNG TIỀN");
 
         txtTongTien.setEnabled(false);
+        txtTongTien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTongTienActionPerformed(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jLabel11.setText("TIỀN KHÁCH ĐƯA");
@@ -480,9 +500,9 @@ public class formBanHangChinh extends javax.swing.JPanel {
                                         .addComponent(jLabel10)
                                         .addGap(18, 18, 18)
                                         .addComponent(txtTongTien))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel8)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGap(18, 18, 18)
                                         .addComponent(txtTenHD, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel11)
@@ -847,8 +867,11 @@ public class formBanHangChinh extends javax.swing.JPanel {
             try {
                 String input = JOptionPane.showInputDialog(null, "Nhập số lượng cần thêm vào giỏ hàng:");
                 soLuongThem = Integer.parseInt(input);
-                if (soLuongThem <= 0 || soLuongThem > soLuongHienCo) {
-                    JOptionPane.showMessageDialog(null, "Vui lòng nhập số lượng hợp lệ!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                if (soLuongThem <= 0) {
+                    JOptionPane.showMessageDialog(null, "Vui lòng nhập số lượng lớn hơn 0 để thêm vào giỏ hàng!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                    return;
+                } else if (soLuongThem > soLuongHienCo) {
+                    JOptionPane.showMessageDialog(null, "Vui lòng nhập số lượng thêm vào ít hơn số lượng hiện có!", "Thông báo", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             } catch (NumberFormatException e) {
@@ -907,8 +930,11 @@ public class formBanHangChinh extends javax.swing.JPanel {
             try {
                 String input = JOptionPane.showInputDialog(null, "Nhập số lượng trả lại:");
                 int soLuongTraLai = Integer.parseInt(input);
-                if (soLuongTraLai <= 0 || soLuongTraLai > soLuongHienCo) {
+                if (soLuongTraLai <= 0) {
                     JOptionPane.showMessageDialog(null, "Vui lòng nhập số lượng hợp lệ!", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                    return;
+                } else if (soLuongTraLai > soLuongHienCo) {
+                    JOptionPane.showMessageDialog(null, "Vui lòng nhập số lượng trả lại ít hơn số lượng trong giỏ hàng!", "Thông báo", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 int newSoLuong = soLuongHienCo - soLuongTraLai;
@@ -939,58 +965,68 @@ public class formBanHangChinh extends javax.swing.JPanel {
     }//GEN-LAST:event_tblHDCTMouseClicked
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
-        // TODO add ytraLaiSanPhamour handling code here:
-        double tongTien = tinhTongTienGioHang();
-        txtTongTien.setText(String.format("%.2f", tongTien));
-        double tienKhachDua = 0;
-        try {
-            tienKhachDua = Double.parseDouble(txtTienKhachDua.getText());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Tiền khách đưa không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        double tienThua = tienKhachDua - tongTien;
-        if (tienThua < 0) {
-            JOptionPane.showMessageDialog(this, "Khách chưa đưa đủ tiền!", "Thông báo", JOptionPane.WARNING_MESSAGE);
-        } else {
-            txtTienThua.setText(String.format("%.2f", tienThua));
-            String tenKhachHang = txtTenKhachHang.getText();
-            String sdt = txtSdt.getText();
-
-            if (!tenKhachHang.isEmpty() && !sdt.isEmpty()) {
-                khachHangService.ThemKhandSDT(tenKhachHang, sdt);
-            } else {
-
+        int index = tblHoaDonCho.getSelectedRow();
+        if (index >= 0) {
+            DefaultTableModel dtm = (DefaultTableModel) tblHDCT.getModel();
+            if (dtm.getRowCount() <= 0) {
+                JOptionPane.showMessageDialog(null, "Giỏ hàng không có sản phẩm để thanh toán", "Thông báo", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-        }
+            double tongTien = tinhTongTienGioHang();
 
-        int selectedRow = tblHoaDonCho.getSelectedRow();
-        if (selectedRow >= 0) {
+            String tenKhachHang = txtTenKhachHang.getText().trim();
+            String sdt = txtSdt.getText().trim();
+            if (tenKhachHang.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Tên khách hàng không được để trống", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (!isValidPhoneNumber(sdt)) {
+                JOptionPane.showMessageDialog(null, "Số điện thoại không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            double giamGia = 0;
+            String giaTri = txtGiaTriGiam.getText().trim();
+            if (!giaTri.isEmpty()) {
+                try {
+                    giamGia = Double.parseDouble(giaTri);
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Phần trăm giảm giá không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+            double tongTienSauGiam = tongTienSauKhiGiam(tongTien, giamGia);
+            txtTongTien.setText(String.format("%.2f", tongTienSauGiam));
+            double tienKhachDua = 0;
+            try {
+                tienKhachDua = Double.parseDouble(txtTienKhachDua.getText());
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Tiền khách đưa không hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            double tienThua = tienKhachDua - tongTienSauGiam;
+            if (tienThua < 0) {
+                JOptionPane.showMessageDialog(this, "Khách chưa đưa đủ tiền!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            } else {
+                txtTienThua.setText(String.format("%.2f", tienThua));
+            }
             SwingUtilities.invokeLater(() -> {
                 DefaultTableModel model = (DefaultTableModel) tblHoaDonCho.getModel();
-                if (selectedRow < model.getRowCount()) {
-                    int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn thanh toán đơn hàng?", "Xác nhận hủy đơn hàng", JOptionPane.YES_NO_OPTION);
-                    if (confirm == JOptionPane.YES_OPTION) {
-                        try {
-                            thanhToanHoaDon();
-                            if (selectedRow < model.getRowCount()) {
-                                model.removeRow(selectedRow);
-                                JOptionPane.showMessageDialog(null, "Hóa đơn đã được thanh toán.");
-                            } else {
-                                JOptionPane.showMessageDialog(null, "thanh toán thành công.");
-                                txtGiaTriGiam.setText("");
-                                txtSdt.setText("");
-                                txtSoTienGiam.setText("");
-                                txtTenKhachHang.setText("");
-                                txtTenHD.setText("");
-                                txtTienKhachDua.setText("");
-                                txtTienThua.setText("");
-                                txtTongTien.setText("");
-                            }
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                            JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi xử lý hóa đơn. Vui lòng thử lại.");
-                        }
+                if (index < model.getRowCount()) {
+                    try {
+                        khachHangService.ThemKhandSDT(tenKhachHang, sdt);
+                        thanhToanHoaDon();
+                        JOptionPane.showMessageDialog(null, "Hóa đơn đã được thanh toán.");
+                        txtTenKhachHang.setText("");
+                        txtSdt.setText("");
+                        txtSoTienGiam.setText("");
+                        txtGiaTriGiam.setText("");
+                        txtTongTien.setText("");
+                        txtTienKhachDua.setText("");
+                        txtTienThua.setText("");
+                        txtTenHD.setText("");
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi xử lý hóa đơn. Vui lòng thử lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Dữ liệu hóa đơn đã thay đổi, vui lòng thử lại.");
@@ -1000,6 +1036,10 @@ public class formBanHangChinh extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn một hóa đơn để thanh toán.");
         }
     }//GEN-LAST:event_btnThanhToanActionPerformed
+
+    private void txtTongTienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTongTienActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTongTienActionPerformed
 
     void showTable(List<HoaDon> list) {
         dtm = (DefaultTableModel) tblHDCT.getModel();
@@ -1049,18 +1089,18 @@ public class formBanHangChinh extends javax.swing.JPanel {
 
     private void updateGioHangTable(int idHD) {
         DefaultTableModel dtmGioHang = (DefaultTableModel) tblHDCT.getModel();
-        dtmGioHang.setRowCount(0); 
+        dtmGioHang.setRowCount(0);
 
-        List<SanPham> gioHang = gioHangMap.get(idHD); 
+        List<SanPham> gioHang = gioHangMap.get(idHD);
 
         if (gioHang != null) {
             for (SanPham gioHangSp : gioHang) {
                 Object[] row = new Object[]{
                     idHD,
                     gioHangSp.getId_sanPham(),
-                    gioHangSp.getTenSanPham(), 
+                    gioHangSp.getTenSanPham(),
                     gioHangSp.getSoluongtonkho(),
-                    gioHangSp.getGia(), 
+                    gioHangSp.getGia(),
                     gioHangSp.getSoluongtonkho() * gioHangSp.getGia()
                 };
                 dtmGioHang.addRow(row);

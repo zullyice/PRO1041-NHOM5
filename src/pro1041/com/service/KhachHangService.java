@@ -39,7 +39,7 @@ public class KhachHangService {
         }
         return null;
     }
-
+    
     public int add(KhachHang khachHang) {
         String checkSql = """
                           SELECT COUNT(*) FROM [dbo].[KhachHang] WHERE maKh = ?

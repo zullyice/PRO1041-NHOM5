@@ -49,6 +49,7 @@ public class MainAction extends javax.swing.JFrame {
     private void initComponents() {
 
         jpn = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         JPfull = new javax.swing.JPanel();
         JPnew = new javax.swing.JPanel();
         JPhoadon = new javax.swing.JPanel();
@@ -70,6 +71,9 @@ public class MainAction extends javax.swing.JFrame {
         setBackground(new java.awt.Color(0, 153, 153));
 
         jpn.setLayout(new java.awt.BorderLayout());
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pro1041/com/icon/444480697_832598928836860_6639453551569439733_n.jpg"))); // NOI18N
+        jpn.add(jLabel1, java.awt.BorderLayout.CENTER);
 
         JPfull.setBackground(new java.awt.Color(0, 153, 153));
 
@@ -302,7 +306,7 @@ public class MainAction extends javax.swing.JFrame {
                 .addComponent(JPkhuyenmai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(JPhoadon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(JPexit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -330,7 +334,7 @@ public class MainAction extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(JPfull, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpn, javax.swing.GroupLayout.DEFAULT_SIZE, 864, Short.MAX_VALUE)
+                .addComponent(jpn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
@@ -498,6 +502,7 @@ public class MainAction extends javax.swing.JFrame {
     private javax.swing.JLabel jBanHang;
     private javax.swing.JLabel jDangXuat;
     private javax.swing.JLabel jHoaDon;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

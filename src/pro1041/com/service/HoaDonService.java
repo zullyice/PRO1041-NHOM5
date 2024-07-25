@@ -58,16 +58,16 @@ public class HoaDonService {
     public List<HoaDon> getAllSP() {
         String sql = """
                      SELECT[maHDCT]
-                                          	,	sp.tenSanPham
-                                          	  ,hdct.soLuong
-                     						  ,spct.gia
-                                                ,[tongTien]
-                                                ,hd.ngayTao 
-                                                ,sp.ngayTao 
-                                            FROM [dbo].[HoaDonChiTiet] hdct
-                                            JOIN SanPham sp ON sp.id_sanPham = hdct.id_SPCT
-                                            LEFT JOIN HoaDon hd on hdct.id_hoaDon = hd.id_hoaDon
-                     					   INNER JOIN SanPhamChiTiet spct ON hdct.id_SPCT = spct.id_SPCT
+                     sp.tenSanPham
+                     ,hdct.soLuong
+                     ,spct.gia
+                     ,[tongTien]
+                     ,hd.ngayTao 
+                     ,sp.ngayTao 
+                     FROM [dbo].[HoaDonChiTiet] hdct
+                     JOIN SanPham sp ON sp.id_sanPham = hdct.id_SPCT
+                     LEFT JOIN HoaDon hd on hdct.id_hoaDon = hd.id_hoaDon
+                     INNER JOIN SanPhamChiTiet spct ON hdct.id_SPCT = spct.id_SPCT
                      """;
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
@@ -89,7 +89,7 @@ public class HoaDonService {
                  SELECT hdct.maHDCT
                                        , sp.tenSanPham
                                        , hdct.soLuong
-                 					  ,spct.gia
+                                        ,spct.gia
                                        , hdct.tongTien
                                        , hd.ngayTao
                                        , sp.ngayTao
@@ -122,13 +122,10 @@ public class HoaDonService {
     }
 
     public void themChiTietHoaDon(int idhd, SanPham sp) {
-        
-
         // Proceed with insert if validation passes
         String sql = """
                  INSERT INTO [dbo].[HoaDonChiTiet]
-                            (
-                            [trangThai]
+                            ([trangThai]
                             ,[soLuong]
                             ,[donGia]
                             ,[tongTien]
@@ -152,13 +149,43 @@ public class HoaDonService {
         }
     }
 
-    public int updateTrangThaiHoaDon(int idHoaDon, boolean trangThai) {
-        String sql = "UPDATE HoaDon SET TrangThai = ? WHERE id_hoaDon = ?";
+    public int updateTrangThaiHoaDon(int idHoaDon, boolean trangThai, HoaDon hoaDon) {
+        String sql = "UPDATE HoaDon SET TrangThai = ?, id_nhanVien = ?, id_HTTT = ?, id_khachHang = ? WHERE id_hoaDon = ?";
         int rowsAffected = 0;
 
         try (Connection con = DBConnect.getConnection(); PreparedStatement statement = con.prepareStatement(sql)) {
+            String getIDNhanVien = "SELECT id_nhanVien FROM [NhanVien] WHERE tenNhanVien LIKE ?";
+            PreparedStatement getIDNV = con.prepareStatement(getIDNhanVien);
+            getIDNV.setString(1, "%" + hoaDon.getTenNhanVien() + "%");
+            ResultSet idnv = getIDNV.executeQuery();
+            if (!idnv.next()) {
+                throw new SQLException("Cannot find Nhà Sản Xuất for TÊN NHÂN VIÊN: " + hoaDon.getTenNhanVien());
+            }
+            int idNV = idnv.getInt("id_nhanVien");
+
+            String getIDHTT = "SELECT id_HTTT FROM [ThanhToan] WHERE loai LIKE ?";
+            PreparedStatement getIDHTTT = con.prepareStatement(getIDHTT);
+            getIDHTTT.setString(1, "%" + hoaDon.getLoaiTT() + "%");
+            ResultSet idtt = getIDHTTT.executeQuery();
+            if (!idtt.next()) {
+                throw new SQLException("Cannot find ThanhToan for LOẠI TT: " + hoaDon.getLoaiTT());
+            }
+            int idTT = idtt.getInt("id_HTTT");
+
+            String getIDKHang = "SELECT id_khachHang FROM [KhachHang] WHERE hoTenKh LIKE ?";
+            PreparedStatement getIDKH = con.prepareStatement(getIDKHang);
+            getIDKH.setString(1, "%" + hoaDon.getTenKhachHang()+ "%");
+            ResultSet idkh = getIDKH.executeQuery();
+            if (!idkh.next()) {
+                throw new SQLException("Cannot find Khách Hàng for Tên KH: " + hoaDon.getTenKhachHang());
+            }
+            int idKH = idkh.getInt("id_khachHang");
+
             statement.setBoolean(1, trangThai);
-            statement.setInt(2, idHoaDon);
+            statement.setInt(2, idNV);
+            statement.setInt(3, idTT);
+            statement.setInt(4, idKH);
+            statement.setInt(5, idHoaDon);
             rowsAffected = statement.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();

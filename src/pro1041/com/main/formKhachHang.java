@@ -61,10 +61,18 @@ public class formKhachHang extends javax.swing.JPanel {
         jNgayTao.setDate(kh.getNgayTao());
         jNgaySua.setDate(kh.getNgaySuaOrDefault());
         String gioiTinh = kh.getGioiTinh();
-        if (gioiTinh.equalsIgnoreCase("Nam")) {
-            rdoNam.setSelected(true);
-        } else if (gioiTinh.equalsIgnoreCase("Nữ")) {
-            rdoNu.setSelected(true);
+        if (gioiTinh != null) {
+            if (gioiTinh.equalsIgnoreCase("Nam")) {
+                rdoNam.setSelected(true);
+            } else if (gioiTinh.equalsIgnoreCase("Nữ")) {
+                rdoNu.setSelected(true);
+            } else {
+                rdoNam.setSelected(false);
+                rdoNu.setSelected(false);
+            }
+        } else {
+            rdoNam.setSelected(false);
+            rdoNu.setSelected(false);
         }
     }
 
