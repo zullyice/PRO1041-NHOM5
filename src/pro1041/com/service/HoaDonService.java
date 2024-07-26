@@ -14,7 +14,6 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import pro1041.com.entity.HoaDon;
-import pro1041.com.entity.KhachHang;
 import pro1041.com.entity.SanPham;
 import pro1041.com.utils.DBConnect;
 
@@ -174,7 +173,7 @@ public class HoaDonService {
 
             String getIDKHang = "SELECT id_khachHang FROM [KhachHang] WHERE hoTenKh LIKE ?";
             PreparedStatement getIDKH = con.prepareStatement(getIDKHang);
-            getIDKH.setString(1, "%" + hoaDon.getTenKhachHang()+ "%");
+            getIDKH.setString(1, "%" + hoaDon.getTenKhachHang() + "%");
             ResultSet idkh = getIDKH.executeQuery();
             if (!idkh.next()) {
                 throw new SQLException("Cannot find Khách Hàng for Tên KH: " + hoaDon.getTenKhachHang());

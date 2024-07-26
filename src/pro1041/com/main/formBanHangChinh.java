@@ -78,7 +78,7 @@ public class formBanHangChinh extends javax.swing.JPanel {
     }
 
     public boolean isValidPhoneNumber(String sdt) {
-        String regex = "^[0-9]{10}$"; 
+        String regex = "^[0-9]{10}$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(sdt);
         return matcher.matches();
@@ -200,7 +200,6 @@ public class formBanHangChinh extends javax.swing.JPanel {
         try (Connection con = DBConnect.getConnection(); PreparedStatement statement = con.prepareStatement("SELECT id_hoaDon, maHoaDon,tenHoaDon,trangThai,ngayTao FROM HoaDon WHERE TrangThai = ?")) {
             statement.setInt(1, 0);
             ResultSet resultSet = statement.executeQuery();
-
             while (resultSet.next()) {
                 int id = resultSet.getInt("id_hoaDon");
                 String ten = resultSet.getString("tenHoaDon");
@@ -250,7 +249,6 @@ public class formBanHangChinh extends javax.swing.JPanel {
                 txtTienKhachDua.setText("");
                 txtTienThua.setText("");
                 txtTenHD.setText("");
-
                 JOptionPane.showMessageDialog(null, "Hóa đơn đã được hủy.");
             }
         } else {
@@ -274,7 +272,6 @@ public class formBanHangChinh extends javax.swing.JPanel {
 //        }
 //        capNhatTongTien();
 //    }
-
     private void fillNhanVienComboBox() {
         DefaultComboBoxModel<String> thModel = nhanVienService.getAllTenNV();
         cboTenNV.setModel(thModel);
@@ -314,6 +311,8 @@ public class formBanHangChinh extends javax.swing.JPanel {
                 }
                 DefaultTableModel dtmHoaDon = (DefaultTableModel) tblHoaDonCho.getModel();
                 dtmHoaDon.removeRow(selectedRow);
+                DefaultTableModel tbm = (DefaultTableModel) tblHDCT.getModel();
+                tbm.setRowCount(0);
                 xoaHoaDonDaThanhToan(idHD);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Lỗi khi thanh toán hóa đơn: ", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -1006,6 +1005,7 @@ public class formBanHangChinh extends javax.swing.JPanel {
             double tienThua = tienKhachDua - tongTienSauGiam;
             if (tienThua < 0) {
                 JOptionPane.showMessageDialog(this, "Khách chưa đưa đủ tiền!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                return;
             } else {
                 txtTienThua.setText(String.format("%.2f", tienThua));
             }
