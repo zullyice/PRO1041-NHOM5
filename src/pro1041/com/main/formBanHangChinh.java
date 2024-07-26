@@ -4,12 +4,10 @@
  */
 package pro1041.com.main;
 
-import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +16,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -256,22 +253,6 @@ public class formBanHangChinh extends javax.swing.JPanel {
         }
     }
 
-//    private void upgiohang(int idHD) {
-//        DefaultTableModel dtm = (DefaultTableModel) tblHDCT.getModel();
-//        dtm.setRowCount(0);
-//
-//        List<SanPham> gioHang = gioHangMap.get(idHD);
-//        if (gioHang != null) {
-//            for (SanPham sp : gioHang) {
-//                int soLuong = sp.getSoluongtonkho();
-//                double donGia = sp.getGia();
-//                double tongTien = soLuong * donGia; 
-//                Object[] row = new Object[]{idHD, sp.getTenSanPham(), soLuong, donGia, tongTien};
-//                dtm.addRow(row);
-//            }
-//        }
-//        capNhatTongTien();
-//    }
     private void fillNhanVienComboBox() {
         DefaultComboBoxModel<String> thModel = nhanVienService.getAllTenNV();
         cboTenNV.setModel(thModel);
@@ -322,7 +303,16 @@ public class formBanHangChinh extends javax.swing.JPanel {
 
         }
     }
-
+    void clearFiel() {
+        txtTenKhachHang.setText("");
+        txtSdt.setText("");
+        txtSoTienGiam.setText("");
+        txtGiaTriGiam.setText("");
+        txtTongTien.setText("");
+        txtTienKhachDua.setText("");
+        txtTienThua.setText("");
+        txtTenHD.setText("");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -660,10 +650,7 @@ public class formBanHangChinh extends javax.swing.JPanel {
 
         tblSanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "ID SẢN PHẨM", "TÊN SẢN PHẨM ", "SỐ LƯỢNG", "ĐƠN GIÁ ", "THƯƠNG HIỆU ", "NHÀ SẢN XUẤT", "CHẤT LIỆU", "KÍCH THƯỚC", "LOẠI KHÓA", "KIỂU DÁNG", "MÀU SẮC"
@@ -780,6 +767,11 @@ public class formBanHangChinh extends javax.swing.JPanel {
         // TODO add your handling code here:
         boolean trangThai = true;
         String tenHD = txtTenHD.getText().trim();
+        if (hoaDonService.checkIdTrung(tenHD)) {
+                JOptionPane.showMessageDialog(this, "Không để trùng tên hóa đơn", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                txtTenHD.requestFocus();
+                return;
+            }
         int id = hoaDonService.themHoaDonVaoDatabase(tenHD, trangThai);
         if (id != -1) {
             xoaHoaDonDaThanhToan(id);
@@ -795,14 +787,7 @@ public class formBanHangChinh extends javax.swing.JPanel {
             if (confirm == JOptionPane.YES_OPTION) {
                 int id = (int) tblHoaDonCho.getValueAt(selectedRow, 0);
                 huyHoaDon(id);
-                txtTenKhachHang.setText("");
-                txtSdt.setText("");
-                txtSoTienGiam.setText("");
-                txtGiaTriGiam.setText("");
-                txtTongTien.setText("");
-                txtTienKhachDua.setText("");
-                txtTienThua.setText("");
-                txtTenHD.setText("");
+                clearFiel();
             }
         } else {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn một hóa đơn để hủy.");
@@ -1016,14 +1001,7 @@ public class formBanHangChinh extends javax.swing.JPanel {
                         khachHangService.ThemKhandSDT(tenKhachHang, sdt);
                         thanhToanHoaDon();
                         JOptionPane.showMessageDialog(null, "Hóa đơn đã được thanh toán.");
-                        txtTenKhachHang.setText("");
-                        txtSdt.setText("");
-                        txtSoTienGiam.setText("");
-                        txtGiaTriGiam.setText("");
-                        txtTongTien.setText("");
-                        txtTienKhachDua.setText("");
-                        txtTienThua.setText("");
-                        txtTenHD.setText("");
+                        clearFiel();
                     } catch (Exception ex) {
                         ex.printStackTrace();
                         JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi xử lý hóa đơn. Vui lòng thử lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);

@@ -255,4 +255,19 @@ public class HoaDonService {
         }
         return model;
     }
+    public boolean checkIdTrung(String tenHD) {
+        String sql = "SELECT COUNT(*) AS count FROM dbo.HoaDon WHERE tenHoaDon = ?";
+        try (Connection conn = DBConnect.getConnection(); PreparedStatement pst = conn.prepareCall(sql)) {
+
+            pst.setObject(1, tenHD);
+            ResultSet rs = pst.executeQuery();  
+            if (rs.next()) {
+                int count = rs.getInt("count");
+                return count > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
